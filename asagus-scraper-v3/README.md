@@ -1,6 +1,4 @@
-# ASAGUS Scraper 3.0
 
-Fresh implementation of the `ASAGUS scrapper _3_0_v2.md` blueprint. The old tools in the parent folder were used only as audit context and are not imported into this project.
 
 ## What Is Implemented
 
