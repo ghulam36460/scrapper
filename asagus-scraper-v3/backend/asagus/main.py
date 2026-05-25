@@ -357,6 +357,28 @@ async def run_job(job_id: str) -> None:
         llm_calls = 0
         browser_renders = 0
 
+        # Resolve per-job overrides for network/discovery flags.
+        # A job-level True always wins over the global config default.
+        effective_network_fetch = (
+            job.request.enable_network_fetch
+            if job.request.enable_network_fetch is not None
+            else settings.enable_network_fetch
+        )
+        effective_search_discovery = (
+            job.request.enable_search_discovery
+            if job.request.enable_search_discovery is not None
+            else settings.enable_search_discovery
+        )
+
+        # Re-instantiate layers with the effective flags so they use the right
+        # mode for this specific job.
+        fetcher = FetchLayer(
+            enable_network_fetch=effective_network_fetch,
+            proxy_manager=proxy_manager,
+            browser_pool=ChromiumBrowserPool(pool_size=max(settings.browser_pool_size, 1)),
+        )
+        discovery = SearchDiscoveryLayer(effective_search_discovery)
+
         if job.status == JobStatus.cancelled:
             await emit(job_id, LayerName.ai_app, "job_cancelled", "Job cancelled before work started")
             return
@@ -370,15 +392,18 @@ async def run_job(job_id: str) -> None:
         )
         await emit(job_id, LayerName.policy, "policy_ready", "Rule + Bayesian + feedback policy engine active")
 
+        # Seed the initial frontier.  We request as many seeds as planned_pages
+        # (no artificial 200-cap) so the crawler always has enough URLs to work
+        # with when limit is large.
         discovery_results = await discovery.discover(
             SearchDiscoveryRequest(
                 query=job.request.query,
                 location=job.request.location,
-                max_results=min(max(planned_pages, 2), 200),
+                max_results=min(max(planned_pages, 2), settings.max_job_limit),
             )
         )
         candidates = [result.candidate for result in discovery_results]
-        if not candidates and not settings.enable_search_discovery:
+        if not candidates and not effective_search_discovery:
             candidates.extend(crawl.seed_from_query(job.request.query, job.request.location, job.request.limit))
         for candidate in candidates:
             candidate.metadata["allowed_domains"] = job.request.allowed_domains
@@ -400,7 +425,40 @@ async def run_job(job_id: str) -> None:
             },
         )
 
-        while queue and processed_targets < planned_pages and records_found < job.request.limit:
+        _refill_attempts = 0
+        _max_refill_attempts = 3  # guard against infinite loops when seeds are exhausted
+
+        while (queue or _refill_attempts < _max_refill_attempts) and processed_targets < planned_pages and records_found < job.request.limit:
+
+            # If the queue is empty but we haven't hit the limit yet, try to
+            # refill it before giving up.  This is the critical fix for the
+            # "scraper stops early" bug: it ensures we keep going even when the
+            # initial seed set is exhausted.
+            if not queue:
+                if _refill_attempts >= _max_refill_attempts:
+                    break
+                _refill_attempts += 1
+                extra_seeds = crawl.seed_from_query(
+                    job.request.query, job.request.location, job.request.limit
+                )
+                extra_seeds += await _discovery_refill(discovery, job.request, planned_pages, queued_urls)
+                for seed in crawl.schedule(extra_seeds):
+                    key = runtime.url_key(seed.url)
+                    if key not in queued_urls:
+                        queued_urls.add(key)
+                        queue.append(seed)
+                if queue:
+                    await emit(
+                        job_id,
+                        LayerName.crawl_control,
+                        "frontier_refilled",
+                        f"Queue refill #{_refill_attempts}: added {len(queue)} seeds",
+                        {"added": len(queue), "records_found": records_found, "limit": job.request.limit},
+                    )
+                else:
+                    # Truly exhausted — nothing more to crawl.
+                    break
+
             candidate = queue.pop(0)
             current = runtime.jobs.get(job_id)
             if current and current.status == JobStatus.cancelled:
@@ -492,7 +550,10 @@ async def run_job(job_id: str) -> None:
                 continue
 
             if fetch.html:
-                remaining_slots = max(0, planned_pages - processed_targets - len(queue))
+                # Keep remaining_slots relative to the total budget, not the
+                # shrinking queue. Without this fix the slot count immediately
+                # collapses to 0 and no follow-up URLs are ever added.
+                remaining_slots = max(0, planned_pages - len(queue) - processed_targets + 20)
                 if remaining_slots:
                     followups = discovery.followup_candidates(
                         fetch.html,
@@ -658,6 +719,7 @@ async def run_job(job_id: str) -> None:
                 progress_message=f"Stored {records_found}/{job.request.limit} requested records",
             )
 
+
         current = runtime.jobs.get(job_id)
         if current and current.status == JobStatus.cancelled:
             await runtime.update_job(
@@ -699,13 +761,18 @@ async def run_job(job_id: str) -> None:
 def planned_page_count(request: ScrapeStartRequest, settings: Settings) -> int:
     if request.max_pages:
         return min(request.max_pages, settings.max_job_limit)
+    # Multipliers reflect the realistic skip rate: compliance failures, zero-yield
+    # pages, duplicates, and offline preview hits all consume a slot without
+    # producing a record.  Higher multipliers mean the queue is large enough to
+    # reach `limit` even when many pages are skipped.
     multiplier = {
-        "fast": 2,
-        "balanced": 4,
-        "deep": 8,
-        "research": 10,
-    }.get(request.mode, 4)
-    return min(max(request.limit * multiplier, request.limit + 5), settings.max_job_limit)
+        "fast": 3,       # ~66% efficiency expected
+        "balanced": 6,   # ~16% efficiency expected (conservative)
+        "deep": 15,      # many deep pages crawled for each record
+        "research": 25,  # exhaustive crawl
+    }.get(request.mode, 6)
+    # Always plan at least limit+10 pages (handles tiny limits gracefully).
+    return min(max(request.limit * multiplier, request.limit + 10), settings.max_job_limit)
 
 
 def useful_record(record: Any) -> bool:
@@ -721,6 +788,33 @@ def useful_record(record: Any) -> bool:
     if any(getattr(record, field, "") for field in direct_fields):
         return True
     return bool(record.name and (record.website_url or record.address or record.category))
+
+
+async def _discovery_refill(
+    discovery: "SearchDiscoveryLayer",
+    request: "ScrapeStartRequest",
+    planned_pages: int,
+    already_queued: set[str],
+) -> "list[URLCandidate]":
+    """Generate a fresh batch of discovery seeds when the queue has run dry.
+
+    Uses a slightly different query variant (adding 'contact info') to avoid
+    returning URLs that were already seen in the first pass.
+    """
+    try:
+        refill_request = SearchDiscoveryRequest(
+            query=f"{request.query} contact info",
+            location=request.location,
+            max_results=min(max(planned_pages // 2, 10), 100),
+        )
+        results = await discovery.discover(refill_request)
+        return [
+            result.candidate
+            for result in results
+            if runtime.url_key(result.candidate.url) not in already_queued
+        ]
+    except Exception:
+        return []
 
 
 async def emit(

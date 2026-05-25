@@ -1,0 +1,104 @@
+================================================================
+  ASAGUS SCRAPER 3.0 — RUN COMMANDS
+  Project: c:\shehwar projects\new scrape tool\scrapper\asagus-scraper-v3
+================================================================
+
+------------------------------------------------------------
+  SCRAPE LIMITS (Backend Model Constraints)
+------------------------------------------------------------
+  Minimum results per job  :  5      (ge=5)
+  Maximum results per job  :  5000   (le=5000)
+  Default results          :  100
+  Min pages (max_pages)    :  0      (0 = auto-calculate)
+  Max pages (max_pages)    :  50000  (manual override cap)
+  Query string             :  2–160 characters
+  Location string          :  2–160 characters
+  Global max job limit     :  5000   (config: max_job_limit)
+
+------------------------------------------------------------
+  STEP 1 — BACKEND (Python FastAPI)
+  Run in its own terminal window
+------------------------------------------------------------
+
+cd "c:\shehwar projects\new scrape tool\scrapper\asagus-scraper-v3\backend"
+
+# Install dependencies (first time only)
+pip install -r requirements.txt
+
+# Run the backend server (port 8000)
+python -m uvicorn asagus.main:app --host 0.0.0.0 --port 8000 --reload
+
+# OR without auto-reload (production-like)
+python -m uvicorn asagus.main:app --host 0.0.0.0 --port 8000
+
+# Backend API will be available at:
+#   http://localhost:8000
+#   http://localhost:8000/docs   <-- Swagger UI (test all endpoints here)
+#   http://localhost:8000/api/health
+
+------------------------------------------------------------
+  STEP 2 — FRONTEND (Next.js)
+  Run in a SEPARATE terminal window
+------------------------------------------------------------
+
+cd "c:\shehwar projects\new scrape tool\scrapper\asagus-scraper-v3\frontend"
+
+# Install dependencies (first time only)
+npm install
+
+# Run the frontend dev server (port 3000)
+npm run dev
+
+# Frontend will be available at:
+#   http://localhost:3000
+
+------------------------------------------------------------
+  STEP 3 — AUDIT TESTS (verify everything works)
+  Run in backend terminal
+------------------------------------------------------------
+
+cd "c:\shehwar projects\new scrape tool\scrapper\asagus-scraper-v3\backend"
+python test_audit.py
+
+# Expected output: ALL 15 AUDIT TESTS PASSED (57/57 checks)
+
+------------------------------------------------------------
+  OPTIONAL — REAL SCRAPING MODE
+  Edit .env or check the UI checkboxes
+------------------------------------------------------------
+
+# In the Run tab of the UI, check:
+#   [x] Real fetch       <- enables live HTTP fetching
+#   [x] Real discovery   <- enables DDGS search discovery
+
+# OR set globally in .env:
+# ENABLE_NETWORK_FETCH=true
+# ENABLE_SEARCH_DISCOVERY=true
+
+# Then restart the backend for .env changes to take effect.
+
+------------------------------------------------------------
+  OPTIONAL — DOCKER (all services at once)
+------------------------------------------------------------
+
+cd "c:\shehwar projects\new scrape tool\scrapper\asagus-scraper-v3"
+docker-compose up -d
+
+# Starts: backend + frontend + Redis + Postgres + Neo4j + MinIO
+# Stop: docker-compose down
+
+------------------------------------------------------------
+  FILE LOCATIONS
+------------------------------------------------------------
+  Backend dir     : backend\
+  Frontend dir    : frontend\
+  Scraped data    : data\runtime_records.json
+  Backend logs    : backend-server.err
+  Frontend logs   : frontend-server.err
+  Config example  : .env.example
+  Audit tests     : backend\test_audit.py
+  Main logic      : backend\asagus\main.py
+  Models & limits : backend\asagus\models.py
+  Discovery layer : backend\asagus\layers\discovery.py
+
+================================================================

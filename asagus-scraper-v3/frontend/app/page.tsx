@@ -217,6 +217,8 @@ export default function Home() {
         include_contact_pages: form.get("include_contact_pages") === "on",
         include_social_profiles: form.get("include_social_profiles") === "on",
         require_email: form.get("require_email") === "on",
+        enable_network_fetch: form.get("enable_network_fetch") === "on" ? true : undefined,
+        enable_search_discovery: form.get("enable_search_discovery") === "on" ? true : undefined,
         allowed_domains: csv(form.get("allowed_domains")),
         blocked_domains: csv(form.get("blocked_domains"))
       });
@@ -457,11 +459,11 @@ export default function Home() {
                   <div className="grid-3">
                     <div className="field">
                       <label>Desired records</label>
-                      <input className="input" name="limit" type="number" min={1} max={5000} defaultValue={50} />
+                       <input className="input" name="limit" type="number" min={5} max={5000} defaultValue={100} />
                     </div>
                     <div className="field">
                       <label>Max pages</label>
-                      <input className="input" name="max_pages" type="number" min={0} max={20000} placeholder="auto" />
+                       <input className="input" name="max_pages" type="number" min={0} max={50000} placeholder="auto" />
                     </div>
                     <div className="field">
                       <label>Mode</label>
@@ -519,8 +521,25 @@ export default function Home() {
                       Social profiles
                     </label>
                     <label className="check">
-                      <input type="checkbox" name="require_email" defaultChecked />
+                      {/* Default OFF — requiring email drops 60-80% of valid leads */}
+                      <input type="checkbox" name="require_email" />
                       Require email
+                    </label>
+                    <label className="check" title="Enable real HTTP fetching (needs ENABLE_NETWORK_FETCH=true in .env OR check this per-job)">
+                      <input
+                        type="checkbox"
+                        name="enable_network_fetch"
+                        defaultChecked={health.services.network_fetch === "enabled"}
+                      />
+                      Real fetch
+                    </label>
+                    <label className="check" title="Enable DDGS search discovery (needs ENABLE_SEARCH_DISCOVERY=true in .env OR check this per-job)">
+                      <input
+                        type="checkbox"
+                        name="enable_search_discovery"
+                        defaultChecked={health.services.search_discovery === "enabled"}
+                      />
+                      Real discovery
                     </label>
                   </div>
                   <button className="btn primary" disabled={busy}>

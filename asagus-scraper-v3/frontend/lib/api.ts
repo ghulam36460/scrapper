@@ -75,6 +75,8 @@ export type ScrapeJob = {
     include_contact_pages?: boolean;
     include_social_profiles?: boolean;
     require_email?: boolean;
+    enable_network_fetch?: boolean | null;
+    enable_search_discovery?: boolean | null;
     proxy_strategy?: string;
   };
   total_targets: number;

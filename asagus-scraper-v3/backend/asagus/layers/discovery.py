@@ -189,21 +189,43 @@ class SearchDiscoveryLayer:
     def _offline_discovery(self, request: SearchDiscoveryRequest, degraded: bool = False) -> list[SearchDiscoveryResult]:
         query_slug = "-".join(part for part in request.query.lower().split() if part)
         location_slug = "-".join(part for part in request.location.lower().split() if part)
-        examples = [
-            f"https://example.com/{location_slug}/{query_slug}",
-            f"https://www.google.com/maps/search/{query_slug}+{location_slug}",
+        # Generate a diverse set of seed URLs so demo runs have enough queue
+        # items to exercise the full pipeline even when real network is off.
+        # Vary the URL pattern by page, area suffix and path to avoid dedup.
+        area_variants = [
+            "", "downtown", "main-market", "commercial-area", "phase-1",
+            "phase-2", "sector-a", "block-b", "city-center", "old-town",
+            "new-city", "gulberg", "dha", "bahria-town", "clifton",
         ]
+        path_variants = [
+            "", "/contact", "/about", "/about-us", "/contact-us",
+            "/reach-us", "/locations", "/branches", "/info",
+        ]
+        examples: list[str] = []
+        # Always include the Maps search URL as the first seed.
+        examples.append(f"https://www.google.com/maps/search/{query_slug}+{location_slug}")
+        for area in area_variants:
+            suffix = f"-{area}" if area else ""
+            for path in path_variants:
+                examples.append(f"https://example.com/{location_slug}{suffix}/{query_slug}{path}")
+                if len(examples) >= request.max_results:
+                    break
+            if len(examples) >= request.max_results:
+                break
+        examples = examples[: request.max_results]
+        engine = request.engines[0] if request.engines else SearchEngine.duckduckgo
         return [
             SearchDiscoveryResult(
                 title=f"{request.query.title()} seed {index}",
                 url=url,
                 snippet="Offline discovery preview" + (" after DDGS fallback" if degraded else ""),
-                engine=request.engines[0] if request.engines else SearchEngine.duckduckgo,
+                engine=engine,
                 rank=index,
-                candidate=self._candidate_from_result(url, request, request.engines[0] if request.engines else SearchEngine.duckduckgo, index),
+                candidate=self._candidate_from_result(url, request, engine, index),
             )
             for index, url in enumerate(examples, start=1)
         ]
+
 
     def followup_candidates(
         self,

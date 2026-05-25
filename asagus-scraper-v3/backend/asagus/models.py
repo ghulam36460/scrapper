@@ -226,8 +226,8 @@ class ProviderPreset(BaseModel):
 class ScrapeStartRequest(BaseModel):
     query: str = Field(..., min_length=2, max_length=160)
     location: str = Field(..., min_length=2, max_length=160)
-    limit: int = Field(default=100, ge=1, le=5000)
-    max_pages: int = Field(default=0, ge=0, le=20000)
+    limit: int = Field(default=100, ge=5, le=5000)  # min 5 results, max 5000 results per job
+    max_pages: int = Field(default=0, ge=0, le=50000)  # 0 = auto (planned_page_count multiplier); hard cap 50000 pages
     mode: Literal["balanced", "fast", "deep", "research"] = "balanced"
     allowed_domains: list[str] = Field(default_factory=list)
     blocked_domains: list[str] = Field(default_factory=list)
@@ -237,7 +237,15 @@ class ScrapeStartRequest(BaseModel):
     skip_existing: bool = True
     include_contact_pages: bool = True
     include_social_profiles: bool = True
-    require_email: bool = True
+    # Require email was historically True — that silently drops 60-80% of valid
+    # leads (businesses with phone/WhatsApp/social but no public email). Default
+    # is now False so all useful records are captured.
+    require_email: bool = False
+    # Per-job overrides for network/discovery modes. When set to True they
+    # override the global config flags, allowing the UI to enable real scraping
+    # without modifying environment variables.
+    enable_network_fetch: bool | None = None
+    enable_search_discovery: bool | None = None
     proxy_strategy: Literal["auto", "none", "residential", "isp_static", "datacenter"] = "auto"
     notes: str = ""
 
