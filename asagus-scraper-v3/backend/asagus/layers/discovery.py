@@ -191,27 +191,49 @@ class SearchDiscoveryLayer:
         location_slug = "-".join(part for part in request.location.lower().split() if part)
         # Generate a diverse set of seed URLs so demo runs have enough queue
         # items to exercise the full pipeline even when real network is off.
-        # Vary the URL pattern by page, area suffix and path to avoid dedup.
+        # Expanded area/path/domain matrix supports up to 5000 unique seeds
+        # (previously ran out at ~136 and caused broken queue for large jobs).
         area_variants = [
             "", "downtown", "main-market", "commercial-area", "phase-1",
-            "phase-2", "sector-a", "block-b", "city-center", "old-town",
-            "new-city", "gulberg", "dha", "bahria-town", "clifton",
+            "phase-2", "phase-3", "phase-4", "sector-a", "sector-b",
+            "block-b", "block-c", "city-center", "old-town", "new-city",
+            "gulberg", "dha", "bahria-town", "clifton", "defence",
+            "johar-town", "model-town", "cantt", "iqbal-town", "faisal-town",
+            "north-nazimabad", "korangi", "landhi", "malir", "gadap",
         ]
         path_variants = [
             "", "/contact", "/about", "/about-us", "/contact-us",
             "/reach-us", "/locations", "/branches", "/info",
+            "/team", "/services", "/products", "/gallery", "/reviews",
+        ]
+        # Multiple demo domains extend the unique URL space:
+        # 5 domains * 30 areas * 14 paths = 2100 combos + Maps + biz-indexed = 5000+
+        demo_domains = [
+            "example.com", "demo-biz.com", "sample-leads.com",
+            "preview-data.net", "offline-demo.org",
         ]
         examples: list[str] = []
-        # Always include the Maps search URL as the first seed.
+        # First seed: Maps search page
         examples.append(f"https://www.google.com/maps/search/{query_slug}+{location_slug}")
-        for area in area_variants:
-            suffix = f"-{area}" if area else ""
-            for path in path_variants:
-                examples.append(f"https://example.com/{location_slug}{suffix}/{query_slug}{path}")
+        # Second tier: domain x area x path combinations
+        for domain in demo_domains:
+            for area in area_variants:
+                suffix = f"-{area}" if area else ""
+                for path in path_variants:
+                    examples.append(f"https://{domain}/{location_slug}{suffix}/{query_slug}{path}")
+                    if len(examples) >= request.max_results:
+                        break
                 if len(examples) >= request.max_results:
                     break
             if len(examples) >= request.max_results:
                 break
+        # Third tier: business-indexed fallback fills any remaining slots up to max_results
+        biz_index = 1
+        while len(examples) < request.max_results:
+            examples.append(
+                f"https://example.com/{location_slug}/{query_slug}/biz-{biz_index}"
+            )
+            biz_index += 1
         examples = examples[: request.max_results]
         engine = request.engines[0] if request.engines else SearchEngine.duckduckgo
         return [

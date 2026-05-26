@@ -302,7 +302,10 @@ class SearchDiscoveryRequest(BaseModel):
     query: str = Field(..., min_length=2, max_length=300)
     location: str = ""
     engines: list[SearchEngine] = Field(default_factory=lambda: [SearchEngine.duckduckgo])
-    max_results: int = Field(default=20, ge=1, le=200)
+    # Raised from le=200 → le=5000 to match planned_page_count multipliers.
+    # The old le=200 cap caused ValidationError (job_failed) any time limit>33
+    # in balanced mode (6x multiplier → 200 seeds) or any deep/research job.
+    max_results: int = Field(default=20, ge=1, le=5000)
     region: str = "us-en"
     safesearch: Literal["on", "moderate", "off"] = "moderate"
 

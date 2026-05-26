@@ -392,14 +392,16 @@ async def run_job(job_id: str) -> None:
         )
         await emit(job_id, LayerName.policy, "policy_ready", "Rule + Bayesian + feedback policy engine active")
 
-        # Seed the initial frontier.  We request as many seeds as planned_pages
-        # (no artificial 200-cap) so the crawler always has enough URLs to work
-        # with when limit is large.
+        # Seed the initial frontier. Cap each discovery call at 200 results
+        # (DDGS / HTML fallback practical limit) to avoid API overload, but
+        # in offline mode the layer returns exactly max_results so we get a
+        # full queue. Multiple refill passes top-up if the queue runs dry.
+        seed_batch_size = min(max(planned_pages, 2), 200)  # per-call cap (real DDGS) or full (offline)
         discovery_results = await discovery.discover(
             SearchDiscoveryRequest(
                 query=job.request.query,
                 location=job.request.location,
-                max_results=min(max(planned_pages, 2), settings.max_job_limit),
+                max_results=seed_batch_size,
             )
         )
         candidates = [result.candidate for result in discovery_results]
@@ -805,7 +807,7 @@ async def _discovery_refill(
         refill_request = SearchDiscoveryRequest(
             query=f"{request.query} contact info",
             location=request.location,
-            max_results=min(max(planned_pages // 2, 10), 100),
+            max_results=min(max(planned_pages // 2, 10), 200),
         )
         results = await discovery.discover(refill_request)
         return [

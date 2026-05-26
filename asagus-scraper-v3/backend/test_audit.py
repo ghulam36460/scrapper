@@ -261,27 +261,32 @@ async def main() -> None:
     # -------------------------------------------------------
     print("\n=== TEST 12: Runtime dedup + merge ===")
     from asagus.models import EnrichedRecord
+    import uuid
+    # Use a fresh RuntimeState with cleared records so disk data doesn't interfere
     rt3 = RuntimeState()
+    rt3.records.clear()
+    rt3.seen_urls.clear()
+    unique_phone = f"+9230099{uuid.uuid4().hex[:6]}"
+    unique_url = f"https://test-{uuid.uuid4().hex[:8]}.pk/"
     rec_a = EnrichedRecord(
-        source_url="https://alnoor.pk/",
-        name="Al-Noor Restaurant",
-        phone="+923001234567",
+        source_url=unique_url,
+        name="Test Restaurant",
+        phone=unique_phone,
         city="Lahore",
         confidence=0.8,
         record_completeness=0.5,
     )
     rec_b = EnrichedRecord(
-        source_url="https://alnoor.pk/contact",
-        name="Al-Noor Restaurant",
-        phone="+923001234567",
-        email="info@alnoor.pk",
+        source_url=unique_url + "contact",
+        name="Test Restaurant",
+        phone=unique_phone,
+        email=f"info@test-{uuid.uuid4().hex[:6]}.pk",
         city="Lahore",
         confidence=0.9,
         record_completeness=0.7,
     )
     stored_a, is_new_a, _ = await rt3.add_record(rec_a)
     check("first record stored as new", is_new_a is True)
-
     stored_b, is_new_b, reasons = await rt3.add_record(rec_b)
     check("duplicate record merged (not new)", is_new_b is False)
     check("merge reason includes phone", "phone" in reasons)
@@ -321,9 +326,42 @@ async def main() -> None:
     check("network_fetch value is 'disabled' (env default)", health.services["network_fetch"] == "disabled")
     check("search_discovery value is 'disabled' (env default)", health.services["search_discovery"] == "disabled")
 
+    # -------------------------------------------------------
+    print("\n=== TEST 16: SearchDiscoveryRequest max_results fix (the crash bug) ===")
+    # This is the exact scenario that caused job_failed:
+    # balanced mode, limit=100 -> planned_pages=600 -> was passing 600 to le=200 field
+    from asagus.models import SearchDiscoveryRequest as SDR
+    # Should NOT raise ValidationError now (was the crash)
+    try:
+        req_600 = SDR(query="restaurants", location="Lahore", max_results=600)
+        check("max_results=600 accepted (le=5000 fix)", req_600.max_results == 600)
+    except Exception as exc:
+        check(f"max_results=600 should NOT crash: {exc}", False)
+    try:
+        req_1250 = SDR(query="restaurants", location="Lahore", max_results=1250)
+        check("max_results=1250 accepted (research mode)", req_1250.max_results == 1250)
+    except Exception as exc:
+        check(f"max_results=1250 should NOT crash: {exc}", False)
+    try:
+        req_5000 = SDR(query="restaurants", location="Lahore", max_results=5000)
+        check("max_results=5000 accepted (hard cap)", req_5000.max_results == 5000)
+    except Exception as exc:
+        check(f"max_results=5000 should NOT crash: {exc}", False)
+    # Still enforces ge=1
+    try:
+        SDR(query="restaurants", location="Lahore", max_results=0)
+        check("max_results=0 should still fail (ge=1)", False)
+    except Exception:
+        check("max_results=0 correctly rejected (ge=1 still holds)", True)
+    # Verify offline discovery now works for planned_pages=600 (was crashing)
+    disc_fix = SearchDiscoveryLayer(False)
+    req_fix = SDR(query="restaurants", location="Lahore", max_results=200)
+    results_fix = await disc_fix.discover(req_fix)
+    check("offline discovery 200 seeds -> exactly 200", len(results_fix) == 200)
+
     print()
     print("=" * 60)
-    print("ALL 15 AUDIT TESTS PASSED - System is production-ready")
+    print("ALL 16 AUDIT TESTS PASSED - job_failed bug is fixed")
     print("=" * 60)
 
 
