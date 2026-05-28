@@ -1,0 +1,135 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: asagus
+      POSTGRES_PASSWORD: asagus
+      POSTGRES_DB: asagus
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U asagus"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  opensearch:
+    image: opensearchproject/opensearch:2.11.1
+    environment:
+      discovery.type: single-node
+      plugins.security.disabled: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  neo4j:
+    image: neo4j:5
+    environment:
+      NEO4J_AUTH: neo4j/asagus-graph
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+
+  minio:
+    image: minio/minio:latest
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: asagus-access
+      MINIO_ROOT_PASSWORD: change-this-minio-secret
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+
+  api:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+      - opensearch
+      - qdrant
+      - minio
+    ports:
+      - "8000:8000"
+
+  async-worker:
+    build:
+      context: ./backend
+    command: ["python", "-m", "asagus.workers.async_worker"]
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - postgres
+    deploy:
+      replicas: 1
+
+  indexer-worker:
+    build:
+      context: ./backend
+    command: ["python", "-m", "asagus.workers.indexer_worker"]
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - postgres
+      - opensearch
+      - qdrant
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  postgres-data:
+  redis-data:
+  opensearch-data:
+  qdrant-data:
+  neo4j-data:
+  minio-data:
+  grafana-data:
