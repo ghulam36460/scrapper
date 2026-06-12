@@ -1,0 +1,12 @@
+{
+  "tool_id": "maps-scraper",
+  "uses_asagus_backend_venv": true,
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "../asagus_tool_launcher.py",
+  "pipeline_role": "maps_scraper_adapter",
+  "max_mode": {
+    "enabled": true,
+    "receives_job_context": true,
+    "real_browser_run_env": "ASAGUS_TOOL_REAL_RUN"
+  }
+}

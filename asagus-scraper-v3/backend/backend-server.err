@@ -1,0 +1,5 @@
+INFO:     Started server process [35218]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+[2026-06-04 03:12:18] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurants-g294008-Qatar.html> (referer: https://www.google.com/)

@@ -1,0 +1,450 @@
+Running
+0
+info
+Completed
+87
+ok
+Records
+6
+info
+Mode
+Real
+ok
+LLM
+nvidia
+ok
+Fetch default on
+Discovery default on
+LLM nvidia
+Local-safe by default: real network discovery/fetch is disabled in settings, but explicit per-job controls can override it for educational research runs.
+Backend connected
+8 services reported
+Retry connection
+Scraping Access
+Real web scraping is on for the next job
+Fetch default: on / Discovery default: on
+LLM In Use
+NVIDIA NIM
+nvidia/nemotron-3-nano-omni-30b-a3b-reasoning
+Latest Job
+restaurants / Qatar
+completed, 0/10 records
+Data Stored
+6 business records
+Names, contacts, websites, social links, quality and source evidence
+MDP Scheduler
+Frontier
+A
+0-200
+heuristic-guided high exploration
+eps 1
+B
+200-1000
+hybrid heuristic + MDP Q-values
+eps 0.3
+C
+1000+
+action-value MDP + UCB learning
+eps 0.05
+state_space
+1620
+discount
+0.86
+iterations
+48
+model
+P(outcome | abstract_state, action) with full/partial/dead/deferred/skipped/banned outcomes
+CRITICAL
+HIGH
+MEDIUM
+LOW
+DEFERRED
+BLOCKED
+full
+partial
+dead
+deferred
+skipped
+banned
+Policy Engine
+rules + bayes
+allowlist_always_crawl
+blocklist_skip
+contact_about_high_priority
+asset_extension_skip
+high_confidence_css_skip_llm
+low_confidence_go_llm
+domain_render_required
+whatsapp_fast_path
+mode
+rule_bayesian_feedback
+rule_layer_target_hit_rate
+0.8
+rule_layer_hits
+56
+bayesian_hits
+16
+llm_call_percent
+0
+browser_render_percent
+0
+tracked_domains
+22
+mdp_phase
+auto_by_crawl_count
+MDP Policy Table
+Q-values
+20
+CRAWL_NOW
+maps_listing_url|seed|yield_high|ban_low|conf_high|static
+19.8153
+20
+CRAWL_NOW
+maps_search_grid|seed|yield_high|ban_low|conf_high|static
+19.8153
+19
+CRAWL_NOW
+maps_listing_url|seed|yield_high|ban_low|conf_mid|static
+19.4983
+19
+CRAWL_NOW
+maps_search_grid|seed|yield_high|ban_low|conf_mid|static
+19.4983
+19
+CRAWL_NOW
+website_contact|seed|yield_high|ban_low|conf_high|static
+19.2915
+19
+CRAWL_NOW
+maps_listing_url|seed|yield_mid|ban_low|conf_high|static
+19.2385
+19
+CRAWL_NOW
+maps_search_grid|seed|yield_mid|ban_low|conf_high|static
+19.2385
+19
+CRAWL_NOW
+website_about|seed|yield_high|ban_low|conf_high|static
+19.0124
+19
+CRAWL_NOW
+website_contact|seed|yield_high|ban_low|conf_mid|static
+18.8977
+19
+CRAWL_NOW
+maps_listing_url|seed|yield_high|ban_low|conf_high|render
+18.8491
+Extraction Cascade
+Self-heal
+CSS/XPath
+accept at 0.78
+0.78
+DOM Fingerprint
+accept at 0.68
+0.68
+Structural Heuristics
+accept at 0.48
+0.48
+LLM Extraction
+accept at 0.5
+0.5
+Manual Review
+accept at <0.50
+<0.50
+Discovery & Throughput
+async + CPU
+io_concurrency
+50
+cpu_workers
+4
+queue_maxsize
+5000
+queued_items
+0
+browser_contexts
+2
+backpressure_policy
+defer_low_priority
+pattern
+asyncio for I/O + ProcessPoolExecutor for CPU-bound extraction, hashing, BM25/SPLADE scoring and graph work
+cpu_count
+8
+gpu_available
+false
+tpu_available
+false
+providers
+cpu
+selected_default
+cpu
+duckduckgo
+bing
+brave
+google
+startpage
+wikipedia
+yandex
+yahoo
+mojeek
+Search Algorithms
+hybrid
+50
+Inverted Index
+Fast candidate generation by term-to-document postings
+implemented
+72
+TF-IDF
+Classic lexical weighting for interpretable term relevance
+implemented
+13
+Vector Embeddings
+Dense semantic representation for fuzzy matching
+implemented
+16
+Approximate Nearest Neighbor Search
+Fast vector candidate retrieval using approximate buckets
+implemented
+94
+BM25
+High-precision lexical baseline and exact business term matching
+implemented
+05
+Learning to Rank
+Blend lexical, neural, business-quality and compliance features
+implemented
+20
+Hybrid Retrieval
+Fuse BM25, TF-IDF, dense, ANN, sparse, late-interaction and graph signals
+implemented
+20
+Dense Retrieval / Bi-Encoder
+Encode query and records independently for fast semantic retrieval
+implemented
+16
+Dense HNSW
+Semantic nearest-neighbor retrieval for fuzzy business intent
+adapter_ready
+19
+Cross-Encoder Reranking
+Jointly score query-record pairs after candidate retrieval
+implemented
+18
+BERT
+Transformer encoder adapter for NER, reranking and embeddings
+adapter_ready
+17
+Transformer Attention
+Attention-based term/entity weighting and neural adapters
+adapter_ready
+20
+RAG
+Ground LLM summaries and actions in retrieved business records
+implemented
+17
+RLHF / Human Feedback
+Capture operator feedback as ranking and crawl reward data
+adapter_ready
+20
+Contrastive Learning
+DPR/SigLIP-style embedding training and similarity scoring
+adapter_ready
+25
+SPLADE / CSPLADE learned sparse retrieval
+Semantic expansion with inverted-index efficiency
+adapter_ready
+21
+ColBERT late interaction
+Token-level semantic matching for higher recall and ranking precision
+adapter_ready
+25
+MUVERA multi-vector retrieval
+Fast multi-vector search before full late-interaction rerank
+implemented
+09
+Reciprocal Rank Fusion
+Robustly fuse BM25, dense, sparse and late-interaction rankings
+implemented
+24
+Graph-guided retrieval / GraphRAG
+Use Neo4j relationships for area, competitor, network and duplicate-aware retrieval
+adapter_ready
+25
+Clue-RAG Q-Iter
+Iteratively expand graph-constrained retrieval around matched entities
+adapter_ready
+25
+Chain-of-Retrieval
+Reformulate queries step-by-step when one-shot retrieval is weak
+implemented
+24
+Corrective RAG
+Filter weak evidence and trigger additional retrieval/discovery when results are poor
+implemented
+25
+Causal Dynamic Feedback RAG
+Prefer records connected by explainable graph paths, not only correlation
+adapter_ready
+25
+Contextual bandit crawl exploration
+Balance crawl exploitation with exploration while learning page rewards
+implemented
+24
+Self-Healing Neural Scrapers
+Recover selectors from DOM fingerprints, structure and LLM fallbacks
+implemented
+22
+ReAct Agent Pattern
+Reason over policy/search state, then act through safe tools
+adapter_ready
+02
+Sentiment Analysis
+Detect quality/risk language in snippets, reviews and page text
+implemented
+90
+Named Entity Recognition
+Extract organizations, services, locations and contacts
+implemented
+58
+Text Summarization
+Summarize result sets and page evidence for users
+implemented
+02
+Google Dorking
+Public business discovery queries
+guarded
+98
+DOM Parsing
+Extract structural page features and text
+implemented
+96
+CSS Selector Matching
+Fast field extraction and selector recovery
+implemented
+99
+XPath Querying
+Structured extraction from XML/HTML trees
+adapter_ready
+00
+Safe API Sessions
+Use documented public APIs and owned OAuth sessions only
+guarded
+17
+Headless Browser Automation
+Render JavaScript pages through Playwright Chromium
+implemented
+70
+Graph / Network Analysis
+Find duplicates, competitors, same-area and same-network relationships
+implemented
+12
+Computer Vision
+Business media, logo, object and storefront classification
+guarded
+00
+Predictive Analytics / Anomaly Detection
+Lead score prediction and outlier detection
+implemented
+60
+Geospatial Intelligence
+Area clustering, proximity duplicates and distance scoring
+implemented
+24
+Universal Web Agent
+Zero-shot scraping with policy, browser, extraction and LLM adapters
+guarded
+24
+Cross-Platform OSINT Fusion
+Fuse public business pages across maps, websites and social business profiles
+guarded
+Capability Map
+16
+R
+Inverted Index
+Fast term postings for candidate generation
+implemented
+R
+TF-IDF
+Interpretable lexical ranking
+implemented
+R
+ANN Search
+Local LSH buckets; Qdrant HNSW in production
+implemented
+R
+BM25 + LTR + Hybrid Retrieval
+RRF fused ranking over lexical, dense, sparse, graph and neural-style signals
+implemented
+N
+BERT / Transformer / RAG Adapters
+Provider-backed embeddings, reranking, extraction and summaries
+adapter_ready
+N
+RLHF Feedback Loop
+Operator feedback updates crawl/rank rewards
+adapter_ready
+S
+Self-Healing Scrapers
+CSS, XPath, DOM fingerprint, heuristic, LLM and manual review cascade
+implemented
+S
+DOM / CSS / XPath
+Structured page parsing and selector matching
+implemented
+O
+Google Dorking / OSINT Fusion
+Business source discovery with human review
+guarded
+O
+API Session Handling
+Safe integration with authorized APIs
+guarded
+S
+Headless Browser Automation
+Playwright Chromium rendering behind compliance checks
+implemented
+A
+Graph / Network Analysis
+Neo4j-ready competitor, duplicate, same-area and same-network edges
+implemented
+A
+Computer Vision
+Business media labels, OCR adapter, storefront/logo adapter
+guarded
+A
+Predictive Analytics / Anomaly Detection
+Lead scoring, market summary and outlier detection
+implemented
+A
+Geospatial Intelligence
+Distance, area clustering and proximity duplicate detection
+implemented
+R
+Universal Web Agent
+Zero-shot extraction through safe policy/browser/LLM adapters
+guarded
+Proxy, Graph, Metrics
+17 edges
+residential
+isp_static
+datacenter
+budget_residential
+COMPETITOR
+SAME_AREA
+SAME_NETWORK
+SUPPLIES_TO
+PARTNERS_WITH
+DUPLICATE_OF
+MENTIONS
+LINKS_TO
+crawl_throughput_per_min
+838targets
+policy_rule_hit_rate
+77.78%
+llm_call_percent
+0%
+redis_stream_lag
+0messages
+proxy_ban_rate
+0%
+extraction_confidence_avg
+0%

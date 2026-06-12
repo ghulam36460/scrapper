@@ -1,0 +1,11 @@
+# Optional heavy OCR/ML/research dependency profile.
+# Install only on machines that need GPU/vision/model adapters:
+#   pip install -r requirements-ml.txt
+
+sentence-transformers>=3.0.0
+torch>=2.0.0
+easyocr>=1.7.0
+paddleocr>=2.7.0
+openvino>=2024.0.0
+scrapling>=0.2.0
+crawl4ai>=0.4.0

@@ -1,0 +1,106 @@
+{
+  "leads_csv_path": "uploads/20260425_074529_leads_skin_specialist_karachi_1.csv",
+  "logs_csv_path": "logs/activity_log.csv",
+  "logs_jsonl_path": "logs/activity_log.jsonl",
+  "sent_recipients_path": "logs/sent_recipients.json",
+  "dry_run": true,
+  "total_daily_limit": 250,
+  "delay_min_seconds": 20,
+  "delay_max_seconds": 120,
+  "follow_up_enabled": true,
+  "follow_up_day_1": 3,
+  "follow_up_day_2": 6,
+  "demo_base_url": "",
+  "physical_address": "Islamabad, Pakistan",
+  "unsubscribe_text": "Reply STOP to unsubscribe | {physical_address}",
+  "sender_type_priority": [
+    "zoho",
+    "brevo",
+    "gmail",
+    "outlook"
+  ],
+  "senders": [
+    {
+      "email": "mshahwar92@gmail.com",
+      "type": "zoho",
+      "daily_limit": 95,
+      "enabled": false,
+      "username": "mshahwar92@gmail.com",
+      "password_env": "krch mgao jgge socy",
+      "from_name": "Asagus"
+    },
+    {
+      "email": "hello@asagus.com",
+      "type": "zoho",
+      "daily_limit": 95,
+      "enabled": false,
+      "username": "hello@asagus.com",
+      "password_env": "SMTP_HELLO_PASSWORD",
+      "from_name": "Asagus"
+    },
+    {
+      "email": "contact@asagus.com",
+      "type": "brevo",
+      "daily_limit": 100,
+      "enabled": false,
+      "username": "apikey",
+      "password_env": "BREVO_SMTP_KEY",
+      "brevo_api_key_env": "BREVO_API_KEY",
+      "from_name": "Asagus"
+    },
+    {
+      "email": "abc@gmail.com",
+      "type": "gmail",
+      "daily_limit": 30,
+      "enabled": false,
+      "username": "abc@gmail.com",
+      "password_env": "GMAIL_ABC_APP_PASSWORD",
+      "from_name": "Asagus"
+    },
+    {
+      "email": "mshahwar92@gmail.com",
+      "type": "gmail",
+      "daily_limit": 30,
+      "enabled": true,
+      "username": "mshahwar92@gmail.com",
+      "password_env": "krch mgao jgge socy",
+      "from_name": "Asagus"
+    },
+    {
+      "email": "abc@outlook.com",
+      "type": "outlook",
+      "daily_limit": 30,
+      "enabled": false,
+      "username": "abc@outlook.com",
+      "password_env": "OUTLOOK_ABC_PASSWORD",
+      "from_name": "Asagus"
+    }
+  ],
+  "subject_templates": [
+    "Quick idea for {business}",
+    "Getting more bookings for {business}",
+    "A short question, {name}",
+    "Thought about {business} {city}",
+    "Saw your reviews, {name}",
+    "Quick thought for {business}",
+    "One idea for {business} {city}"
+  ],
+  "body_templates": [
+    "Hi {name},\r\n\r\n{context_line}\r\n\r\nI noticed {business} does not have a website yet. Most customers {city} search online before choosing a service, and a simple homepage could help you get more calls.\r\n\r\nWould it be worth a quick look at how that could work for you?\r\n\r\nBest regards,",
+    "Hello {name},\r\n\r\n{context_line}\r\n\r\nI work with small businesses {city} on getting their first website up. A basic homepage for {business} could help new customers find and trust you more easily.\r\n\r\nHappy to share a quick example if you are curious.\r\n\r\nBest,",
+    "Hi {name},\r\n\r\n{context_line}\r\n\r\nI noticed {business} {city} does not seem to have a website yet. In my experience, even a simple one-page site can bring in a few extra calls each week.\r\n\r\nWould you be open to seeing how that might look for your business?\r\n\r\nRegards,",
+    "Hello {name},\r\n\r\n{context_line}\r\n\r\nQuick question \u2014 have you thought about having a website for {business} {city}? A lot of your competitors already have one, and customers tend to pick businesses they can look up online.\r\n\r\nI can show you a short example if you are interested.\r\n\r\nThanks,",
+    "Hi {name},\r\n\r\n{context_line}\r\n\r\nI put together a quick demo homepage for {business} to show what a website could look like for you: {demo_link}\r\n\r\nIt is just an example, but it gives you an idea of how customers {city} would find you online.\r\n\r\nWorth a look?\r\n\r\nBest regards,",
+    "Hello {name},\r\n\r\n{context_line}\r\n\r\nYour reviews for {business} {city} are impressive. A website would make it even easier for new customers to find you and get in touch directly.\r\n\r\nI can share a quick example if you want to see how it would look.\r\n\r\nRegards,",
+    "Hi {name},\r\n\r\n{context_line}\r\n\r\nI came across {business} {city} and noticed you do not have a website yet. I help local businesses get a simple, professional homepage that brings in more calls and bookings.\r\n\r\nInterested in seeing a quick example?\r\n\r\nThank you,"
+  ],
+  "ai": {
+    "enabled": false,
+    "provider": "openai_compatible",
+    "endpoint": "https://api.openai.com/v1/chat/completions",
+    "model": "gpt-4o-mini",
+    "api_key_env": "OPENAI_API_KEY",
+    "timeout_seconds": 20,
+    "temperature": 0.7
+  }
+}

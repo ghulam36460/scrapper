@@ -1,0 +1,1612 @@
+compliance
+compliance_checked
+6:44:32 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:32 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:32 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+crawl_control
+frontier_refilled
+6:44:30 AM
+Queue refill #1: added 3 seeds
+Details
+{
+  "added": 3,
+  "records_found": 0,
+  "limit": 10
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:25 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+compliance
+compliance_checked
+6:44:22 AM
+blocked_by_robots_cache
+Details
+{
+  "allowed": false,
+  "delay_seconds": 0,
+  "reason": "blocked_by_robots_cache",
+  "audit_required": true,
+  "robots_cache_hit": true,
+  "crawl_delay_source": "robots",
+  "gdpr_region": false,
+  "tokens_remaining": 0
+}
+crawl_control
+worker_pool_ready
+6:44:22 AM
+Bounded page worker pool configured for this job
+Details
+{
+  "page_parallelism": 1,
+  "candidate_timeout_seconds": 55,
+  "mode": "balanced",
+  "resource_profile": "normal"
+}
+crawl_control
+frontier_seeded
+6:44:22 AM
+MDP frontier seeded and tiered
+Details
+{
+  "count": 23,
+  "planned_pages": 100,
+  "target_records": 10,
+  "mdp": [
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6173,
+      "q_values": {
+        "CRAWL_NOW": 4.5203,
+        "DEFER_1H": 4.126,
+        "DEFER_24H": 3.8957,
+        "SKIP": 3.2439,
+        "PRIORITIZE_UP": 4.6173,
+        "PRIORITIZE_DOWN": 4.077
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0427"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6171,
+      "q_values": {
+        "CRAWL_NOW": 4.5204,
+        "DEFER_1H": 4.126,
+        "DEFER_24H": 3.8957,
+        "SKIP": 3.244,
+        "PRIORITIZE_UP": 4.6171,
+        "PRIORITIZE_DOWN": 4.077
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0425"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6169,
+      "q_values": {
+        "CRAWL_NOW": 4.5204,
+        "DEFER_1H": 4.1261,
+        "DEFER_24H": 3.8958,
+        "SKIP": 3.244,
+        "PRIORITIZE_UP": 4.6169,
+        "PRIORITIZE_DOWN": 4.0771
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0423"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6167,
+      "q_values": {
+        "CRAWL_NOW": 4.5205,
+        "DEFER_1H": 4.1261,
+        "DEFER_24H": 3.8958,
+        "SKIP": 3.2441,
+        "PRIORITIZE_UP": 4.6167,
+        "PRIORITIZE_DOWN": 4.0771
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0421"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6165,
+      "q_values": {
+        "CRAWL_NOW": 4.5205,
+        "DEFER_1H": 4.1262,
+        "DEFER_24H": 3.8959,
+        "SKIP": 3.2441,
+        "PRIORITIZE_UP": 4.6165,
+        "PRIORITIZE_DOWN": 4.0772
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0419"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6163,
+      "q_values": {
+        "CRAWL_NOW": 4.5206,
+        "DEFER_1H": 4.1262,
+        "DEFER_24H": 3.8959,
+        "SKIP": 3.2442,
+        "PRIORITIZE_UP": 4.6163,
+        "PRIORITIZE_DOWN": 4.0772
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0417"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6162,
+      "q_values": {
+        "CRAWL_NOW": 4.5206,
+        "DEFER_1H": 4.1263,
+        "DEFER_24H": 3.896,
+        "SKIP": 3.2442,
+        "PRIORITIZE_UP": 4.6162,
+        "PRIORITIZE_DOWN": 4.0773
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0416"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.616,
+      "q_values": {
+        "CRAWL_NOW": 4.5207,
+        "DEFER_1H": 4.1263,
+        "DEFER_24H": 3.896,
+        "SKIP": 3.2443,
+        "PRIORITIZE_UP": 4.616,
+        "PRIORITIZE_DOWN": 4.0773
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0414"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6148,
+      "q_values": {
+        "CRAWL_NOW": 4.5198,
+        "DEFER_1H": 4.1258,
+        "DEFER_24H": 3.8957,
+        "SKIP": 3.2443,
+        "PRIORITIZE_UP": 4.6148,
+        "PRIORITIZE_DOWN": 4.0769
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0412"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6097,
+      "q_values": {
+        "CRAWL_NOW": 4.5149,
+        "DEFER_1H": 4.1228,
+        "DEFER_24H": 3.8936,
+        "SKIP": 3.2444,
+        "PRIORITIZE_UP": 4.6097,
+        "PRIORITIZE_DOWN": 4.0745
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0410"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.6047,
+      "q_values": {
+        "CRAWL_NOW": 4.5101,
+        "DEFER_1H": 4.1198,
+        "DEFER_24H": 3.8915,
+        "SKIP": 3.2444,
+        "PRIORITIZE_UP": 4.6047,
+        "PRIORITIZE_DOWN": 4.0721
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0408"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5996,
+      "q_values": {
+        "CRAWL_NOW": 4.5053,
+        "DEFER_1H": 4.1169,
+        "DEFER_24H": 3.8894,
+        "SKIP": 3.2445,
+        "PRIORITIZE_UP": 4.5996,
+        "PRIORITIZE_DOWN": 4.0697
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0407"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5946,
+      "q_values": {
+        "CRAWL_NOW": 4.5005,
+        "DEFER_1H": 4.1139,
+        "DEFER_24H": 3.8873,
+        "SKIP": 3.2445,
+        "PRIORITIZE_UP": 4.5946,
+        "PRIORITIZE_DOWN": 4.0673
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0405"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5895,
+      "q_values": {
+        "CRAWL_NOW": 4.4956,
+        "DEFER_1H": 4.1109,
+        "DEFER_24H": 3.8852,
+        "SKIP": 3.2446,
+        "PRIORITIZE_UP": 4.5895,
+        "PRIORITIZE_DOWN": 4.0649
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0403"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5845,
+      "q_values": {
+        "CRAWL_NOW": 4.4908,
+        "DEFER_1H": 4.1079,
+        "DEFER_24H": 3.8831,
+        "SKIP": 3.2446,
+        "PRIORITIZE_UP": 4.5845,
+        "PRIORITIZE_DOWN": 4.0625
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0401"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5794,
+      "q_values": {
+        "CRAWL_NOW": 4.486,
+        "DEFER_1H": 4.105,
+        "DEFER_24H": 3.881,
+        "SKIP": 3.2447,
+        "PRIORITIZE_UP": 4.5794,
+        "PRIORITIZE_DOWN": 4.0601
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0400"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5744,
+      "q_values": {
+        "CRAWL_NOW": 4.4812,
+        "DEFER_1H": 4.102,
+        "DEFER_24H": 3.8789,
+        "SKIP": 3.2447,
+        "PRIORITIZE_UP": 4.5744,
+        "PRIORITIZE_DOWN": 4.0578
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0398"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5693,
+      "q_values": {
+        "CRAWL_NOW": 4.4763,
+        "DEFER_1H": 4.099,
+        "DEFER_24H": 3.8768,
+        "SKIP": 3.2448,
+        "PRIORITIZE_UP": 4.5693,
+        "PRIORITIZE_DOWN": 4.0554
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0396"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5643,
+      "q_values": {
+        "CRAWL_NOW": 4.4715,
+        "DEFER_1H": 4.096,
+        "DEFER_24H": 3.8747,
+        "SKIP": 3.2448,
+        "PRIORITIZE_UP": 4.5643,
+        "PRIORITIZE_DOWN": 4.053
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0395"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5592,
+      "q_values": {
+        "CRAWL_NOW": 4.4667,
+        "DEFER_1H": 4.0931,
+        "DEFER_24H": 3.8726,
+        "SKIP": 3.2448,
+        "PRIORITIZE_UP": 4.5592,
+        "PRIORITIZE_DOWN": 4.0506
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0393"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 2,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.511,
+      "reward_estimate": 1.228,
+      "selected_score": 4.2984,
+      "q_values": {
+        "CRAWL_NOW": 4.2002,
+        "DEFER_1H": 3.9401,
+        "DEFER_24H": 3.793,
+        "SKIP": 3.2524,
+        "PRIORITIZE_UP": 4.2984,
+        "PRIORITIZE_DOWN": 3.821
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.3657,
+        "partial": 0.4032,
+        "dead": 0.2311
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0391"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 2,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.511,
+      "reward_estimate": 1.228,
+      "selected_score": 4.2933,
+      "q_values": {
+        "CRAWL_NOW": 4.1954,
+        "DEFER_1H": 3.9371,
+        "DEFER_24H": 3.7909,
+        "SKIP": 3.2525,
+        "PRIORITIZE_UP": 4.2933,
+        "PRIORITIZE_DOWN": 3.8186
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.3657,
+        "partial": 0.4032,
+        "dead": 0.2311
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0390"
+      ]
+    },
+    {
+      "state": {
+        "url_path_depth": 1,
+        "url_type": "social_profile",
+        "domain_yield_rate": 0.52,
+        "domain_render_required": true,
+        "domain_ban_rate": 0,
+        "parent_page_yield": 0.65,
+        "time_in_frontier_h": 0,
+        "link_density": 0,
+        "js_complexity_score": 0.8,
+        "last_extraction_conf": 0.55
+      },
+      "state_key": "social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+      "action": "PRIORITIZE_UP",
+      "phase": "A_HEURISTIC_0_200",
+      "epsilon": 1,
+      "frontier_tier": "CRITICAL",
+      "expected_yield": 0.558,
+      "reward_estimate": 1.405,
+      "selected_score": 4.5441,
+      "q_values": {
+        "CRAWL_NOW": 4.4522,
+        "DEFER_1H": 4.0841,
+        "DEFER_24H": 3.8663,
+        "SKIP": 3.245,
+        "PRIORITIZE_UP": 4.5441,
+        "PRIORITIZE_DOWN": 4.0434
+      },
+      "transition_probs": {
+        "banned": 0,
+        "full": 0.4243,
+        "partial": 0.3792,
+        "dead": 0.1964
+      },
+      "strategy": "priority_queue",
+      "reasons": [
+        "phase=A_HEURISTIC_0_200",
+        "state_key=social_profile|shallow|yield_mid|ban_low|conf_mid|render",
+        "policy_action=PRIORITIZE_UP",
+        "strategy=priority_queue",
+        "transition_prior=(0.43, 0.38, 0.19)",
+        "value=11.5261",
+        "ucb=0.0388"
+      ]
+    }
+  ]
+}
+crawl_control
+mode_plan
+6:44:17 AM
+balanced mode initialized
+Details
+{
+  "mode": "balanced",
+  "discovery_mode": "social_only",
+  "lead_target": "businesses",
+  "decision_maker_titles": "owner, founder, CEO",
+  "recipe_set": "business",
+  "deep_features": {
+    "dom_fingerprint": true,
+    "device_stamp": true,
+    "manual_review_on_challenge": true,
+    "screenshot_on_failure": false,
+    "browser_action_budget": 0,
+    "browser_action_execution": "not_used"
+  },
+  "limits": {
+    "max_seconds_per_page": 30,
+    "max_pages_per_domain": "unlimited",
+    "planned_page_multiplier": 6
+  },
+  "resource_profile": "normal",
+  "parallelism": {
+    "enabled": false,
+    "io_concurrency": 50,
+    "cpu_workers": 4,
+    "browser_contexts": 2,
+    "queue_maxsize": 5000,
+    "backpressure_policy": "defer_low_priority"
+  },
+  "safety": {
+    "challenge_bypass": false,
+    "anti_bot_evasion": false,
+    "real_browser_per_job_override": true,
+    "manual_review_required_for_challenges": true,
+    "scope": "educational_research"
+  },
+  "antibot_preset": {
+    "browser_engine": "patchright",
+    "static_client": "curl_cffi_chrome_impersonation",
+    "behavioral_simulation": false,
+    "native_layer_requested": false,
+    "challenge_bypass": false,
+    "notes": "Prefer Patchright when installed; falls back to Playwright if optional packages are unavailable.",
+    "preset": "balanced",
+    "scope": "educational_research",
+    "manual_review_on_challenge": true
+  },
+  "deep_mode": false
+}
+fetch
+antibot_preset_resolved
+6:44:17 AM
+Anti-bot research preset mapped to the active fetch/browser path
+Details
+{
+  "browser_engine": "patchright",
+  "static_client": "curl_cffi_chrome_impersonation",
+  "behavioral_simulation": false,
+  "native_layer_requested": false,
+  "challenge_bypass": false,
+  "notes": "Prefer Patchright when installed; falls back to Playwright if optional packages are unavailable.",
+  "preset": "balanced",
+  "scope": "educational_research",
+  "manual_review_on_challenge": true,
+  "browser_pool": {
+    "engine": "patchright",
+    "pool_size": 2,
+    "timeout_ms": 30000,
+    "headless": true,
+    "camoufox_binary_path": "",
+    "challenge_bypass": false,
+    "available_engines": {
+      "playwright": true,
+      "patchright": true,
+      "camoufox": true,
+      "nodriver": true
+    },
+    "purpose": "render JavaScript pages when policy/compliance allow dynamic fetch"
+  }
+}
+ai_app
+runtime_mode
+6:44:17 AM
+Backend runtime gates resolved for this job
+Details
+{
+  "network_fetch": true,
+  "search_discovery": true,
+  "global_network_fetch": true,
+  "global_search_discovery": true,
+  "job_requested_network_fetch": true,
+  "job_requested_search_discovery": true,
+  "override_semantics": "explicit per-job True/False overrides backend defaults for educational research jobs"
+}
+policy
+policy_ready
+6:44:17 AM
+Rule + Bayesian + feedback policy engine active
+ai_app
+job_queued
+6:44:16 AM
+Job queued from dashboard
+Details
+{
+  "query": "restaurants",
+  "location": "Qatar",
+  "limit": 10,
+  "max_pages": 0,
+  "mode": "balanced",
+  "antibot_preset": "balanced",
+  "discovery_mode": "social_only",
+  "lead_target": "businesses",
+  "decision_maker_titles": "owner, founder, CEO",
+  "allowed_domains": [],
+  "blocked_domains": [],
+  "llm_enabled": true,
+  "archive_raw_html": true,
+  "capture_dom_fingerprint": true,
+  "capture_device_stamp": true,
+  "screenshot_on_failure": false,
+  "manual_review_on_challenge": true,
+  "max_browser_actions": 10,
+  "max_seconds_per_page": 30,
+  "max_pages_per_domain": 0,
+  "recipe_set": "business",
+  "resource_profile": "normal",
+  "worker_count": 0,
+  "respect_robots_txt": true,
+  "skip_existing": true,
+  "include_contact_pages": true,
+  "include_social_profiles": true,
+  "require_email": true,
+  "enable_network_fetch": true,
+  "enable_search_discovery": true,
+  "proxy_strategy": "auto",
+  "notes": ""
+}

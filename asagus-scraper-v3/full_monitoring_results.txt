@@ -1,0 +1,519 @@
+========================================
+FULL SYSTEM TEST - ALL TOOLS MONITORING
+Started: Sat Jun  6 04:53:29 PM EDT 2026
+========================================
+
+[Step 1] Backend Status
+✓ Backend running
+
+[Step 2] Submitting MAX Mode Job
+✓ Job ID: 149aded0-aefb-43bd-9bfe-2541718d58aa
+
+[Step 3] Monitoring Job Progress (3 minutes max)
+Monitor log: /home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/live_monitoring.log
+
+[Check 1 @ 5s] Status: ════════════════════════════════════════
+[Check #1 @ 5s] 16:53:34
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 4 processes
+  ✓ Tool launchers running: 3
+
+>>> Browser Processes:
+  ✓ playwright: 2
+
+>>> Job Directory:
+  Files: 10 | Size: 44K
+  Contents:
+    agent-reach.json (3.7K)
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 2 @ 10s] Status: ════════════════════════════════════════
+[Check #2 @ 10s] 16:53:40
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 3 @ 15s] Status: ════════════════════════════════════════
+[Check #3 @ 15s] 16:53:45
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 4 @ 20s] Status: ════════════════════════════════════════
+[Check #4 @ 20s] 16:53:51
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 5 @ 25s] Status: ════════════════════════════════════════
+[Check #5 @ 25s] 16:53:57
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 6 @ 30s] Status: ════════════════════════════════════════
+[Check #6 @ 30s] 16:54:03
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 7 @ 35s] Status: ════════════════════════════════════════
+[Check #7 @ 35s] 16:54:09
+════════════════════════════════════════
+Job Status: running | Processed: 0 | Records: 0
+Message: Starting discovery
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 8 @ 40s] Status: ════════════════════════════════════════
+[Check #8 @ 40s] 16:54:17
+════════════════════════════════════════
+Job Status: running | Processed: 5 | Records: 0
+Message: Waiting 5.0s for crawl pacing
+
+>>> Python/Tool Processes:
+  Total: 5 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 14
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+
+>>> Latest Log: [2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
+
+running
+[Check 9 @ 45s] Status: ════════════════════════════════════════
+[Check #9 @ 45s] 16:54:26
+════════════════════════════════════════
+Job Status: running | Processed: 5 | Records: 0
+Message: Fetching page
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ playwright: 15
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 10 @ 50s] Status: ════════════════════════════════════════
+[Check #10 @ 50s] 16:54:42
+════════════════════════════════════════
+Job Status: running | Processed: 5 | Records: 0
+Message: Fetching page
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 16
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 11 @ 55s] Status: ════════════════════════════════════════
+[Check #11 @ 55s] 16:54:50
+════════════════════════════════════════
+Job Status: running | Processed: 5 | Records: 0
+Message: Fetching page
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 16
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 12 @ 60s] Status: ════════════════════════════════════════
+[Check #12 @ 60s] 16:55:02
+════════════════════════════════════════
+Job Status: running | Processed: 5 | Records: 0
+Message: Fetching page
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 16
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 13 @ 65s] Status: ════════════════════════════════════════
+[Check #13 @ 65s] 16:55:11
+════════════════════════════════════════
+Job Status: running | Processed: 10 | Records: 2
+Message: Checking compliance
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 16
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 14 @ 70s] Status: ════════════════════════════════════════
+[Check #14 @ 70s] 16:55:22
+════════════════════════════════════════
+Job Status: running | Processed: 10 | Records: 2
+Message: Waiting 5.0s for crawl pacing
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 12
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 16
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 2 | Metadata: 2
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running
+[Check 15 @ 75s] Status: ════════════════════════════════════════
+[Check #15 @ 75s] 16:55:32
+════════════════════════════════════════
+Job Status: running | Processed: 15 | Records: 3
+Message: Waiting 5.0s for crawl pacing
+
+>>> Python/Tool Processes:
+  Total: 6 processes
+  ✓ Tool launchers running: 2
+
+>>> Browser Processes:
+  ✓ chromium: 14
+  ✓ firefox: 1
+  ✓ camoufox: 1
+  ✓ playwright: 18
+
+>>> Job Directory:
+  Files: 11 | Size: 48K
+  Contents:
+    firecrawl.json (3.8K)
+    maxun.json (3.7K)
+    outreach.json (3.7K)
+    outreach-system.json (3.8K)
+    outreach-system-score.json (208)
+    pipeline.json (1.1K)
+    scrapegraph-ai.json (3.7K)
+    scrapling.json (3.7K)
+    scrapy.json (3.7K)
+    whatsapp-detector.json (3.8K)
+
+>>> HTML Archives:
+  HTML files: 3 | Metadata: 3
+
+>>> Latest Log: Camoufox binary not found in common locations
+
+running

@@ -1,0 +1,923 @@
+﻿ASAGUS Scraper v3 
+
+Complete Bug Report, Root-Cause Analysis & Fix Roadmap 
+
+June 2026  |  Research-grade Edition 
+
+Critical Bugs Major Gaps Implementation % 
+
+8 found (2 partially fixed) 5 architecture gaps ~25–35% of blueprint 
+
+ 
+ 
+
+0.  WHY YOU SAW ZERO PROGRESS AFTER 7 HOURS 
+
+ 
+
+The scraper was running entirely in OFFLINE / DEMO mode the whole time. No 
+real network requests were ever made. It was generating fake placeholder URLs 
+
+CRITICAL 
+(example.com, demo-biz.com) and returning fake HTML. This is the root cause of 
+zero results. 
+
+ 
+
+The problem lives in two default settings inside the backend config: 
+
+ 
+
+Setting Default Value What It Does Fix 
+
+All HTTP fetching is disabled. 
+enable_network_fetch False Every URL returns a fake Set to True 
+
+preview HTML block. 
+
+DDGS search never runs. Only 
+enable_search_discovery False fake demo URLs like Set to True 
+
+example.com are queued. 
+
+ 
+
+Immediate Fix — 3 Ways to Enable Real Scraping 
+
+Option A: Edit the .env file (recommended) 
+
+Open file: asagus-scraper-v3/.env  (create from .env.example if it does not exist) 
+ENABLE_NETWORK_FETCH=true 
+ENABLE_SEARCH_DISCOVERY=true 
+
+Then RESTART the backend. The settings only load at startup because of @lru_cache. 
+
+ 
+
+
+
+Option B: Enable per-job in the UI 
+
+On the Run tab, check the two toggles: 'Real fetch' and 'Real discovery'. These override the global 
+defaults for that single job. 
+
+ 
+
+Option C: API payload 
+POST /api/jobs  {  "enable_network_fetch": true,  "enable_search_discovery": true,  
+"query": "restaurants",  "location": "Rawalpindi"  } 
+
+ 
+
+After enabling real mode the scraper WILL make real HTTP requests to Google, 
+WARNING DuckDuckGo, Instagram, and Facebook. Read Section 3 on anti-bot measures 
+
+before running large jobs. 
+
+ 
+ 
+
+1.  ALL CRITICAL BUGS — ROOT CAUSES & FIXES 
+
+ 
+
+Bug 1  —  Anti-bot Preset Is Completely Ignored 
+
+Severity CRITICAL 
+
+Status Partially fixed in run_job() / job_helpers.py 
+
+backend/asagus/main.py, backend/asagus/services/job_helpers.py, 
+Files 
+
+backend/asagus/layers/fetch.py 
+
+ 
+
+Root cause: ScrapeStartRequest exposes antibot_preset (high-stealth, balanced, high-speed) as a UI 
+option. Users can select it and believe it is active. But run_job() never read this field and always used 
+the default plain Playwright Chromium browser regardless. 
+
+Impact: The entire anti-bot system (Camoufox, Patchright, nodriver) was bypassed silently. Sites with 
+basic headless-browser detection would block every request. 
+
+Fix applied: antibot_preset_plan() now maps the preset to a browser_engine value that is passed to 
+FetchLayer. Optional engines (Camoufox, Patchright) fall back to Playwright if not installed. 
+
+Remaining gap: The antibot_orchestrator (AntiBotOrchestrator class) is still not wired into the main job 
+runner. It exists only in example files. 
+
+ 
+
+Bug 2  —  Dynamic Fetch Uses Plain Headless Chromium (No Stealth) 
+
+Severity CRITICAL 
+
+File backend/asagus/layers/browser.py  |  backend/asagus/layers/fetch.py 
+
+ 
+
+Root cause: ChromiumBrowserPool launches Playwright with headless=True and no fingerprint 
+patching. The pool's own state() reports challenge_bypass: False. Instagram, Facebook, and any 
+Cloudflare-protected site will detect and block it. 
+
+
+
+Fix needed: Install camoufox binary (pip install camoufox && python -m camoufox fetch) OR patchright 
+(pip install patchright && python -m patchright install chromium). Then set 
+BROWSER_AUTOMATION_ENGINE=camoufox in .env. 
+pip install camoufox 
+python -m camoufox fetch 
+# In .env: 
+BROWSER_AUTOMATION_ENGINE=camoufox 
+BROWSER_HEADLESS=true 
+
+ 
+
+Bug 3  —  AntiBotOrchestrator Exists But Is Not Connected 
+
+Severity CRITICAL 
+
+backend/asagus/layers/antibot_orchestrator.py  |  
+File 
+
+backend/examples/antibot_complete_example.py 
+
+ 
+
+Root cause: The 6-layer orchestrator is only called from the examples folder. The actual API job runner 
+(run_job in main.py) uses a separate, simpler code path. 
+
+The codebase has two parallel systems that never merge: the documented 6-layer anti-bot architecture 
+(research-grade), and the actual FastAPI job pipeline (demo-grade). 
+
+Fix plan: Introduce a FetchStrategy abstract interface. Implement plain, curl-cffi, camoufox, and 
+patchright strategies behind it. Have run_job() select the strategy based on antibot_preset. This is a 1-2 
+week engineering task. 
+
+ 
+
+Bug 4  —  CAPTCHA Solving Is Placeholder Code 
+
+Severity CRITICAL — docs claim 100% accuracy but code returns False 
+
+File backend/asagus/layers/captcha_solver.py 
+
+ 
+
+Root cause: solve_recaptcha_v2() and solve_hcaptcha() log 'placeholder' and return False. The code 
+imports YOLOv8 conditionally but never calls inference. The documentation claims 100% reCAPTCHA 
+accuracy and 95.9% hCaptcha accuracy — these numbers are fabricated. 
+
+Impact: Any CAPTCHA-protected page routes to manual_review and is skipped. Instagram login walls, 
+Google Maps CAPTCHAs, and Cloudflare challenges all fail silently. 
+
+Fix options: 
+
+• Use 2captcha or Anti-Captcha cloud service (paid, ~$1 per 1000 CAPTCHAs). Python package: 
+2captcha-python. 
+
+• Use camoufox or nodriver — these often avoid CAPTCHAs entirely by appearing as a real 
+browser (preferred approach). 
+
+• For Google Maps: use the Google Places API instead of scraping (free tier gives 28,000 
+requests/month). 
+
+ 
+
+Bug 5  —  Workers Are Infinite Sleep Placeholders 
+
+Severity HIGH 
+
+
+
+backend/asagus/workers/async_worker.py  |  
+Files 
+
+backend/asagus/workers/indexer_worker.py 
+
+ 
+
+Root cause: Both worker files contain only while True: await asyncio.sleep(60). They do nothing. There 
+is no Redis Streams connection, no job processing, and no real-time indexing. 
+
+Impact: The documented Redis Streams event-driven architecture does not exist at runtime. All work 
+happens in a single in-process loop inside run_job(). If the backend crashes mid-job, all in-flight work is 
+lost. 
+
+ 
+
+Bug 6  —  Layer 6 Native Patching Does Not Work 
+
+Severity HIGH 
+
+Files backend/asagus/layers/antibot_layer6_native.py  |  native/src/browser_patcher.c 
+
+ 
+
+Root cause: apply_native_patches() mostly logs and returns 'platform not supported' on Linux. The 
+C/C++ source files exist but are not compiled into the venv. Native browser memory-patching, hardware 
+keyboard/mouse control, and typo simulation are all TODO comments. 
+
+Impact: The native layer status can appear 'enabled' in /api/algorithm/state while doing nothing. Do not 
+rely on it. 
+
+ 
+
+Bug 7  —  require_email Did Not Enforce Email Requirement 
+
+Severity HIGH — now fixed 
+
+File backend/asagus/main.py 
+
+ 
+
+Root cause: When require_email=True and a record had no email, the pipeline emitted a log note but 
+still stored and counted the record. Fixed: records missing email are now skipped before 
+enrichment/storage. 
+
+ 
+
+Bug 8  —  Per-job Network Enable Could Not Override Global Default 
+
+Severity HIGH — now fixed 
+
+File backend/asagus/services/job_helpers.py 
+
+ 
+
+Root cause: effective_runtime_flags() only enabled network/search if the global setting was already 
+True. Per-job overrides were silently ignored. 
+
+Fix applied: enable_network_fetch and enable_search_discovery can now override backend defaults 
+when explicitly set in the job request payload. 
+
+ 
+
+Bug 9  —  test_audit.py Kills pytest 
+
+Severity MEDIUM — prevents all automated testing 
+
+
+
+File backend/test_audit.py 
+
+ 
+
+Root cause: test_audit.py calls asyncio.run(main()) and sys.exit(1) at import time. pytest imports all test 
+files during collection — this causes an INTERNALERROR and zero tests run. 
+
+Fix: Wrap the execution in a __name__ == '__main__' guard: 
+# At the bottom of test_audit.py: 
+if __name__ == '__main__': 
+    asyncio.run(main()) 
+
+ 
+
+Bug 10  —  'comprehensive' Mode Bug — Plans Wrong Page Count 
+
+Severity MEDIUM — causes audit test to fail 
+
+File backend/asagus/services/job_helpers.py  —  planned_page_count() 
+
+ 
+
+Root cause: planned_page_count() has no multiplier defined for mode='comprehensive'. It falls through 
+to the default multiplier of 6. The audit test expects at least 1500 planned pages for limit=50 in 
+comprehensive mode (30x). This causes FAIL mode=comprehensive. 
+
+Fix: Add 'comprehensive' to the multiplier table in job_helpers.py: 
+# In backend/asagus/services/job_helpers.py 
+MODE_MULTIPLIER = { 
+    "fast": 2, 
+    "balanced": 6, 
+    "comprehensive": 30,  # <-- ADD THIS LINE 
+    "research": 50, 
+    "max": 100, 
+} 
+
+ 
+
+Bug 11  —  LLM Settings POST Returns 400 Bad Request 
+
+Severity MEDIUM — visible in server logs repeatedly 
+
+Log POST /api/llm/settings HTTP/1.1" 400 Bad Request (appears 5+ times in run.txt) 
+
+ 
+
+Root cause (from logs): The frontend is sending LLM settings in a format that fails Pydantic validation. 
+Likely the provider field does not match the LLMProvider enum values, or api_key is sent as null 
+instead of empty string. 
+
+Fix: Open /api/docs (Swagger UI) and check what payload structure /api/llm/settings expects. The 
+provider value must be one of: 'disabled', 'openai', 'anthropic', 'google', 'mistral', 'groq', 'together', 
+'openrouter', 'nvidia', 'deepinfra', 'cerebras', 'fireworks', 'huggingface', 'perplexity'. 
+
+ 
+ 
+
+2.  THE REAL PROBLEM: INSTAGRAM & FACEBOOK 
+SCRAPING 
+
+
+
+ 
+
+This is the core of your business goal: finding businesses on Instagram/Facebook that have no 
+website so you can offer them web development and marketing services. Here is the honest 
+situation and the best-researched solutions. 
+
+ 
+
+2.1  Why Direct Scraping Fails 
+ 
+
+Platform Anti-Scraping Measures 
+
+Requires login for most content. Fingerprints every browser. Cloudflare 
+Instagram protection. Rate limits by IP within minutes. GraphQL API requires auth 
+
+token. 
+
+JavaScript-heavy. Login wall for business pages. Profile data hidden 
+Facebook behind auth. Aggressive bot detection (FingerprintJS Pro). CDP 
+
+signatures detected. 
+
+Best option for local businesses. Free API tier: 28,000 
+Google Maps requests/month. Returns phone, website, address, category. No 
+
+auth required for public data. 
+
+Site: searches work (site:instagram.com business lahore). Rate limits 
+DuckDuckGo 
+
+after ~50 rapid requests. Needs delays and rotating user-agents. 
+
+ 
+
+2.2  Best Strategy for Your Use Case (Researched Solutions) 
+ 
+
+BEST Use Google Maps API for local business discovery, then check if they have a 
+APPROACH website. This is legal, fast, reliable, and free for your scale. 
+
+ 
+
+Strategy 1: Google Maps Places API (Recommended) 
+
+This is the most effective way to find local businesses without websites. Google Maps has nearly all 
+local businesses in Pakistan including small shops on Instagram only. 
+
+• Sign up at console.cloud.google.com and enable 'Places API'. 
+• Free tier: $200 credit per month = ~28,000 Nearby Search calls. 
+• Search by category + location, get name, phone, address, website (blank = no website!). 
+• Set GOOGLE_GEOCODING_API_KEY in .env with your Google Maps API key. 
+
+ 
+
+Example API call that finds businesses with no website: 
+import googlemaps 
+gmaps = googlemaps.Client(key='YOUR_API_KEY') 
+results = gmaps.places_nearby( 
+    location=(33.6844, 73.0479),  # Rawalpindi coords 
+    radius=5000, 
+    type='restaurant' 
+) 
+no_website = [r for r in results['results'] if not r.get('website')] 
+
+ 
+
+
+
+Strategy 2: Instagram via DDGS site: Search + Profile Fetch 
+
+DuckDuckGo's site:instagram.com searches return public profiles. This avoids Instagram login 
+detection: 
+# In discovery.py _query_variants(), these already exist: 
+f"{base} site:instagram.com" 
+f"{base} site:facebook.com" 
+
+The problem: extracting contact info from the returned Instagram pages requires either a logged-in 
+browser session OR the Instagram Basic Display API. 
+
+ 
+
+Strategy 3: instagrapi (Best for Instagram Bio Scraping) 
+
+instagrapi is a Python library that uses the official Instagram private API. It logs in as a real user 
+account and can extract business email from bio, phone number, category, follower count. 
+pip install instagrapi 
+from instagrapi import Client 
+cl = Client() 
+cl.login("your_account", "your_password") 
+user = cl.user_info_by_username("some_business") 
+# user.public_email, user.contact_phone_number, user.external_url 
+
+ 
+
+Use a dedicated Instagram account (not your personal one) for scraping. Rotate 
+NOTE between multiple accounts. Use delays (3-5 seconds between requests). Instagram 
+
+bans accounts that scrape too fast. 
+
+ 
+
+Strategy 4: Facebook via facebook-scraper 
+pip install facebook-scraper 
+from facebook_scraper import get_posts, get_profile 
+profile = get_profile("page_name", cookies="cookies.json") 
+
+Requires Facebook cookies from a logged-in browser session. Export cookies using the 'Cookie-Editor' 
+browser extension and save as cookies.json. 
+
+ 
+
+Strategy 5: Apify (No-Code Cloud Scraping) 
+
+If you cannot maintain scrapers, Apify.com has ready-made Instagram Profile Scraper and Facebook 
+Business Pages Scraper. Free tier: 5 USD/month of usage. Very reliable for business data extraction. 
+
+• Instagram Profile Scraper: finds email, phone, bio, follower count from public profiles. 
+• Facebook Page Scraper: extracts page name, about, phone, email, website from public pages. 
+• Results can be exported as CSV and imported into your outreach pipeline. 
+
+ 
+ 
+
+3.  DDGS (DUCKDUCKGO SEARCH) RATE LIMITING — 
+FIXES 
+
+ 
+
+
+
+Your discovery layer uses DDGS (ddgs package). It gets rate-limited quickly, especially from residential 
+IPs in Pakistan that are frequently blocked by DuckDuckGo's anti-bot systems. 
+
+ 
+
+FROM Issues on GitHub (crewAI #136, langchain-ai/opengpts #247, open-webui #6624) 
+GITHUB confirm DDGS rate limiting is a widespread problem. The consensus fix is: 
+
+RESEARCH randomized delays + rotating backends + exception handling. 
+
+ 
+
+Fix 1: Add Delays and Retries to discovery.py 
+In backend/asagus/layers/discovery.py, the _ddgs_search() method runs queries back-to-back with no 
+delay. Add: 
+import random, time 
+
+ 
+for query_index, query in enumerate(variants): 
+    if query_index > 0: 
+        time.sleep(random.uniform(2.0, 5.0))  # <-- ADD THIS 
+    try: 
+        rows = list(DDGS(timeout=15).text(query, max_results=per_query)) 
+    except Exception: 
+        continue 
+
+ 
+
+Fix 2: Use the 'lite' Backend 
+DDGS supports a 'lite' backend (HTML-only, no JavaScript API) that has lower rate limits: 
+rows = list(DDGS(timeout=15).text(query, max_results=per_query, backend='lite')) 
+
+ 
+
+Fix 3: Catch RatelimitException Specifically 
+from ddgs.exceptions import RatelimitException 
+try: 
+    rows = list(DDGS(timeout=15).text(query, ...)) 
+except RatelimitException: 
+    time.sleep(30)  # back off for 30 seconds 
+    continue 
+except Exception: 
+    continue 
+
+ 
+
+Fix 4: Use a Proxy for Search Requests 
+DDGS supports HTTP/SOCKS proxies. Use a cheap residential or datacenter proxy: 
+rows = list(DDGS(proxies='socks5://user:pass@host:port', timeout=15).text(query, ...)) 
+
+Free proxy sources: proxyscrape.com, free-proxy-list.net (quality is low but workable for search). 
+
+ 
+
+Fix 5: Fall Back to SerpApi or Serper.dev 
+
+
+
+Both SerpApi.com and Serper.dev offer Google Search APIs with generous free tiers (100 
+searches/month free on Serper). Replace DDGS with these for higher reliability: 
+import requests 
+response = requests.post('https://google.serper.dev/search', 
+    headers={'X-API-KEY': 'YOUR_KEY'}, 
+    json={'q': 'restaurants Rawalpindi site:instagram.com', 'gl': 'pk'} 
+) 
+results = response.json()['organic'] 
+
+ 
+ 
+
+4.  ARCHITECTURE GAPS (vs Blueprint) 
+
+ 
+
+Feature Status Notes 
+
+Redis Streams layer Workers sleep forever. All work is in-process. No 
+Missing 
+
+architecture restart recovery. 
+
+Camoufox / Patchright in Preset mapping added. But binary install is 
+Partial 
+
+active jobs manual. Falls back to Playwright. 
+
+CAPTCHA solving Placeholder Returns False. No real solver implemented. 
+
+Local JSON is primary. Postgres mirror is best-
+PostgreSQL as primary store Optional 
+
+effort. 
+
+EnrichmentLayer has no geocoding. lat/lng fields 
+Geocoding (lat/lng) Missing 
+
+are never populated. 
+
+Real embeddings 
+Local only Hash vectors only. No real semantic search. 
+
+(Qdrant/OpenSearch) 
+
+Scrapling self-healing No real DOM selector repair. Selector memory 
+Hash boost only 
+
+selectors lost on restart. 
+
+Layer 6 native browser Linux patching returns failure. 
+Not working 
+
+patching apply_native_patches() only logs. 
+
+GLiNER / spaCy NER Regex rules used in active path. Model adapters 
+Adapter-ready 
+
+enrichment available but not called. 
+
+Benchmark validation (96% No labeled test dataset exists. Accuracy claims 
+Not proven 
+
+accuracy) are unverified. 
+
+ 
+ 
+
+5.  DNS RESOLUTION ERRORS IN LOGS 
+
+ 
+
+From your run.txt logs, there are multiple occurrences of: 
+Future exception was never retrieved 
+socket.gaierror: [Errno -2] Name or service not known 
+
+ 
+
+This means DNS lookups are failing — the backend cannot resolve hostnames. Possible causes: 
+
+
+
+• Running inside a container or restricted network without DNS configuration. 
+• Some background task (health check, Redis/Postgres check) is trying to reach a host that does 
+
+not exist in the local .env. 
+• The machine's DNS resolver is slow or blocked for certain domains. 
+
+ 
+
+Fix: 
+
+1. Check your machine's DNS: nslookup google.com in terminal. If this fails, fix your network first. 
+2. In .env, remove or comment out the Redis/Postgres/Neo4j URLs if you are not running those 
+
+services. Their health checks will fail without them. 
+3. Add ENABLE_INFRA_PERSISTENCE=false to .env to disable all infra health checks. 
+
+ENABLE_INFRA_PERSISTENCE=false 
+# Comment these out if you don't have the services running: 
+# POSTGRES_URL=... 
+# REDIS_URL=... 
+
+ 
+ 
+
+6.  PRIORITISED FIX ROADMAP 
+
+ 
+
+TODAY (30 
+Enable Real Mode 
+
+min) 
+
+Add ENABLE_NETWORK_FETCH=true and ENABLE_SEARCH_DISCOVERY=true 
+Step 1 
+
+to asagus-scraper-v3/.env 
+
+Add ENABLE_INFRA_PERSISTENCE=false to .env to stop DNS errors from 
+Step 2 
+
+Redis/Postgres 
+
+Restart backend: cd backend && .venv/bin/python -m uvicorn asagus.main:app --
+Step 3 
+
+host 127.0.0.1 --port 8000 
+
+Step 4 Run a small test job: limit=5, mode=balanced. Check /api/jobs/{id} for real events. 
+
+ 
+
+DAY 1-2 Fix Critical Code Bugs 
+
+Bug 10 Add 'comprehensive' multiplier to planned_page_count() in job_helpers.py 
+
+Bug 9 Wrap test_audit.py with if __name__ == '__main__': guard 
+
+DDGS Add time.sleep(random.uniform(2,5)) between DDGS queries in discovery.py 
+
+ 
+
+WEEK 1 Anti-Bot Browser Integration 
+
+Browser Install camoufox binary: pip install camoufox && python -m camoufox fetch 
+
+.env Set BROWSER_AUTOMATION_ENGINE=camoufox in .env 
+
+Instagram Install instagrapi. Create a dedicated scraper Instagram account. Test bio extraction. 
+
+Maps Get Google Maps API key. Add GOOGLE_GEOCODING_API_KEY to .env. 
+
+ 
+
+WEEK 2-3 Production-Grade Outreach Pipeline 
+
+
+
+Storage Export leads to CSV using /api/records/export/csv — this already works. 
+
+Dedup Review dedup logic — single shared email domain merges unrelated businesses. 
+
+CAPTCHA Sign up for 2captcha.com or use camoufox to avoid CAPTCHAs entirely. 
+
+Fix test_audit.py guard. Run pytest tests/test_research_runtime_controls.py — these 
+Tests 
+
+should pass. 
+
+ 
+ 
+
+7.  WORKING .env CONFIGURATION (Copy This) 
+
+ 
+
+Create or replace asagus-scraper-v3/.env with this minimal working configuration: 
+
+ 
+# ── CORE (REQUIRED) ───────────────────────────────────────────────────── 
+ENVIRONMENT=local 
+FRONTEND_ORIGIN=http://localhost:3000 
+
+ 
+# ── ENABLE REAL SCRAPING ── THE MOST IMPORTANT SETTINGS ───────────────── 
+ENABLE_NETWORK_FETCH=true 
+ENABLE_SEARCH_DISCOVERY=true 
+
+ 
+# ── DISABLE INFRA (so DNS errors stop) ─────────────────────────────────── 
+ENABLE_INFRA_PERSISTENCE=false 
+
+ 
+# ── BROWSER ENGINE ─────────────────────────────────────────────────────── 
+# Options: playwright, camoufox, patchright, nodriver, auto 
+# Start with playwright, switch to camoufox after installing it 
+BROWSER_AUTOMATION_ENGINE=playwright 
+BROWSER_HEADLESS=true 
+BROWSER_POOL_SIZE=2 
+
+ 
+# ── RATE LIMITS (conservative for a single machine) ────────────────────── 
+CRAWL_CONCURRENCY_LIMIT=5 
+DOMAIN_TOKEN_REFILL_PER_SECOND=0.1 
+DEFAULT_UNKNOWN_DOMAIN_DELAY_SECONDS=5.0 
+
+ 
+# ── LLM (optional, leave disabled if you have no API key) ──────────────── 
+LLM_PROVIDER=disabled 
+ 
+# ── GOOGLE MAPS API (optional but recommended for local business search) ─ 
+# GOOGLE_GEOCODING_API_KEY=your_key_here 
+
+ 
+# ── PROXIES (optional, add when you get blocked) ───────────────────────── 
+# RESIDENTIAL_PROXY_URL=http://user:pass@host:port 
+
+ 
+ 
+
+
+
+8.  HOW TO TEST IF THE SCRAPER IS ACTUALLY 
+WORKING 
+
+ 
+
+After enabling real mode, run a small test job and verify these 5 things: 
+
+ 
+
+# What to Check Expected Result 
+
+Job events contain GET /api/jobs/{id} → events should have 'discovery_results' with real 
+1 
+
+frontier_seeded URLs (not example.com) 
+
+Fetch events show real Events with event_type='fetch_complete' should show status_code: 
+2 
+
+status codes 200 (not 'offline_preview_only') 
+
+No 
+If you still see error: 'offline_preview_only', 
+
+3 'offline_preview_only' 
+ENABLE_NETWORK_FETCH is still False — restart backend. 
+
+error 
+
+GET /api/records → records should have real business names, phone 
+4 Records have real data 
+
+numbers, or emails extracted. 
+
+GET /api/health → should show status: ok. Ignore 
+Health shows services 
+
+5 Redis/Postgres/Neo4j errors if 
+ok 
+
+ENABLE_INFRA_PERSISTENCE=false. 
+
+ 
+ 
+
+9.  HONEST CAPABILITY ASSESSMENT 
+
+ 
+
+Based on deep code review, here is what the scraper can realistically do right now vs. what the 
+documentation claims: 
+
+ 
+
+Capability Claimed Reality 
+
+Static website scraping Moderate. Works on simple sites. Falls back 
+96% accuracy 
+
+(phone/email) to heuristics/manual review for complex ones. 
+
+Google Maps / local business Works but unreliable without proxy — Google 
+Supported 
+
+data blocks scrapers. Use the Places API instead. 
+
+Fails without login. Plain Chromium gets 
+Instagram profile scraping Supported 
+
+blocked. Use instagrapi library. 
+
+Fails without cookies. Very aggressive bot 
+Facebook page scraping Supported 
+
+detection. Use facebook-scraper with cookies. 
+
+Not implemented. Returns False. Need 
+CAPTCHA bypass 100% accuracy 2captcha.com integration or camoufox to 
+
+avoid CAPTCHAs. 
+
+Layers 1-5 exist as modules. Layer 6 native is 
+6-layer anti-bot evasion Complete broken. Only Layer 2 (camoufox) is usable 
+
+when installed. 
+
+
+
+Workers sleep forever. All work is single-
+Redis Streams / distributed Production-
+
+process. No distributed architecture at 
+workers grade 
+
+runtime. 
+
+Works: GET /api/records/export/csv returns a 
+CSV export of collected leads Available downloadable CSV file with all scraped 
+
+contacts. 
+
+Per-job controls (limit, mode, Works: start jobs with custom limits, modes, 
+Available 
+
+filters) and filters through the UI or API. 
+
+ 
+ 
+
+10.  RECOMMENDED APPROACH FOR YOUR STARTUP 
+GOAL 
+
+ 
+
+Your goal: Find businesses on Instagram/Facebook with no website, email them, offer web 
+development and marketing services. 
+
+ 
+
+Recommended 3-step process that works right now without months of engineering: 
+
+ 
+
+Step Action Details 
+
+Get a free Google Maps API key. Search for local businesses by 
+1 Google Maps API category in your target city. Any result with no 'website' field is a lead. 
+
+Extract name, phone, address. 
+
+Use instagrapi with a dedicated account to verify they have an 
+2 Instagram bio check Instagram but no website. Extract public_email, 
+
+contact_phone_number from their business profile. 
+
+Use ASAGUS's existing /api/records/export/csv to download all leads. 
+3 Export & outreach 
+
+Upload to Gmail + Hunter.io or Apollo.io for email sequences. 
+
+ 
+
+For best results on Instagram, run your scraper during off-peak hours (2am-6am 
+IMPORTANT Pakistan time). Use delays of 3-7 seconds between profile requests. Never 
+
+NOTE scrape more than 200 profiles per account per day. Rotate between 3-5 
+dedicated Instagram accounts. 
+
+ 
+ 
+
+Summary: Top 5 Actions to Take Right Now 
+
+ 
+
+Add ENABLE_NETWORK_FETCH=true and ENABLE_SEARCH_DISCOVERY=true to .env 
+1 
+
+and restart backend. This alone fixes the 7-hour zero-progress bug. 
+
+Add ENABLE_INFRA_PERSISTENCE=false to .env to stop the DNS errors from Redis/Postgres 
+2 
+
+health checks. 
+
+
+
+Install camoufox (pip install camoufox && python -m camoufox fetch) and set 
+3 
+
+BROWSER_AUTOMATION_ENGINE=camoufox in .env for better anti-bot evasion. 
+
+Get a Google Maps API key (free tier). Use it to find local businesses without websites — much 
+4 
+
+more reliable than scraping Instagram directly. 
+
+Use instagrapi library for Instagram profile data extraction. Set up a dedicated Instagram account 
+5 
+
+for scraping. Much more reliable than plain browser scraping. 
+
+ 
+ 
+
+ASAGUS Scraper v3  |  Bug Report & Fix Guide  |  June 2026

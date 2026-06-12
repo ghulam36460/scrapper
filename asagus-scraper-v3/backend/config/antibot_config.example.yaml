@@ -1,0 +1,128 @@
+# ASAGUS Scraper v3 - AntiBot Configuration
+# ==========================================
+# Complete multi-layer evasion configuration based on antibot.md research
+
+# Global default configuration
+global:
+  # Layer 1: Framework selection priority
+  # Options: speed, stealth, compatibility
+  framework_priority: stealth
+  
+  # Layer 2: Stealth approach
+  # Options: javascript_shim, patchright, camoufox, cloak_browser, binary_patch
+  # ★★★ camoufox: 0% headless detection (Firefox C++ fork)
+  # ★★ patchright: 67% CreepJS stealth (Playwright patches)
+  # ★ javascript_shim: Basic JS-level patches
+  stealth_approach: patchright
+  
+  # Layer 3: TLS fingerprint to impersonate
+  # Options: chrome_124_windows, chrome_124_macos, chrome_124_linux,
+  #          firefox_125_windows, firefox_125_macos, edge_124_windows, safari_17_macos
+  tls_fingerprint: chrome_124_windows
+  
+  # Layer 4: Device profile (must match TLS fingerprint for consistency)
+  # Options: windows_chrome, macos_chrome, linux_firefox
+  device_profile: windows_chrome
+  
+  # Layer 5: Behavioral biometrics simulation
+  # Enable sigma log-normal mouse movement, realistic typing, natural scrolling
+  enable_behavioral: true
+  
+  # CAPTCHA solving
+  # Enable detection and solving of reCAPTCHA v2, hCaptcha, Cloudflare Turnstile
+  enable_captcha_solving: true
+
+# Proxy pool configuration
+proxies:
+  # List of residential proxy URLs
+  # Format: protocol://username:password@host:port
+  pool:
+    # - "http://user:pass@proxy1.example.com:8080"
+    # - "http://user:pass@proxy2.example.com:8080"
+    # - "${PROXY_1}"  # Environment variable substitution
+    # - "${PROXY_2}"
+  
+  # Rotate proxy after N requests (prevents IP clustering detection)
+  rotation_interval: 500
+  
+  # Response time threshold (seconds) - deactivate slow proxies
+  response_time_threshold: 3.0
+  
+  # Deactivate proxy after N consecutive failures
+  max_consecutive_failures: 3
+  
+  # Verify proxy IP geolocation matches device timezone
+  verify_geolocation: true
+
+# Adaptive mode configuration
+adaptive:
+  # Detection thresholds for adaptive strategy switching
+  # Light touch: Rotate proxy after N detections
+  threshold_light: 3
+  
+  # Medium touch: Rotate device profile after N detections
+  threshold_medium: 5
+  
+  # Heavy touch: Change stealth approach after N detections
+  threshold_heavy: 7
+  
+  # Exponential backoff settings
+  initial_backoff_seconds: 1.0
+  max_backoff_seconds: 60.0
+  
+  # Reset detection counter after N successful requests
+  success_reset_threshold: 100
+
+# Domain-specific overrides
+# Override global config for specific domains
+domains:
+  # Example: Use maximum stealth for high-security target
+  example-highsec.com:
+    framework_priority: stealth
+    stealth_approach: camoufox
+    tls_fingerprint: chrome_124_windows
+    device_profile: windows_chrome
+    enable_behavioral: true
+  
+  # Example: Use speed priority for API scraping
+  api.example.com:
+    framework_priority: speed
+    stealth_approach: javascript_shim
+    tls_fingerprint: chrome_124_windows
+    device_profile: windows_chrome
+    enable_behavioral: false
+
+# Detection system coverage
+# Automatically handles:
+# - Cloudflare Bot Management / Turnstile
+# - DataDome ML behavioral analysis
+# - Akamai Bot Manager (JA4+ TLS)
+# - PerimeterX / HUMAN Security
+# - Imperva Advanced Bot Protection
+# - Distil Networks
+# - Shape Security
+
+# Cross-layer consistency verification
+# System automatically verifies:
+# ✓ User-Agent matches TLS fingerprint (Layer 3)
+# ✓ Device properties are internally coherent (Layer 4)
+# ✓ GPU vendor matches declared platform (Layer 4)
+# ✓ Screen resolution is realistic (<7680x4320)
+# ✓ Hardware specs are achievable
+# ✓ IP geolocation matches timezone (Layer 3 + Layer 4)
+
+# Performance monitoring
+# Tracks:
+# - CPU/memory usage per browser instance
+# - Request latency (DNS, TCP, TLS, HTTP)
+# - Requests per second throughput
+# - Detection rate per domain
+# - CAPTCHA solve time and success rate
+
+# Power rankings (2026 benchmark from antibot.md)
+# ★★★ Camoufox - 0% headless detection
+# ★★★ nodriver - 0% protocol blocking
+# ★★★ CloakBrowser - Very low detection (Chromium C++)
+# ★★ Patchright - 67% CreepJS stealth
+# ★★ curl-cffi - Built-in TLS impersonation
+# ★ puppeteer-extra-stealth - Largely obsolete vs modern detection

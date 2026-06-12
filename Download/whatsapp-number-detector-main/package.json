@@ -1,0 +1,23 @@
+{
+  "name": "whatsapp-automation-local",
+  "version": "1.0.0",
+  "description": "Local web-based CSV lead processor with WhatsApp link generation and optional WhatsApp Cloud API messaging",
+  "main": "server/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.8.2",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "fast-csv": "^5.0.1",
+    "multer": "^1.4.5-lts.1",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

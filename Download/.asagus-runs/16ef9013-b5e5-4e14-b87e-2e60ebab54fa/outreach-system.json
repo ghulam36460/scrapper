@@ -1,0 +1,17 @@
+{
+  "tool_id": "outreach-system",
+  "mode": "max",
+  "job_id": "16ef9013-b5e5-4e14-b87e-2e60ebab54fa",
+  "query": "restaurants",
+  "location": "Qatar",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/outreach-system-main",
+  "started_at": 1780555981.7953658,
+  "dry_run": true,
+  "status": "completed",
+  "lead_score": 20,
+  "segment": "low",
+  "finished_at": 1780555981.8120997,
+  "elapsed_seconds": 0.017,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/16ef9013-b5e5-4e14-b87e-2e60ebab54fa/outreach-system.json"
+}

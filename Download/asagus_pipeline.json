@@ -1,0 +1,24 @@
+{
+  "name": "ASAGUS Download Tool Pipeline",
+  "version": 1,
+  "backend_root": "../asagus-scraper-v3/backend",
+  "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "asagus_tool_launcher.py",
+  "runs_root": ".asagus-runs",
+  "pipeline_contract": {
+    "input_env": [
+      "ASAGUS_JOB_ID",
+      "ASAGUS_QUERY",
+      "ASAGUS_LOCATION",
+      "ASAGUS_LIMIT",
+      "ASAGUS_MODE",
+      "ASAGUS_WEBSITE_FILTER",
+      "ASAGUS_TOOL_ID"
+    ],
+    "output_files": [
+      ".asagus-runs/<job-id>/<tool-id>.json",
+      ".asagus-runs/<job-id>/<tool-id>.csv"
+    ],
+    "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+  }
+}

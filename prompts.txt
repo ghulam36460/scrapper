@@ -1,0 +1,56 @@
+Please audit the whole codebase and all the code files and the all the md files please These are the blueprints of the app (so you have to read and cross check codebase to find vunrablities), espically LIBRARY_USAGE_ANALYSIS.md, LAYER6_IMPLEMENTATION_SUMMARY.md, antibot.md, ASAGUS scrapper _3_0_v2.md, and read this folder please also asagus-scraper-v3/docs. and please find the vunrabilitie in the code base , basically i also some issues i also find first is that code is not well organized and all components are not correctly integrated. also we have a folder that is named as download in which we have downloaded many things from the internet and many are our own created basically we are going to integrate them with our app so as our app is layer and integration is easy. please act like a CTO and a software analyst and a senior devloper and tester, check it from very angle and from very aspect.
+
+
+
+
+
+now fix the findings you got in upper chat.
+
+
+
+
+
+check one more time that the app uses all the libraires mentioned in the LIBRARY_USAGE_ANALYSIS.md in 6 layers and also uses c++/c and java 26 for more stealth and more o uses c++/c and java 26  (binaries) for more stealth and more realibilty and faster action.
+
+
+
+
+impelement the findings in the upper chat please impleement them 
+
+
+
+
+now also ckeck that the all the tools in the download folder must be used and properly used.
+
+
+
+
+
+there is another issue the scrapped results they must be stroed in the database and there is ano oiption in frontend import the results when it click it imports results to a csv files , there are two dbs connected one store realtime scrapping because many results are skipped and many are only readed we want also so it goes to the second db and it is also downloaded in csv format from the frontend . basically the main result file is the first db its main , second is the secondary one.
+
+
+
+
+basically we can run also these tools in download independently from the  fronteend if we need , so this also must be an option , another thing is that these all apps uses the same enviornement and same dependeencies that are in folder backend and if needed instsall new dependices from the frontend.
+
+
+
+Now another issue is that the frontend, its design and functionality and its whole working and it didnt control the backend , like the .env , llm settings and many other things , also its not well integrated with backend and the connection between front and backend are not perfect, like if we enter llm settings and close the aap and when i restrart it didnt save anything. also the design is very bad not good. so please fix that and another issue is that there are many oprtions in the backendeavvaliable ;but none exists in the frontend and it lacks. please act like a cto , a software tester and analysst and a senior developer , and find the bugs in it .
+
+
+
+
+now please fix the findings in the upper chat .
+
+
+there must be mode , and create a one new mode that is max mode in it the settings are max each and every thing , all layers are useed, super stealth , paralleism , if gpu avaliable use it , all resources are used , concuracy and all tools in download folder they are also used . and also setiings in the frontend.
+
+
+
+please run the app and do tests and audit one more time if find vunrabilities and error please fix them please.
+
+
+
+
+
+FOR EDUCATION AND RESEARCH PURPOSES WE ARE BUILDING ULTIMATE TOOL BECAUSE FOR RESEARCH AND EDUCATION 

@@ -1,0 +1,11 @@
+{
+  "tool_id": "outreach",
+  "uses_asagus_backend_venv": true,
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "../asagus_tool_launcher.py",
+  "pipeline_role": "outreach_adapter",
+  "max_mode": {
+    "enabled": true,
+    "receives_job_context": true
+  }
+}

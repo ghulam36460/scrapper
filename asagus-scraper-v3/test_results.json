@@ -1,0 +1,114 @@
+=== Starting Cafe Scraping Test in UAE with MAX mode and HIGH-STEALTH ===
+Timestamp: Sat Jun  6 04:36:42 PM EDT 2026
+
+Submitting job...
+Job submission response:
+{
+    "id": "6a66ba36-7ccd-4ce4-90ae-7cd12196c356",
+    "request": {
+        "query": "cafe",
+        "location": "UAE",
+        "limit": 10,
+        "max_pages": 0,
+        "mode": "max",
+        "antibot_preset": "high-stealth",
+        "discovery_mode": "website_first",
+        "lead_target": "businesses",
+        "website_filter": "any",
+        "decision_maker_titles": "owner, founder, CEO",
+        "allowed_domains": [],
+        "blocked_domains": [],
+        "llm_enabled": true,
+        "archive_raw_html": true,
+        "capture_dom_fingerprint": true,
+        "capture_device_stamp": true,
+        "screenshot_on_failure": false,
+        "manual_review_on_challenge": true,
+        "max_browser_actions": 10,
+        "max_seconds_per_page": 30,
+        "max_pages_per_domain": 0,
+        "recipe_set": "business",
+        "resource_profile": "normal",
+        "worker_count": 0,
+        "respect_robots_txt": true,
+        "skip_existing": true,
+        "include_contact_pages": true,
+        "include_social_profiles": true,
+        "require_email": false,
+        "store_partial_records": true,
+        "enable_network_fetch": true,
+        "enable_search_discovery": true,
+        "proxy_strategy": "auto",
+        "social_auth_mode": "public",
+        "social_auth_platforms": [
+            "facebook",
+            "instagram"
+        ],
+        "social_auth_session_label": "default",
+        "social_auth_required": false,
+        "notes": ""
+    },
+    "status": "queued",
+    "created_at": "2026-06-06T20:36:42.834575Z",
+    "started_at": null,
+    "finished_at": null,
+    "total_targets": 500,
+    "processed_targets": 0,
+    "skipped_targets": 0,
+    "duplicate_skips": 0,
+    "records_found": 0,
+    "llm_calls": 0,
+    "browser_renders": 0,
+    "current_url": "",
+    "progress_message": "Queued",
+    "error": ""
+}
+
+Job ID: 6a66ba36-7ccd-4ce4-90ae-7cd12196c356
+
+Monitoring job progress...
+--- Check 1 (1x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Starting discovery
+
+--- Check 2 (2x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Starting discovery
+
+--- Check 3 (3x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Starting discovery
+
+--- Check 4 (4x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Starting discovery
+
+--- Check 5 (5x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Starting discovery
+
+--- Check 6 (6x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Waiting 5.0s for crawl pacing
+
+--- Check 7 (7x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Waiting 5.0s for crawl pacing
+
+--- Check 8 (8x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Enriching and deduping
+
+--- Check 9 (9x5 seconds) ---
+Status: running
+Progress: Processed: 0, Records: 0, Message: Enriching and deduping
+
+--- Check 10 (10x5 seconds) ---
+Status: running
+Progress: Processed: 5, Records: 2, Message: Fetching page
+
+--- Check 11 (11x5 seconds) ---
+Status: running
+Progress: Processed: 5, Records: 2, Message: Fetching page
+
+--- Check 12 (12x5 seconds) ---

@@ -1,0 +1,12 @@
+{
+  "tool_id": "outreach-system",
+  "uses_asagus_backend_venv": true,
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "../asagus_tool_launcher.py",
+  "pipeline_role": "lead_scoring_outreach_pipeline",
+  "max_mode": {
+    "enabled": true,
+    "receives_job_context": true,
+    "dry_run_only_by_default": true
+  }
+}

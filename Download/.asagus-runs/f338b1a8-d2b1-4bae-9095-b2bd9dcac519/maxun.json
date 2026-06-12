@@ -1,0 +1,100 @@
+{
+  "tool_id": "maxun",
+  "mode": "max",
+  "job_id": "f338b1a8-d2b1-4bae-9095-b2bd9dcac519",
+  "query": "restaurant",
+  "location": "Dubai, UAE",
+  "limit": 15,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/maxun-develop",
+  "started_at": 1781197839.164595,
+  "dry_run": true,
+  "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/f338b1a8-d2b1-4bae-9095-b2bd9dcac519",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {
+    "job_id": "f338b1a8-d2b1-4bae-9095-b2bd9dcac519",
+    "mode": "max",
+    "query": "restaurant",
+    "location": "Dubai, UAE",
+    "limit": 15,
+    "website_filter": "any",
+    "network_enabled": true,
+    "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "download_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download",
+    "pipeline_config": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/asagus_pipeline.json",
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "selected_tools": [
+      "agent-reach",
+      "scrapegraph-ai",
+      "scrapling",
+      "firecrawl",
+      "maxun",
+      "outreach",
+      "outreach-system",
+      "outreach-scraper",
+      "maps-scraper",
+      "scrapy",
+      "whatsapp-detector"
+    ],
+    "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass.",
+    "created_at": 1781197838.71028
+  },
+  "tool_config": {
+    "tool_id": "maxun",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "pipeline_role": "visual_scraper_adapter",
+    "node_project": true,
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "maxun",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "status": "prepared",
+  "message": "ASAGUS context received by Download tool wrapper.",
+  "finished_at": 1781197839.1649375,
+  "elapsed_seconds": 0.0,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/f338b1a8-d2b1-4bae-9095-b2bd9dcac519/maxun.json"
+}

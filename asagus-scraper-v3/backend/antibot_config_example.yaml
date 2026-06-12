@@ -1,0 +1,77 @@
+# ASAGUS Antibot Configuration - Full 6-Layer Stack
+# ==================================================
+# This configuration enables ALL 6 layers of anti-detection including
+# the new native C/C++ binary layer for maximum stealth.
+
+# Global Configuration (applies to all domains)
+global:
+  # Layer 1: Framework Selection
+  framework_priority: stealth  # Options: speed, stealth, compatibility
+  
+  # Layer 2: Stealth Patching
+  stealth_approach: camoufox  # Options: javascript_shim, patchright, camoufox, cloak_browser
+  
+  # Layer 3: TLS Fingerprinting
+  tls_fingerprint: chrome_124_windows  # Options: chrome_124_windows, firefox_125_windows, etc.
+  
+  # Layer 4: Browser Fingerprinting
+  device_profile: windows_chrome  # Options: windows_chrome, macos_chrome, linux_firefox
+  
+  # Layer 5: Behavioral Biometrics
+  enable_behavioral: true  # Human-like mouse/keyboard behavior
+  
+  # Layer 6: Native C/C++ Binaries (NEW!)
+  enable_native_layer: true  # Enable OS-level anti-detection
+  native_backend: cpp_pybind11  # Options: python_ctypes, cython, cpp_pybind11, rust_ffi
+  
+  # Additional Features
+  enable_captcha_solving: true
+
+# Domain-Specific Overrides
+# Override settings for specific domains
+domains:
+  # Example: Use faster settings for less protected site
+  example.com:
+    framework_priority: speed
+    stealth_approach: javascript_shim
+    enable_native_layer: false
+  
+  # Example: Maximum stealth for heavily protected site
+  heavily-protected-site.com:
+    framework_priority: stealth
+    stealth_approach: camoufox
+    enable_behavioral: true
+    enable_native_layer: true
+    native_backend: cpp_pybind11
+
+# Proxy Configuration
+proxies:
+  # List of proxy URLs
+  pool:
+    - "http://user:pass@proxy1.example.com:8080"
+    - "http://user:pass@proxy2.example.com:8080"
+    - "http://user:pass@proxy3.example.com:8080"
+  
+  # Rotation settings
+  rotation_interval: 500  # Rotate after N requests
+  response_time_threshold: 3.0  # Mark proxy as slow if response > 3s
+  max_consecutive_failures: 3  # Remove proxy after N failures
+  verify_geolocation: true  # Verify proxy geolocation matches fingerprint
+
+# Adaptive Mode Configuration
+adaptive:
+  # Detection thresholds (number of detections before action)
+  threshold_light: 3    # Action: Rotate proxy
+  threshold_medium: 5   # Action: Rotate device profile
+  threshold_heavy: 7    # Action: Change stealth approach
+  
+  # Backoff settings
+  initial_backoff_seconds: 1.0
+  max_backoff_seconds: 60.0
+  success_reset_threshold: 100  # Reset after N successful requests
+
+# Environment Variables (optional)
+# Use ${VAR_NAME} syntax to reference environment variables
+# Example:
+#   proxy_api_key: ${PROXY_API_KEY}
+#   captcha_api_key: ${CAPTCHA_API_KEY}

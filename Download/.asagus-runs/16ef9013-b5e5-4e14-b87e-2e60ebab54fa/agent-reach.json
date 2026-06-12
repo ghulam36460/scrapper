@@ -1,0 +1,16 @@
+{
+  "tool_id": "agent-reach",
+  "mode": "max",
+  "job_id": "16ef9013-b5e5-4e14-b87e-2e60ebab54fa",
+  "query": "restaurants",
+  "location": "Qatar",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/Agent-Reach-main",
+  "started_at": 1780555981.5303712,
+  "dry_run": true,
+  "status": "completed",
+  "package_available": false,
+  "finished_at": 1780555981.5311506,
+  "elapsed_seconds": 0.001,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/16ef9013-b5e5-4e14-b87e-2e60ebab54fa/agent-reach.json"
+}

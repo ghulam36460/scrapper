@@ -1,0 +1,121 @@
+version: "3.9"
+
+services:
+  # ── PostgreSQL (Primary + Secondary DB) ─────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: asagus-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: asagus
+      POSTGRES_PASSWORD: asagus
+      POSTGRES_DB: asagus
+    ports:
+      - "5432:5432"
+    volumes:
+      - asagus_postgres_data:/var/lib/postgresql/data
+      - ./init_postgres.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U asagus"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis (Caching + Rate Limiting) ─────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: asagus-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - asagus_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── OpenSearch (Full-Text Index) ────────────────────────────────
+  opensearch:
+    image: opensearchproject/opensearch:2.11.0
+    container_name: asagus-opensearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - DISABLE_SECURITY_PLUGIN=true
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    volumes:
+      - asagus_opensearch_data:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200 | grep -q 'cluster_name'"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  # ── Qdrant (Vector Search) ──────────────────────────────────────
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    container_name: asagus-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - asagus_qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:6333/health | grep -q 'ok'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Neo4j (Graph Database) ──────────────────────────────────────
+  neo4j:
+    image: neo4j:5-community
+    container_name: asagus-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/asagus-graph
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - asagus_neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  # ── MinIO (Object Storage for Raw HTML) ─────────────────────────
+  minio:
+    image: minio/minio:latest
+    container_name: asagus-minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: asagus-access
+      MINIO_ROOT_PASSWORD: asagus-secret
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - asagus_minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  asagus_postgres_data:
+  asagus_redis_data:
+  asagus_opensearch_data:
+  asagus_qdrant_data:
+  asagus_neo4j_data:
+  asagus_minio_data:

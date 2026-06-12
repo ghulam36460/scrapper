@@ -1,0 +1,52 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+pydantic>=2.7.0
+pydantic-settings>=2.3.0
+httpx[http2]>=0.27.0
+redis>=5.0.0
+asyncpg>=0.29.0
+python-dotenv>=1.0.1
+ddgs>=9.14.0
+selectolax>=0.3.21
+lxml>=5.2.0
+trafilatura>=1.12.0
+playwright>=1.51.0
+phonenumbers>=8.13.0
+geopy>=2.4.1
+dnspython>=2.6.1
+rapidfuzz>=3.9.0
+qdrant-client>=1.9.0
+opensearch-py>=2.6.0
+neo4j>=5.20.0
+boto3>=1.34.0
+prometheus-client>=0.20.0
+rank-bm25>=0.2.2
+# Anti-Bot Framework (Layer 1-6)
+curl-cffi>=0.5.9  # Layer 3: TLS fingerprint impersonation (★★★ recommended)
+numpy>=1.21.0  # For advanced trajectory generation (Layer 5)
+
+# Layer 1: Core Automation Frameworks
+nodriver>=0.29  # ★★★ Minimal CDP signature, undetected automation
+scrapy>=2.11.0  # Large-scale crawling framework
+scrapling>=0.2.0  # Adaptive parser/static fetch adapter used by extraction/fetch tests
+selenium>=4.15.0  # Legacy WebDriver support (optional fallback)
+mechanize>=0.4.10  # Old-school browser-like HTTP fallback
+undetected-chromedriver>=3.5.5  # ★★ ChromeDriver binary patching
+
+# Layer 2: Binary-Patch Level Stealth (★★★ CRITICAL)
+patchright>=1.45.0  # ★★ Playwright fork with Runtime.enable removal
+playwright-stealth>=1.0.0  # JavaScript-level stealth patches
+camoufox>=0.4.11  # ★★★ Firefox C++ fork wrapper (0% detection target)
+# camoufox-python>=0.2.0  # ★★★ Firefox C++ fork (0% detection) - manual install required
+# Note: Camoufox requires separate binary installation from camoufox.com
+# Note: CloakBrowser requires separate binary installation (Chromium C++ fork)
+
+# Layer 4: Browser/DOM Fingerprinting Detection Libraries
+# fingerprintjs-pro and creepjs are JavaScript/browser-side testing libraries,
+# not installable PyPI packages. Keep them in browser-side lab fixtures instead
+# of the backend pip install path so Docker builds do not fail.
+# fingerprintjs-pro>=3.9.0  # ★★★ Industry standard fingerprint detection
+# creepjs>=2.0.0  # ★★★ Aggressive fingerprint detector (for testing)
+# Note: These are used for TESTING detection, not for production scraping
+
+# Optional heavy OCR/ML/research dependencies live in requirements-ml.txt.

@@ -1,0 +1,16 @@
+{
+  "tool_id": "whatsapp-detector",
+  "mode": "max",
+  "job_id": "16ef9013-b5e5-4e14-b87e-2e60ebab54fa",
+  "query": "restaurants",
+  "location": "Qatar",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/whatsapp-number-detector-main",
+  "started_at": 1780555981.9629169,
+  "dry_run": true,
+  "status": "prepared",
+  "message": "Node WhatsApp service is available; ASAGUS core enrichment generates wa.me links.",
+  "finished_at": 1780555981.9629402,
+  "elapsed_seconds": 0.0,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/16ef9013-b5e5-4e14-b87e-2e60ebab54fa/whatsapp-detector.json"
+}

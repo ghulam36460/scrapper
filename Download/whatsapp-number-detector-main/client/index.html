@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lead CSV WhatsApp Automation</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+
+    <main class="app-shell">
+      <section class="hero-card">
+        <p class="eyebrow">Local Automation System</p>
+        <h1>Lead CSV to WhatsApp Workflow</h1>
+        <p class="subtext">
+          Upload leads, normalize numbers, generate wa.me links, optionally send Cloud API messages,
+          and export clean results.
+        </p>
+      </section>
+
+      <section class="panel">
+        <h2>Upload CSV</h2>
+
+        <form id="upload-form" class="stack">
+          <label class="file-label" for="csv-file">Choose CSV File</label>
+          <input id="csv-file" name="file" type="file" accept=".csv" required />
+
+          <label class="checkbox-row" for="send-messages">
+            <input id="send-messages" type="checkbox" />
+            Send WhatsApp message via Cloud API
+          </label>
+
+          <label for="message-text">Message Text</label>
+          <textarea id="message-text" rows="2">Hello </textarea>
+
+          <button id="upload-btn" type="submit">Upload & Process</button>
+        </form>
+
+        <div class="progress-wrap">
+          <div class="progress-head">
+            <h3>Progress</h3>
+            <span id="progress-label">0 / 0</span>
+          </div>
+          <div class="progress-track">
+            <div id="progress-bar" class="progress-bar"></div>
+          </div>
+          <p id="status-text" class="status neutral">Waiting for upload...</p>
+          <p id="count-text" class="count-text">Sent: 0 | Failed: 0 | Skipped: 0</p>
+        </div>
+
+        <div class="download-row">
+          <label for="download-filter">Download Filter</label>
+          <select id="download-filter">
+            <option value="all">All rows</option>
+            <option value="sent">Only sent</option>
+            <option value="failed">Only failed</option>
+            <option value="skipped">Only skipped</option>
+          </select>
+          <button id="download-btn" disabled>Download Processed CSV</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Uploaded Data Preview</h2>
+        <div class="table-wrap">
+          <table>
+            <thead id="preview-head"></thead>
+            <tbody id="preview-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

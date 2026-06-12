@@ -1,0 +1,12 @@
+{
+  "tool_id": "maxun",
+  "uses_asagus_backend_venv": true,
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "../asagus_tool_launcher.py",
+  "pipeline_role": "visual_scraper_adapter",
+  "node_project": true,
+  "max_mode": {
+    "enabled": true,
+    "receives_job_context": true
+  }
+}

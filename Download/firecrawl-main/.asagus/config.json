@@ -1,0 +1,12 @@
+{
+  "tool_id": "firecrawl",
+  "uses_asagus_backend_venv": true,
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "launcher": "../asagus_tool_launcher.py",
+  "pipeline_role": "hosted_scrape_api_adapter",
+  "requires_optional_env": ["FIRECRAWL_API_KEY"],
+  "max_mode": {
+    "enabled": true,
+    "receives_job_context": true
+  }
+}

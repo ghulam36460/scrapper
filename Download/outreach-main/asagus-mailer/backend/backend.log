@@ -1,0 +1,1471 @@
+INFO:     Will watch for changes in these directories: ['c:\\shehwar projects\\outreach\\asagus-mailer\\backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [14416] using WatchFiles
+INFO:     Started server process [14900]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+[ASAGUS] Starting up...
+[ASAGUS] Database initialized
+[ASAGUS] Scheduler started
+INFO:     127.0.0.1:56403 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64905 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53067 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53067 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53067 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53067 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56554 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50506 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58952 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62629 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50465 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59234 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63067 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64001 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64634 - "POST /api/templates?name=Test&template_type=initial&subject_variants=%5B%22Hello%20World%22%5D&body=Hi%20%7B%7Bname%7D%7D&ab_test_enabled=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64714 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64574 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59591 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59591 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59591 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59591 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51175 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58913 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "OPTIONS /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:1%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "POST /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:1%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60854 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62159 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    rendered_subject = render_jinja_string(subject_str, context)
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    env = Environment(loader=BaseLoader(), undefined_type=None)
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62159 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62159 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62159 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50045 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/emails?page_size=20&page=1&campaign_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61628 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57496 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    rendered_subject = render_jinja_string(subject_str, context)
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    env = Environment(loader=BaseLoader(), undefined_type=None)
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63037 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58300 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/emails?page_size=20&page=1&campaign_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/emails?page_size=20&page=1&campaign_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/emails?page_size=20&page=1&campaign_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49266 - "GET /api/emails?page_size=20&page=1&campaign_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55186 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59671 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52817 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51140 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "OPTIONS /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61380 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63898 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62328 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53717 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65291 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53008 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53008 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65291 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61864 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53008 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65291 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61864 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52287 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49600 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56989 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56692 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51643 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57918 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57918 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63403 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57515 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51666 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52213 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54121 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60727 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63403 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60126 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60126 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60126 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58650 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52435 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60126 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52435 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58650 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61247 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61247 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61492 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57225 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52325 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63735 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60409 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57992 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49522 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "OPTIONS /api/templates?name=new&template_type=initial&subject_variants=%5B%22hi+%22%5D&body=Hi+%7B%7Bname%7D%7D,%0A%0AI+noticed+%7B%7Bbusiness%7D%7D+and+wanted+to+reach+out...%0A%0A%5BYour+message+here%5D%0A%0ABest,%0A%7B%7Bsender_name%7D%7D%0A%0A---%0ATo+unsubscribe:+%7B%7Bunsubscribe_link%7D%7D&ab_test_enabled=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "POST /api/templates?name=new&template_type=initial&subject_variants=%5B%22hi+%22%5D&body=Hi+%7B%7Bname%7D%7D,%0A%0AI+noticed+%7B%7Bbusiness%7D%7D+and+wanted+to+reach+out...%0A%0A%5BYour+message+here%5D%0A%0ABest,%0A%7B%7Bsender_name%7D%7D%0A%0A---%0ATo+unsubscribe:+%7B%7Bunsubscribe_link%7D%7D&ab_test_enabled=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59394 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59394 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59394 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51072 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59394 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51072 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54635 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63050 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "OPTIONS /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B2%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "POST /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B2%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54261 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    rendered_subject = render_jinja_string(subject_str, context)
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    env = Environment(loader=BaseLoader(), undefined_type=None)
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:50994 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58510 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50994 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54361 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56964 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54921 - "GET /api/replies/stats HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in 'services\template_service.py'. Reloading...
+ INFO:     127.0.0.1:58013 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54221 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52697 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53966 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52778 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:53966 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56419 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56419 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52503 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51520 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51520 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57145 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52940 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "POST /api/campaigns/1/pause HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "POST /api/campaigns/1/pause HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:58401 - "POST /api/campaigns/1/pause HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "POST /api/campaigns/1/pause HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:59198 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58401 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59198 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55300 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55300 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55300 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55300 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61848 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55300 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56227 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56227 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56227 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58428 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63531 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+IMAP: Connection failed for mshahwar92@gmail.com: [Errno 11001] getaddrinfo failed
+INFO:     127.0.0.1:64349 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59373 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64579 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64579 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64579 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51048 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49408 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49408 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49408 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62371 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53803 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62371 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60431 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51043 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58956 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57829 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60799 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64378 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59565 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53849 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55672 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55672 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55672 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57850 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55197 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57850 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55158 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55158 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55158 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56485 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62810 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56485 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52954 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52954 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52954 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62704 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56615 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62704 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51728 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51728 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51728 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60711 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54916 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60711 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57796 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57796 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57796 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50497 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63339 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50497 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54364 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54364 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54364 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57582 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63358 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57582 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63322 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63322 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63322 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61513 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54534 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61513 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53834 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53834 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53834 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62639 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64948 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62639 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56884 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56884 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56884 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55764 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55989 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55764 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49757 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49757 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49757 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55544 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62128 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55544 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49636 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49636 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49636 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60430 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49895 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60430 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52858 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52858 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52858 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63092 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51386 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63092 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58745 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58745 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58745 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50465 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55887 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50465 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60291 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60291 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60291 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55327 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50873 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64259 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49319 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49319 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49319 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63542 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62969 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63542 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57829 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57829 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57829 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62315 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61341 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62315 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62315 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61341 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60216 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56189 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52219 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64458 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62921 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56133 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56133 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56133 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51451 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:53722 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49825 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53521 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51662 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58992 - "OPTIONS /api/templates/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58992 - "DELETE /api/templates/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58992 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58992 - "OPTIONS /api/templates/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64295 - "DELETE /api/templates/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64295 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53982 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "OPTIONS /api/templates?name=new&template_type=initial&subject_variants=%5B%22hiiiii%22%5D&body=Hi+%7B%7Bname%7D%7D,%0A%0AI+noticed+%7B%7Bbusiness%7D%7D+and+wanted+to+reach+out...%0A%0Ahello%0A%0ABest,%0A%7B%7Bsender_name%7D%7D%0A%0A---%0ATo+unsubscribe:+%7B%7Bunsubscribe_link%7D%7D&ab_test_enabled=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "POST /api/templates?name=new&template_type=initial&subject_variants=%5B%22hiiiii%22%5D&body=Hi+%7B%7Bname%7D%7D,%0A%0AI+noticed+%7B%7Bbusiness%7D%7D+and+wanted+to+reach+out...%0A%0Ahello%0A%0ABest,%0A%7B%7Bsender_name%7D%7D%0A%0A---%0ATo+unsubscribe:+%7B%7Bunsubscribe_link%7D%7D&ab_test_enabled=false HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62645 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62645 - "OPTIONS /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62645 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49854 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49854 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62821 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62645 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62603 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62603 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "OPTIONS /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "POST /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59241 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54949 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59556 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59621 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52530 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58494 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61835 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49873 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49256 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57570 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49873 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57862 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49256 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59264 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63012 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62706 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59436 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52946 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49658 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61043 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62706 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64585 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60557 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64085 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62861 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51020 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62990 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60557 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53566 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58243 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64826 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62304 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51758 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58243 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54193 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64826 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62929 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49580 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52309 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58829 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52309 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57801 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58829 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64086 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56044 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57793 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55972 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60958 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50947 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55972 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60521 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50947 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60958 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65306 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61370 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54028 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55611 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54045 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55611 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54028 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52030 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54045 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61135 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61135 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61135 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50430 - "GET /api/followups/stats HTTP/1.1" 200 OK
+IMAP: Connection failed for mshahwar92@gmail.com: b'[AUTHENTICATIONFAILED] Invalid credentials (Failure)'
+INFO:     127.0.0.1:51380 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58030 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61274 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58030 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53175 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61274 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51380 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64224 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64224 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59788 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64224 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59788 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64224 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59788 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64224 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59013 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "OPTIONS /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59013 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59013 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59013 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52376 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56352 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55537 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59013 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52376 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62940 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "OPTIONS /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "POST /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61941 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50156 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50435 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53507 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50435 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53507 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50435 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53507 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55024 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50435 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50908 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58376 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57043 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56104 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50647 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61099 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59712 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63649 - "POST /api/senders/1/test HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:63682 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "OPTIONS /api/senders/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "PUT /api/senders/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63345 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57575 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55189 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55189 - "POST /api/senders/1/test HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "PUT /api/senders/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59988 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59988 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59988 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59988 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52562 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54784 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60706 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60706 - "OPTIONS /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:3%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50155 - "POST /api/campaigns?name=test&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:3%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50155 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54834 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52405 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52405 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62223 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62668 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64612 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64612 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64612 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64612 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64612 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62790 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62886 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55552 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55552 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55552 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62612 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63871 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52414 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63115 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63115 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63115 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63934 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "OPTIONS /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51817 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56170 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60403 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51817 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56709 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "OPTIONS /api/campaigns?name=new&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60519 - "POST /api/campaigns?name=new&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60519 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60519 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60519 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57009 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58228 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57558 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56167 - "GET /api/analytics/timeline?days=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49834 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55962 - "GET /api/analytics/overview HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49638 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53828 - "GET /api/replies?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56167 - "GET /api/followups/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54939 - "GET /api/emails?page_size=20&page=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50532 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58795 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63931 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50532 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58795 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50938 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64657 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63231 - "OPTIONS /api/campaigns?name=kuch+bhi+keh+dete+ho+shehwar&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63231 - "POST /api/campaigns?name=kuch+bhi+keh+dete+ho+shehwar&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63231 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63231 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58998 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63231 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58998 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60843 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50509 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50509 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50509 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50509 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50509 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58601 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60215 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54027 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54885 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59978 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49474 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+INFO:     127.0.0.1:65003 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65003 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65003 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54893 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55806 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54893 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63049 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63049 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63049 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51432 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55002 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51432 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51432 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55002 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57775 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65169 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65169 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56195 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65169 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54587 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65419 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+INFO:     127.0.0.1:56402 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56402 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56402 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65402 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65402 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65402 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65402 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65402 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65490 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56029 - "OPTIONS /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65490 - "DELETE /api/campaigns/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65490 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58810 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/leads/files HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/templates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60610 - "GET /api/senders HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61535 - "GET /api/leads/files/1/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61535 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53406 - "OPTIONS /api/campaigns?name=hjhggh&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "POST /api/campaigns?name=hjhggh&lead_file_id=1&initial_template_ids=%5B1%5D&sender_account_ids=%5B1%5D&ab_test_enabled=false&sender_limits=%7B%221%22:5%7D HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53406 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "POST /api/campaigns/1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53406 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Campaign 1: Fatal error: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+Traceback (most recent call last):
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\sender_service.py", line 348, in run_campaign_sending
+    rendered = render_template(
+        template=template,
+    ...<4 lines>...
+        ab_enabled=campaign.ab_test_enabled,
+    )
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 78, in render_template
+    return {
+    
+  File "c:\shehwar projects\outreach\asagus-mailer\backend\services\template_service.py", line 44, in render_jinja_string
+    for key, value in context.items():
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Environment.__init__() got an unexpected keyword argument 'undefined_type'
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/replies/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52661 - "GET /api/campaigns/1/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49865 - "GET /api/campaigns/1/sender-stats HTTP/1.1" 200 OK
+Run time of job "poll_all_accounts (trigger: interval[0:05:00], next run at: 2026-05-02 00:08:28 PKT)" was missed by 0:01:04.972632
+Run time of job "send_due_followups (trigger: interval[0:15:00], next run at: 2026-05-02 00:18:28 PKT)" was missed by 0:01:04.972799
+Run time of job "reset_daily_counts (trigger: cron[hour='0', minute='0'], next run at: 2026-05-03 00:00:00 PKT)" was missed by 0:04:33.566930
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
+IMAP: Could not decrypt password for mshahwar92@gmail.com: 
