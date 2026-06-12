@@ -177,12 +177,3 @@ async def get_merge_summary(job_id: str) -> dict[str, Any]:
     
     merger = DownloadToolsCSVMerger(job_id)
     return merger.get_merge_summary()
-            yield output.getvalue()
-            output.seek(0)
-            output.truncate(0)
-
-    return StreamingResponse(
-        iter_csv(),
-        media_type="text/csv",
-        headers={"Content-Disposition": "attachment; filename=asagus_secondary_records.csv"},
-    )

@@ -1,0 +1,100 @@
+{
+  "tool_id": "whatsapp-detector",
+  "mode": "max",
+  "job_id": "b264e494-61a7-4c30-86c4-ababcb13570a",
+  "query": "restaurant test max mode",
+  "location": "Test City",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/whatsapp-number-detector-main",
+  "started_at": 1781288135.290544,
+  "dry_run": true,
+  "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/b264e494-61a7-4c30-86c4-ababcb13570a",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {
+    "job_id": "b264e494-61a7-4c30-86c4-ababcb13570a",
+    "mode": "max",
+    "query": "restaurant test max mode",
+    "location": "Test City",
+    "limit": 5,
+    "website_filter": "any",
+    "network_enabled": false,
+    "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "download_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download",
+    "pipeline_config": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/asagus_pipeline.json",
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "selected_tools": [
+      "agent-reach",
+      "scrapegraph-ai",
+      "scrapling",
+      "firecrawl",
+      "maxun",
+      "outreach",
+      "outreach-system",
+      "outreach-scraper",
+      "maps-scraper",
+      "scrapy",
+      "whatsapp-detector"
+    ],
+    "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass.",
+    "created_at": 1781288134.3276882
+  },
+  "tool_config": {
+    "tool_id": "whatsapp-detector",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "pipeline_role": "whatsapp_validation_adapter",
+    "node_project": true,
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "whatsapp-detector",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "status": "prepared",
+  "message": "Node WhatsApp service is available; ASAGUS core enrichment generates wa.me links.",
+  "finished_at": 1781288135.2910051,
+  "elapsed_seconds": 0.0,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/b264e494-61a7-4c30-86c4-ababcb13570a/whatsapp-detector.json"
+}
