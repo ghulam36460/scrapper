@@ -63,6 +63,7 @@ const toolTabsConfig: Array<{ id: Tab; label: string; icon: ElementType }> = [
   { id: "tools", label: "Download Tools", icon: Download },
   { id: "dbmanager", label: "DB Manager", icon: Database },
   { id: "envconfig", label: "ENV Config", icon: Settings },
+  { id: "agentreach", label: "Agent-Reach", icon: Zap },
 ];
 const allTabs = [...coreTabsConfig, ...toolTabsConfig];
 const tabIds = new Set<Tab>(allTabs.map((item) => item.id));
@@ -205,6 +206,7 @@ export default function Home() {
   const [toolRuns, setToolRuns] = useState<Record<string, ToolRunStatus>>({});
   const [toolRunning, setToolRunning] = useState<Record<string, boolean>>({});
   const [secondaryCount, setSecondaryCount] = useState(0);
+  const [combinedCsvStatus, setCombinedCsvStatus] = useState("");
   const [envSettings, setEnvSettings] = useState<Record<string, { value: string; set: boolean }>>({});
   const [envEdits, setEnvEdits] = useState<Record<string, string>>({});
   const [envSaving, setEnvSaving] = useState(false);
@@ -858,6 +860,21 @@ export default function Home() {
     }
   }
 
+  async function buildCombinedCsv(jobId?: string | null) {
+    const id = jobId || activeJob?.id || latestJob?.id;
+    if (!id) {
+      setError("Start or select a job before building a combined CSV.");
+      return;
+    }
+    setCombinedCsvStatus("Building combined CSV...");
+    try {
+      const result = await api.buildCombinedCSV(id);
+      setCombinedCsvStatus(`Combined CSV ready: ${result.records_merged ?? 0} records`);
+    } catch (err) {
+      setCombinedCsvStatus(`Error: ${err instanceof Error ? err.message : "combined CSV failed"}`);
+    }
+  }
+
   return (
     <div className="shell">
       <aside className="sidebar">
@@ -912,6 +929,12 @@ export default function Home() {
                   <Database size={15} />
                   Full DB CSV
                 </button>
+                {activeJob && (
+                  <button className="btn" onClick={() => openCSVDownload(api.exportCombinedCSV(activeJob.id))} title="Download ASAGUS primary rows plus MAX-mode tool rows">
+                    <GitBranch size={15} />
+                    Combined CSV
+                  </button>
+                )}
               </>
             )}
             <button className="btn" onClick={refreshCurrent} disabled={busy}>
@@ -2048,6 +2071,24 @@ export default function Home() {
                 </section>
                 <section className="panel">
                   <div className="panel-header">
+                    <h2>Combined Job CSV</h2>
+                    <span className="pill info">{activeJob ? activeJob.request.mode : "no job"}</span>
+                  </div>
+                  <div className="notice info">One export built from ASAGUS primary records plus Agent-Reach and other MAX-mode tool CSV outputs for the selected job.</div>
+                  <div className="button-row">
+                    <button className="btn" onClick={() => buildCombinedCsv(activeJob?.id)} disabled={busy || !activeJob}>
+                      <GitBranch size={15} />
+                      Build Combined CSV
+                    </button>
+                    <button className="btn primary" onClick={() => activeJob && window.open(api.exportCombinedCSV(activeJob.id), "_blank")} disabled={!activeJob}>
+                      <FileText size={15} />
+                      Download Combined
+                    </button>
+                  </div>
+                  {combinedCsvStatus ? <div className={`notice ${combinedCsvStatus.startsWith("Error") ? "warn" : "ok"}`}>{combinedCsvStatus}</div> : null}
+                </section>
+                <section className="panel">
+                  <div className="panel-header">
                     <h2>Secondary Database</h2>
                     <span className="pill violet">{secondaryCount} entries</span>
                   </div>
@@ -2213,6 +2254,38 @@ export default function Home() {
                       <span>Click Reload to read .env settings</span>
                     </div>
                   )}
+                </div>
+              </section>
+            </div>
+          )}
+
+          {/* ─── AGENT-REACH TAB ────────────────────────────────────────── */}
+          {tab === "agentreach" && (
+            <div style={{ width: "100%", maxWidth: "none" }}>
+              <section className="panel">
+                <div className="panel-header">
+                  <h2>Agent-Reach Configuration</h2>
+                  <span className="pill info">Co-Engine Integration</span>
+                </div>
+                <div className="notice info">
+                  <Zap size={16} />
+                  <span>
+                    Agent-Reach is a powerful multi-channel scraping engine that works alongside ASAGUS.
+                    Configure channels below to enable enhanced data enrichment in MAX mode.
+                  </span>
+                </div>
+                <div style={{ marginTop: "1rem" }}>
+                  <iframe
+                    src="/agent-reach"
+                    style={{
+                      width: "100%",
+                      height: "calc(100vh - 280px)",
+                      border: "1px solid var(--line)",
+                      borderRadius: "8px",
+                      background: "#f9fafb"
+                    }}
+                    title="Agent-Reach Configuration"
+                  />
                 </div>
               </section>
             </div>

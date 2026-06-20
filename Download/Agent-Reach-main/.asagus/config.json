@@ -3,9 +3,16 @@
   "uses_asagus_backend_venv": true,
   "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
   "launcher": "../asagus_tool_launcher.py",
-  "pipeline_role": "outreach_channel_doctor",
+  "entry_module": "agent_reach.integrations.asagus",
+  "pipeline_role": "native_asagus_co_engine",
+  "auto_install_missing_python_dependencies": true,
   "max_mode": {
     "enabled": true,
-    "receives_job_context": true
+    "receives_job_context": true,
+    "channel_selection": "all_ready_channels",
+    "outputs": [
+      "agent-reach.json",
+      "agent-reach.csv"
+    ]
   }
 }

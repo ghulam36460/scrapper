@@ -1238,6 +1238,68 @@ button.layer-row:hover {
 
 .tool-output-err { color: #f87171; }
 
+.agent-reach-console {
+  min-height: 100vh;
+  background: var(--bg-alt);
+}
+
+.agent-reach-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.agent-channel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tool-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tool-card.agent-ready {
+  border-color: rgba(16,185,129,0.28);
+  background: rgba(16,185,129,0.035);
+}
+
+.status-ok { color: #34d399; }
+.status-warn { color: #fbbf24; }
+.status-off { color: var(--muted); }
+
+.agent-run-result {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.loading-panel {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.66);
+  backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  z-index: 80;
+}
+
+.config-modal {
+  width: min(620px, 100%);
+  max-height: calc(100vh - 36px);
+  overflow: auto;
+}
+
 /* DB Manager */
 .db-stat-grid {
   display: grid;
@@ -1717,6 +1779,9 @@ button.layer-row:hover {
   .metric-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .agent-channel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 1100px) {
@@ -1737,6 +1802,10 @@ button.layer-row:hover {
   .grid-2,
   .grid-2.wide-left,
   .grid-2.equal {
+    grid-template-columns: 1fr;
+  }
+  .agent-channel-grid,
+  .agent-reach-metrics {
     grid-template-columns: 1fr;
   }
   .metric-grid {

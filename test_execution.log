@@ -1,0 +1,190 @@
+[0;36m
+═══════════════════════════════════════════════════════════════
+  ASAGUS SCRAPER V3 - COMPLETE CLEAN & REAL TEST
+═══════════════════════════════════════════════════════════════
+[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 1: Backup Existing Data to Recycle Bin[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Creating backup directory: /home/ghulam/.local/share/Trash/files/asagus_backup_20260612_144907
+✅ Backing up data directory...
+   Backed up to: /home/ghulam/.local/share/Trash/files/asagus_backup_20260612_144907/data
+✅ Backing up Download tool outputs...
+   Backed up to: /home/ghulam/.local/share/Trash/files/asagus_backup_20260612_144907/.asagus-runs
+[0;32m✅ Backup complete! Location: /home/ghulam/.local/share/Trash/files/asagus_backup_20260612_144907[0m
+
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 2: Clean All Data[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Stopping any running backend/frontend...
+Stopping ASAGUS Scraper...
+✅ All processes stopped
+🗑️  Cleaning data directory...
+🗑️  Cleaning Download tool outputs...
+[0;32m✅ All data cleaned![0m
+
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 3: Start Backend and Frontend[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Starting backend...
+Backend PID: 151784
+Waiting for backend to start...
+[0;32m✅ Backend is running on http://localhost:8000[0m
+
+Starting frontend...
+Frontend PID: 151980
+Waiting for frontend to start...
+[0;32m✅ Frontend is running on http://localhost:3000[0m
+
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 4: Create Real Scraping Job (MAX MODE + HIGH STEALTH)[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Creating job with:
+  📍 Query: restaurants in Doha Qatar
+  📍 Location: Doha, Qatar
+  📍 Limit: 15 records
+  📍 Mode: MAX (all 11 tools)
+  📍 Antibot: high-stealth
+  📍 LLM: enabled
+  📍 Real scraping: enabled
+
+[0;32m✅ Job created successfully![0m
+Job ID: ce804805-4783-4fdb-9dcd-460c3972955d
+
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 5: Monitor Job Progress[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Waiting for job to start...
+
+[0;36mStatus: running[0m
+  Records: 0 | Processed: 0/750 | Time: 0s      Records: 0 | Processed: 0/750 | Time: 5s      Records: 0 | Processed: 0/750 | Time: 10s      Records: 0 | Processed: 0/750 | Time: 15s      Records: 0 | Processed: 0/750 | Time: 20s      Records: 0 | Processed: 0/750 | Time: 25s      Records: 0 | Processed: 0/750 | Time: 30s      Records: 0 | Processed: 0/750 | Time: 35s      Records: 0 | Processed: 0/750 | Time: 40s      Records: 0 | Processed: 0/750 | Time: 45s      Records: 0 | Processed: 0/750 | Time: 50s      Records: 0 | Processed: 0/750 | Time: 55s      Records: 2 | Processed: 5/750 | Time: 60s      Records: 2 | Processed: 5/750 | Time: 65s      Records: 2 | Processed: 5/750 | Time: 70s      Records: 2 | Processed: 5/750 | Time: 75s      Records: 2 | Processed: 5/750 | Time: 80s      Records: 2 | Processed: 5/750 | Time: 85s      Records: 4 | Processed: 10/750 | Time: 90s      Records: 4 | Processed: 10/750 | Time: 95s      Records: 4 | Processed: 10/750 | Time: 100s      Records: 6 | Processed: 15/750 | Time: 105s      Records: 6 | Processed: 15/750 | Time: 110s      Records: 6 | Processed: 15/750 | Time: 115s      Records: 6 | Processed: 15/750 | Time: 120s      Records: 6 | Processed: 15/750 | Time: 125s      Records: 6 | Processed: 15/750 | Time: 130s      Records: 7 | Processed: 20/750 | Time: 135s      Records: 7 | Processed: 20/750 | Time: 140s      Records: 11 | Processed: 25/750 | Time: 145s      Records: 11 | Processed: 25/750 | Time: 150s      Records: 13 | Processed: 29/750 | Time: 155s      Records: 14 | Processed: 31/750 | Time: 160s      Records: 14 | Processed: 32/750 | Time: 165s      Records: 14 | Processed: 32/750 | Time: 170s      Records: 14 | Processed: 33/750 | Time: 175s      Records: 14 | Processed: 34/750 | Time: 180s      Records: 14 | Processed: 34/750 | Time: 185s      Records: 14 | Processed: 34/750 | Time: 190s    
+[0;36mStatus: completed[0m
+  Records: 15 | Processed: 35/750 | Time: 195s    
+
+[0;32m✅ Job completed successfully![0m
+
+Waiting for Download tools to complete...
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 6: Comprehensive Results Analysis[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+
+======================================================================
+PRIMARY RECORDS ANALYSIS
+======================================================================
+
+📊 Total Primary Records: 15
+
+✅ CRITICAL FIELDS POPULATION:
+✅ phone               : 12/15 ( 80.0%)
+✅ whatsapp            : 11/15 ( 73.3%)
+✅ email               : 15/15 (100.0%)
+✅ website_url         : 15/15 (100.0%)
+✅ facebook_url        : 11/15 ( 73.3%)
+✅ instagram_url       : 11/15 ( 73.3%)
+✅ twitter_url         :  7/15 ( 46.7%)
+✅ linkedin_url        : 10/15 ( 66.7%)
+
+📝 SAMPLE RECORDS (First 3):
+
+--- Record 1 ---
+Name: Ellamia Doha | Artisnal Coffee | Mondrian Doha
+Phone: +97440455555
+WhatsApp: +97440455555
+Email: wineanddine-mondriandoha@mondrianhotels.com
+Website: https://mondrianhotels.com/doha/dining/ellamia/
+Category: restaurant
+Confidence: 1.0
+
+--- Record 2 ---
+Name: Bennigan’s Opens 2nd Restaurant In Doha, Qatar - Bennigans
+Phone: +4692484419
+WhatsApp: +4692484419
+Email: info@lrbllc.com
+Website: https://bennigans.com/bennigans-opens-2nd-restaurant-doha-qa
+Category: restaurant
+Confidence: 1.0
+
+--- Record 3 ---
+Name: En Primeur Club
+Phone: +97430071011
+WhatsApp: +97430071011
+Email: fonts.gst@ic.com
+Website: https://www.enprimeurclub.com
+Category: ['Fine Dining', 'Luxury Hotels', 'Wine', 'Cocktail Bars', 'Travel']
+Confidence: 1.0
+
+======================================================================
+SECONDARY RECORDS ANALYSIS
+======================================================================
+
+📊 Total Secondary Records: 18
+
+📈 STATUS DISTRIBUTION:
+  stored              :   15 ( 83.3%)
+  duplicate           :    3 ( 16.7%)
+
+🔧 EXTRACTION METHODS:
+  css                      :   18 (100.0%)
+
+======================================================================
+DOWNLOAD TOOLS ANALYSIS
+======================================================================
+
+📊 Total CSV files: 0
+📊 Total JSON files: 13
+
+======================================================================
+PERSISTENCE STATUS
+======================================================================
+
+✅ Records persisted: 15
+✅ Secondary records: 18
+✅ Jobs tracked: 1
+✅ Auto-persist interval: 10 records
+✅ Since last persist: 5 records
+✅ Backup exists: False
+
+======================================================================
+DATA QUALITY ASSESSMENT
+======================================================================
+
+📊 Average Record Completeness: 76.7%
+📊 Records with 100% fields: 2
+📊 Records with >80% fields: 6
+📊 Records with >50% fields: 15
+
+🔍 Deduplication Check:
+  Unique phones: 12
+  Unique emails: 15
+  Unique websites: 15
+  ✅ No duplicates found
+
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+[1;33m STEP 7: Download CSV Files for Manual Inspection[0m
+[1;33m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m
+Downloading CSV files to: test_results_20260612_145359
+✅ Downloaded: primary_records.csv (16 lines)
+✅ Downloaded: secondary_records.csv (19 lines)
+✅ Copied Download tool outputs
+
+[0;32mResults saved to: test_results_20260612_145359[0m
+
+[0;36m
+═══════════════════════════════════════════════════════════════
+  TEST COMPLETE - SUMMARY
+═══════════════════════════════════════════════════════════════
+[0m
+📁 Backup Location: /home/ghulam/.local/share/Trash/files/asagus_backup_20260612_144907
+📁 Results Location: test_results_20260612_145359
+🌐 Backend: http://localhost:8000
+🌐 Frontend: http://localhost:3000
+
+Process IDs:
+  Backend PID: 151784
+  Frontend PID: 151980
+
+To stop servers:
+  cd asagus-scraper-v3 && ./stop_all.sh
+
+[0;32m✅ All tests completed successfully![0m
+

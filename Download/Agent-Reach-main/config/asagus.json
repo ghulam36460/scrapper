@@ -1,0 +1,46 @@
+{
+  "name": "Agent Reach ASAGUS co-engine",
+  "version": 1,
+  "enabled": true,
+  "entry_module": "agent_reach.integrations.asagus",
+  "launcher_shim": "asagus_adapter.py",
+  "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+  "uses_asagus_backend_venv": true,
+  "auto_install_missing_python_dependencies": true,
+  "python_dependency_probe": [
+    {"module": "requests", "requirement": "requests>=2.28"},
+    {"module": "feedparser", "requirement": "feedparser>=6.0"},
+    {"module": "dotenv", "requirement": "python-dotenv>=1.0"},
+    {"module": "loguru", "requirement": "loguru>=0.7"},
+    {"module": "yaml", "requirement": "pyyaml>=6.0"},
+    {"module": "rich", "requirement": "rich>=13.0"},
+    {"module": "yt_dlp", "requirement": "yt-dlp>=2024.0"}
+  ],
+  "max_mode": {
+    "receives_job_context": true,
+    "channel_selection": "all-ready-unless-asagus-agent-reach-channels-is-set",
+    "real_run_env": "ASAGUS_TOOL_REAL_RUN",
+    "max_results_env": "ASAGUS_TOOL_MAX_RESULTS",
+    "timeout_seconds_env": "ASAGUS_TOOL_TIMEOUT_SECONDS"
+  },
+  "input_env": [
+    "ASAGUS_JOB_ID",
+    "ASAGUS_QUERY",
+    "ASAGUS_LOCATION",
+    "ASAGUS_LIMIT",
+    "ASAGUS_MODE",
+    "ASAGUS_WEBSITE_FILTER",
+    "ASAGUS_TOOL_ID",
+    "ASAGUS_RUNS_ROOT",
+    "ASAGUS_BACKEND_PYTHON",
+    "ASAGUS_AGENT_REACH_CHANNELS"
+  ],
+  "output_files": [
+    ".asagus-runs/<job-id>/agent-reach.json",
+    ".asagus-runs/<job-id>/agent-reach.csv"
+  ],
+  "safety": {
+    "write_actions_disabled": true,
+    "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+  }
+}

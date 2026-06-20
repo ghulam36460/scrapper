@@ -24,6 +24,7 @@ _ASAGUS_LAUNCHER = _DOWNLOAD_ROOT / "asagus_tool_launcher.py"
 _BACKEND_ROOT = Path(__file__).resolve().parents[2]
 _BACKEND_VENV_PYTHON = _BACKEND_ROOT / ".venv" / "bin" / "python"
 _BACKEND_PYTHON = _BACKEND_VENV_PYTHON if _BACKEND_VENV_PYTHON.exists() else Path(sys.executable).resolve()
+_BACKEND_BIN = _BACKEND_PYTHON.parent
 _PIPELINE_CONFIG = _DOWNLOAD_ROOT / "asagus_pipeline.json"
 _RUNS_ROOT = _DOWNLOAD_ROOT / ".asagus-runs"
 
@@ -63,6 +64,15 @@ def _sanitize_tool_args(args: list[str]) -> list[str]:
             raise ValueError(f"Path traversal not allowed in arguments: {arg!r}")
         sanitized.append(arg)
     return sanitized
+
+
+def _with_backend_bin_on_path(env: dict[str, str]) -> dict[str, str]:
+    """Expose console scripts installed into the ASAGUS backend venv."""
+    path = env.get("PATH", "")
+    backend_bin = str(_BACKEND_BIN)
+    if backend_bin and backend_bin not in path.split(os.pathsep):
+        env["PATH"] = backend_bin + (os.pathsep + path if path else "")
+    return env
 
 
 # ─── Tool Metadata Registry ──────────────────────────────────────────────────
@@ -261,7 +271,7 @@ async def run_tool(
         sanitized_args = _sanitize_tool_args(args)
         cmd.extend(sanitized_args)
 
-    env = {
+    env = _with_backend_bin_on_path({
         **os.environ,
         "ASAGUS_TOOL_ID": tool_id,
         "ASAGUS_BACKEND_ROOT": str(_BACKEND_ROOT),
@@ -269,8 +279,10 @@ async def run_tool(
         "ASAGUS_DOWNLOAD_ROOT": str(_DOWNLOAD_ROOT),
         "ASAGUS_PIPELINE_CONFIG": str(_PIPELINE_CONFIG),
         "ASAGUS_RUNS_ROOT": str(_RUNS_ROOT),
+        "PYTHONPATH": f"{_DOWNLOAD_ROOT}{os.pathsep}{_DOWNLOAD_ROOT / 'Agent-Reach-main'}{os.pathsep}{os.environ.get('PYTHONPATH', '')}",
+        "ASAGUS_AGENT_REACH_AUTO_INSTALL": os.environ.get("ASAGUS_AGENT_REACH_AUTO_INSTALL", "1"),
         **(env_extra or {}),
-    }
+    })
 
     try:
         process = await asyncio.create_subprocess_exec(
@@ -285,6 +297,7 @@ async def run_tool(
             "run_id": run_id,
             "tool_id": tool_id,
             "tool_name": meta["name"],
+            "job_id": env.get("ASAGUS_JOB_ID", ""),
             "command": cmd,
             "pid": process.pid,
             "status": "running",
@@ -360,14 +373,14 @@ async def launch_max_mode_tools(
         "created_at": time.time(),
     }
     pipeline_manifest.write_text(json.dumps(pipeline_payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    env = {
+    env = _with_backend_bin_on_path({
         "ASAGUS_JOB_ID": job_id,
         "ASAGUS_QUERY": query,
         "ASAGUS_LOCATION": location,
         "ASAGUS_LIMIT": str(limit),
         "ASAGUS_MODE": "max",
         "ASAGUS_WEBSITE_FILTER": website_filter,
-        "ASAGUS_DRY_RUN": "1",
+        "ASAGUS_DRY_RUN": "0" if network_enabled else "1",  # ✅ Fixed: respect network_enabled flag
         "ASAGUS_TOOL_REAL_RUN": "1" if network_enabled else "0",
         "ASAGUS_TOOL_MAX_RESULTS": str(min(max(limit, 5), 25)),
         "ASAGUS_TOOL_TIMEOUT_SECONDS": "240",
@@ -377,7 +390,9 @@ async def launch_max_mode_tools(
         "ASAGUS_PIPELINE_CONFIG": str(_PIPELINE_CONFIG),
         "ASAGUS_PIPELINE_MANIFEST": str(pipeline_manifest),
         "ASAGUS_RUNS_ROOT": str(_RUNS_ROOT),
-    }
+        "PYTHONPATH": f"{_DOWNLOAD_ROOT}{os.pathsep}{_DOWNLOAD_ROOT / 'Agent-Reach-main'}{os.pathsep}{os.environ.get('PYTHONPATH', '')}",
+        "ASAGUS_AGENT_REACH_AUTO_INSTALL": os.environ.get("ASAGUS_AGENT_REACH_AUTO_INSTALL", "1"),
+    })
     args = ["--mode", "max", "--query", query, "--location", location, "--limit", str(min(max(limit, 5), 25))]
     for tool_id in selected:
         try:
@@ -452,6 +467,7 @@ def get_tool_status(run_id: str) -> dict[str, Any] | None:
         "run_id": run["run_id"],
         "tool_id": run["tool_id"],
         "tool_name": run["tool_name"],
+        "job_id": run.get("job_id", ""),
         "pid": run["pid"],
         "status": run["status"],
         "started_at": run["started_at"],
@@ -485,8 +501,48 @@ def list_running_tools() -> list[dict[str, Any]]:
             "run_id": run_id,
             "tool_id": run["tool_id"],
             "tool_name": run["tool_name"],
+            "job_id": run.get("job_id", ""),
             "status": run["status"],
             "started_at": run["started_at"],
             "exit_code": run["exit_code"],
         })
     return sorted(result, key=lambda x: x["started_at"], reverse=True)
+
+
+async def wait_for_job_tools(job_id: str, timeout_seconds: float = 60.0) -> dict[str, Any]:
+    """Wait briefly for Download tools launched for a specific ASAGUS job."""
+    deadline = time.time() + max(timeout_seconds, 0)
+    while time.time() < deadline:
+        runs = [
+            run
+            for run in _running_tools.values()
+            if run.get("job_id") == job_id
+        ]
+        if runs and all(run.get("status") != "running" for run in runs):
+            break
+        if not runs:
+            break
+        await asyncio.sleep(1)
+
+    runs = [
+        run
+        for run in _running_tools.values()
+        if run.get("job_id") == job_id
+    ]
+    return {
+        "job_id": job_id,
+        "timeout_seconds": timeout_seconds,
+        "all_finished": bool(runs) and all(run.get("status") != "running" for run in runs),
+        "running_count": sum(1 for run in runs if run.get("status") == "running"),
+        "runs": [
+            {
+                "run_id": run["run_id"],
+                "tool_id": run["tool_id"],
+                "tool_name": run["tool_name"],
+                "status": run["status"],
+                "exit_code": run["exit_code"],
+                "started_at": run["started_at"],
+            }
+            for run in sorted(runs, key=lambda item: item["started_at"])
+        ],
+    }

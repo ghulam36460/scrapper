@@ -1,0 +1,282 @@
+{
+  "tool_id": "agent-reach",
+  "mode": "max",
+  "job_id": "agent-reach-manual-1781341301",
+  "query": "audit firms",
+  "location": "Qatar",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/Agent-Reach-main",
+  "started_at": 1781341301.583788,
+  "dry_run": true,
+  "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781341301",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {},
+  "tool_config": {
+    "tool_id": "agent-reach",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "entry_module": "agent_reach.integrations.asagus",
+    "pipeline_role": "native_asagus_co_engine",
+    "auto_install_missing_python_dependencies": true,
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true,
+      "channel_selection": "all_ready_channels",
+      "outputs": [
+        "agent-reach.json",
+        "agent-reach.csv"
+      ]
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "agent-reach",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "adapter": "agent_reach.integrations.asagus",
+  "integration_level": "agent_reach_native_asagus_co_engine",
+  "status": "dry_run",
+  "job_context": {
+    "job_id": "agent-reach-manual-1781341301",
+    "query": "audit firms",
+    "location": "Qatar",
+    "limit": 5,
+    "mode": "max",
+    "website_filter": "all",
+    "tool_id": "agent-reach",
+    "real_run": false,
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781341301",
+    "requested_channels": [],
+    "max_results": 5,
+    "dependency_bootstrap": true
+  },
+  "dependency_status": {
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "venv_bin": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin",
+    "auto_install": true,
+    "dependencies_checked": [
+      "requests>=2.28",
+      "feedparser>=6.0",
+      "python-dotenv>=1.0",
+      "loguru>=0.7",
+      "pyyaml>=6.0",
+      "rich>=13.0",
+      "yt-dlp>=2024.0"
+    ],
+    "missing_before": [],
+    "install_attempts": [],
+    "post_install_actions": [
+      {
+        "name": "yt-dlp-js-runtime",
+        "ok": true,
+        "changed": false,
+        "path": "/home/ghulam/.config/yt-dlp/config"
+      }
+    ],
+    "missing_after": [],
+    "ok": true
+  },
+  "agent_reach_available": true,
+  "channels_status": {
+    "available": true,
+    "channels": {
+      "github": {
+        "status": "ok",
+        "message": "完整可用（读取、搜索、Fork、Issue、PR 等）",
+        "backends": [
+          "gh CLI"
+        ],
+        "tier": 0
+      },
+      "twitter": {
+        "status": "warn",
+        "message": "Twitter CLI 未安装。安装方式：\n  pipx install twitter-cli\n或：\n  uv tool install twitter-cli",
+        "backends": [
+          "twitter-cli",
+          "bird CLI (legacy)"
+        ],
+        "tier": 1
+      },
+      "youtube": {
+        "status": "ok",
+        "message": "可提取视频信息和字幕",
+        "backends": [
+          "yt-dlp"
+        ],
+        "tier": 0
+      },
+      "reddit": {
+        "status": "off",
+        "message": "需要安装 rdt-cli（推荐使用最新版 v0.4.2+）：\n  pip install 'rdt-cli>=0.4.2'\n或：\n  uv tool install rdt-cli\n最新源码：https://github.com/public-clis/rdt-cli\n安装后运行 `rdt login` 登录（需先在浏览器登录 reddit.com）",
+        "backends": [
+          "rdt-cli"
+        ],
+        "tier": 0
+      },
+      "bilibili": {
+        "status": "ok",
+        "message": "视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli",
+        "backends": [
+          "yt-dlp",
+          "bili-cli (可选)",
+          "B站搜索 API"
+        ],
+        "tier": 1
+      },
+      "xiaohongshu": {
+        "status": "off",
+        "message": "需要安装 xhs-cli：\n  pipx install xiaohongshu-cli\n或：\n  uv tool install xiaohongshu-cli\n安装后运行 `xhs login` 登录",
+        "backends": [
+          "xhs-cli (xiaohongshu-cli)"
+        ],
+        "tier": 1
+      },
+      "douyin": {
+        "status": "off",
+        "message": "需要 mcporter + douyin-mcp-server。安装步骤：\n  1. npm install -g mcporter\n  2. pip install douyin-mcp-server\n  3. 启动服务（见下方说明）\n  4. mcporter config add douyin http://localhost:18070/mcp\n  详见 https://github.com/yzfly/douyin-mcp-server",
+        "backends": [
+          "douyin-mcp-server"
+        ],
+        "tier": 2
+      },
+      "linkedin": {
+        "status": "off",
+        "message": "基本内容可通过 Jina Reader 读取。完整功能需要：\n  pip install linkedin-scraper-mcp\n  mcporter config add linkedin http://localhost:3000/mcp\n  详见 https://github.com/stickerdaniel/linkedin-mcp-server",
+        "backends": [
+          "linkedin-scraper-mcp",
+          "Jina Reader"
+        ],
+        "tier": 2
+      },
+      "wechat": {
+        "status": "warn",
+        "message": "Camoufox 可阅读公众号文章，但搜索功能需要 Exa。运行 `agent-reach install --env=auto` 安装 Exa。",
+        "backends": [
+          "Exa via mcporter (搜索+阅读)",
+          "Camoufox (可选阅读)"
+        ],
+        "tier": 0
+      },
+      "weibo": {
+        "status": "off",
+        "message": "需要 mcporter + mcp-server-weibo。安装步骤：\n  1. npm install -g mcporter\n  2. pip install git+https://github.com/Panniantong/mcp-server-weibo.git\n  3. mcporter config add weibo --command 'mcp-server-weibo'\n  详见 https://github.com/Panniantong/mcp-server-weibo",
+        "backends": [
+          "mcp-server-weibo"
+        ],
+        "tier": 1
+      },
+      "xiaoyuzhou": {
+        "status": "off",
+        "message": "需要 ffmpeg（音频转码和切片）。安装：\n  Ubuntu/Debian: apt install -y ffmpeg\n  macOS: brew install ffmpeg",
+        "backends": [
+          "groq-whisper",
+          "ffmpeg"
+        ],
+        "tier": 1
+      },
+      "v2ex": {
+        "status": "ok",
+        "message": "公开 API 可用（热门主题、节点浏览、主题详情、用户信息）",
+        "backends": [
+          "V2EX API (public)"
+        ],
+        "tier": 0
+      },
+      "xueqiu": {
+        "status": "warn",
+        "message": "Xueqiu API 连接失败：HTTP Error 400: 。请先登录雪球后运行：agent-reach configure --from-browser chrome",
+        "backends": [
+          "Xueqiu API (需要登录 Cookie)"
+        ],
+        "tier": 1
+      },
+      "rss": {
+        "status": "ok",
+        "message": "可读取 RSS/Atom 源",
+        "backends": [
+          "feedparser"
+        ],
+        "tier": 0
+      },
+      "exa_search": {
+        "status": "off",
+        "message": "需要 mcporter + Exa MCP。安装：\n  npm install -g mcporter\n  mcporter config add exa https://mcp.exa.ai/mcp",
+        "backends": [
+          "Exa via mcporter"
+        ],
+        "tier": 0
+      },
+      "web": {
+        "status": "ok",
+        "message": "通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）",
+        "backends": [
+          "Jina Reader"
+        ],
+        "tier": 0
+      }
+    },
+    "ready_channels": [
+      "github",
+      "youtube",
+      "bilibili",
+      "v2ex",
+      "rss",
+      "web"
+    ],
+    "ready_count": 6,
+    "total_channels": 16
+  },
+  "channels_requested": [
+    "bilibili",
+    "github",
+    "rss",
+    "v2ex",
+    "web",
+    "youtube"
+  ],
+  "channels_used": [],
+  "message": "Dry run validated Agent Reach availability, dependency bootstrap, and channel readiness.",
+  "records_found": 0,
+  "output_csv": null,
+  "elapsed_seconds": 7.311,
+  "finished_at": 1781341308.894567,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781341301/agent-reach.json"
+}

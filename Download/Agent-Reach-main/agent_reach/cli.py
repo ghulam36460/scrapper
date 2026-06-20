@@ -38,7 +38,10 @@ def _ensure_utf8_console():
 
 def _configure_logging(verbose: bool = False):
     """Suppress loguru output unless --verbose is set."""
-    from loguru import logger
+    try:
+        from loguru import logger
+    except ImportError:
+        return
     logger.remove()  # Remove default stderr handler
     if verbose:
         logger.add(sys.stderr, level="INFO")
@@ -110,6 +113,23 @@ def main():
     # ── check-update ──
     sub.add_parser("check-update", help="Check for new versions and changes")
 
+    # ── asagus ──
+    p_asagus = sub.add_parser("asagus", help="Run or inspect the ASAGUS co-engine integration")
+    p_asagus.add_argument("action", nargs="?", choices=["status", "doctor", "run"], default="status",
+                          help="status/doctor shows readiness; run executes the ASAGUS job context")
+    p_asagus.add_argument("--query", default="", help="Search/business query")
+    p_asagus.add_argument("--location", default="", help="Location for the ASAGUS job")
+    p_asagus.add_argument("--limit", type=int, default=25, help="Requested result limit")
+    p_asagus.add_argument("--mode", default="max", help="ASAGUS mode")
+    p_asagus.add_argument("--website-filter", default="all", help="ASAGUS website filter")
+    p_asagus.add_argument("--job-id", default="", help="ASAGUS job id")
+    p_asagus.add_argument("--runs-root", default="", help="ASAGUS runs root")
+    p_asagus.add_argument("--channels", default="", help="Comma-separated Agent Reach channels")
+    p_asagus.add_argument("--max-results", type=int, default=25, help="Max Agent Reach records to emit")
+    p_asagus.add_argument("--real-run", action="store_true", help="Actually scrape and run ready channels")
+    p_asagus.add_argument("--no-bootstrap", action="store_true",
+                          help="Skip ASAGUS backend venv dependency bootstrap")
+
     # ── watch ──
     sub.add_parser("watch", help="Quick health check + update check (for scheduled tasks)")
 
@@ -147,6 +167,8 @@ def main():
         _cmd_skill(args)
     elif args.command == "format":
         _cmd_format(args)
+    elif args.command == "asagus":
+        _cmd_asagus(args)
 
 
 # ── Command handlers ────────────────────────────────
@@ -479,6 +501,18 @@ def _cmd_format(args):
 
         cleaned = format_xhs_result(data)
         print(json.dumps(cleaned, ensure_ascii=False, indent=2))
+
+
+def _cmd_asagus(args):
+    """Run Agent Reach's native ASAGUS co-engine integration."""
+    from agent_reach.integrations.asagus import AsagusCoEngine, AsagusJobContext
+
+    context = AsagusJobContext.from_args(args)
+    engine = AsagusCoEngine(context, bootstrap_dependencies=not args.no_bootstrap)
+    result = engine.status() if args.action in {"status", "doctor"} else engine.run()
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    if result.get("status") == "failed":
+        sys.exit(2)
 
 
 def _install_system_deps():

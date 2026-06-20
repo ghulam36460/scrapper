@@ -1,0 +1,115 @@
+═══════════════════════════════════════════════════════════════
+  ASAGUS Scraper v3 - How to Start (CORRECTED)
+═══════════════════════════════════════════════════════════════
+
+🔧 IMPORTANT: Frontend is Next.js (port 3000, not 5173)
+
+═══════════════════════════════════════════════════════════════
+🚀 OPTION 1: Start in Background (Services continue after script)
+═══════════════════════════════════════════════════════════════
+
+cd /home/ghulam/Desktop/scrapper-main/scrapper-main
+./START_SERVICES.sh
+
+✓ Backend runs on: http://localhost:8000
+✓ Frontend runs on: http://localhost:3000
+
+The script will finish but services keep running in background.
+Open http://localhost:3000 in your browser!
+
+To stop:
+./STOP_SERVICES.sh
+
+
+═══════════════════════════════════════════════════════════════
+🚀 OPTION 2: Start in Separate Terminals (See output)
+═══════════════════════════════════════════════════════════════
+
+./START_IN_TERMINAL.sh
+
+This opens 2 new terminal windows:
+- Terminal 1: Backend (you see logs)
+- Terminal 2: Frontend (you see logs)
+
+To stop: Close the terminal windows
+
+
+═══════════════════════════════════════════════════════════════
+🚀 OPTION 3: Manual Start (2 terminals)
+═══════════════════════════════════════════════════════════════
+
+Terminal 1 - Backend:
+cd /home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend
+.venv/bin/python -m uvicorn asagus.main:app --host 127.0.0.1 --port 8000 --reload
+
+Terminal 2 - Frontend:
+cd /home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/frontend
+rm -rf .next
+npm run dev
+
+Keep both terminals open!
+
+
+═══════════════════════════════════════════════════════════════
+✅ VERIFY SERVICES ARE RUNNING
+═══════════════════════════════════════════════════════════════
+
+Check backend:
+curl http://localhost:8000/api/health
+
+Check frontend (browser):
+http://localhost:3000
+
+Check processes:
+ps aux | grep -E "uvicorn|next dev" | grep -v grep
+
+
+═══════════════════════════════════════════════════════════════
+🛑 STOP SERVICES
+═══════════════════════════════════════════════════════════════
+
+./STOP_SERVICES.sh
+
+OR manually:
+pkill -f "uvicorn asagus.main:app"
+pkill -f "npm run dev"
+pkill -f "next dev"
+
+
+═══════════════════════════════════════════════════════════════
+❗ TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Frontend error "ENOENT: no such file"?
+→ The .next directory is corrupted
+→ Fix: rm -rf asagus-scraper-v3/frontend/.next
+→ Then start again
+
+Port already in use?
+→ Backend (8000): kill -9 $(lsof -t -i :8000)
+→ Frontend (3000): kill -9 $(lsof -t -i :3000)
+
+
+═══════════════════════════════════════════════════════════════
+📊 WHAT YOU SHOULD SEE
+═══════════════════════════════════════════════════════════════
+
+After running ./START_SERVICES.sh:
+✓ Backend started (PID: 191817)
+✓ Frontend started (PID: 191882)
+
+Services are running in BACKGROUND!
+The script finishes but services continue.
+
+Open browser: http://localhost:3000
+
+
+═══════════════════════════════════════════════════════════════
+🎯 RECOMMENDED: Use Option 1
+═══════════════════════════════════════════════════════════════
+
+./START_SERVICES.sh
+
+Then open http://localhost:3000 in browser ✅
+
+═══════════════════════════════════════════════════════════════

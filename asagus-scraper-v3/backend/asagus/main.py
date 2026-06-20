@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import os
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse
@@ -133,6 +134,7 @@ def _register_routers(app: FastAPI) -> None:
     from asagus.routers.tools import router as tools_router
     from asagus.routers.settings import router as settings_router
     from asagus.routers.intelligence import router as intelligence_router
+    from asagus.routers.agent_reach import router as agent_reach_router
 
     @app.get("/")
     async def root() -> dict[str, Any]:
@@ -159,6 +161,7 @@ def _register_routers(app: FastAPI) -> None:
     app.include_router(tools_router)
     app.include_router(settings_router)
     app.include_router(intelligence_router)
+    app.include_router(agent_reach_router)
 
 
 async def run_job(job_id: str, services: AppServices | None = None) -> None:
@@ -198,6 +201,7 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
         records_found = 0
         llm_calls = 0
         browser_renders = 0
+        max_mode_tool_runs: list[dict[str, Any]] = []
 
         effective_network_fetch, effective_search_discovery = effective_runtime_flags(job.request, settings)
         resolved_website_filter = effective_website_filter(job.request)
@@ -307,8 +311,39 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
         )
         if job.request.mode == "max":
             from asagus.services.tools_runner import launch_max_mode_tools
+            from asagus.services.agent_reach_enrichment import get_enrichment_service
 
-            tool_runs = await launch_max_mode_tools(
+            # ✅ PHASE 4: Ensure Agent-Reach is available for MAX mode enrichment
+            agent_reach = get_enrichment_service()
+            if not agent_reach.is_available():
+                await emit(
+                    job_id,
+                    LayerName.ai_app,
+                    "agent_reach_installing",
+                    "Agent-Reach not found, attempting automatic installation",
+                    {}
+                )
+                install_result = await agent_reach.ensure_installed()
+                await emit(
+                    job_id,
+                    LayerName.ai_app,
+                    "agent_reach_install_result",
+                    install_result["message"],
+                    install_result
+                )
+            else:
+                await emit(
+                    job_id,
+                    LayerName.ai_app,
+                    "agent_reach_ready",
+                    "Agent-Reach co-engine is ready for enrichment",
+                    {
+                        "available_channels": agent_reach.enabled_channels,
+                        "channel_count": len(agent_reach.enabled_channels)
+                    }
+                )
+
+            max_mode_tool_runs = await launch_max_mode_tools(
                 job_id=job_id,
                 query=job.request.query,
                 location=job.request.location,
@@ -321,7 +356,7 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
                 LayerName.ai_app,
                 "max_mode_tools_started",
                 "MAX mode launched available Download tools in parallel",
-                {"count": len(tool_runs), "tools": tool_runs},
+                {"count": len(max_mode_tool_runs), "tools": max_mode_tool_runs},
             )
 
         # Seed the initial frontier. Cap each discovery call at 200 results
@@ -681,6 +716,43 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
 
                     await runtime.update_job(job_id, current_url=candidate.url, progress_message="Enriching and deduping")
                     enriched = await enrichment.enrich(extracted, default_city=job.request.location)
+                    
+                    # ✅ PHASE 4: Agent-Reach enrichment in MAX mode
+                    if job.request.mode == "max":
+                        from asagus.services.agent_reach_enrichment import get_enrichment_service
+                        agent_reach = get_enrichment_service()
+                        
+                        if agent_reach.is_available():
+                            enriched_dict = enriched.model_dump()
+                            enriched_dict = await agent_reach.enrich_business_record(
+                                enriched_dict,
+                                enable_web_scraping=effective_network_fetch,
+                                enable_social_search=False  # Enable when social auth is ready
+                            )
+                            # Update the enriched model with Agent-Reach data
+                            if enriched_dict.get("agent_reach_enriched"):
+                                # Merge Agent-Reach findings back into the record
+                                enriched = enriched.model_copy(update={
+                                    "email": enriched_dict.get("email") or enriched.email,
+                                    "phone": enriched_dict.get("phone") or enriched.phone,
+                                    "raw_fields": {
+                                        **enriched.raw_fields,
+                                        "agent_reach_data": enriched_dict.get("agent_reach_data", {}),
+                                        "agent_reach_channels": enriched_dict.get("agent_reach_channels_used", []),
+                                    }
+                                })
+                                await emit(
+                                    job_id,
+                                    LayerName.enrichment,
+                                    "agent_reach_enriched",
+                                    "Record enriched by Agent-Reach co-engine",
+                                    {
+                                        "channels_used": enriched_dict.get("agent_reach_channels_used", []),
+                                        "email_found": bool(enriched_dict.get("agent_reach_data", {}).get("found_emails")),
+                                        "phone_found": bool(enriched_dict.get("agent_reach_data", {}).get("found_phones")),
+                                    }
+                                )
+                    
                     existing_records = await runtime.list_records()
                     duplicate_scores = [enrichment.dedupe_score(enriched, existing) for existing in existing_records]
                     if duplicate_scores:
@@ -973,6 +1045,44 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
                 {"records_found": records_found, "processed_targets": processed_targets},
             )
             return
+
+        if job.request.mode == "max":
+            from asagus.services.csv_merger import merge_asagus_and_download_csv
+            from asagus.services.tools_runner import wait_for_job_tools
+
+            merge_wait_seconds = float(os.getenv("ASAGUS_MAX_MODE_TOOL_MERGE_WAIT_SECONDS", "240"))
+            tool_wait = await wait_for_job_tools(job_id, timeout_seconds=merge_wait_seconds)
+            await emit(
+                job_id,
+                LayerName.ai_app,
+                "max_mode_tools_finished",
+                "MAX mode co-engine tool runs reached a terminal state or the merge wait window ended",
+                tool_wait,
+            )
+            primary_records = [
+                record.model_dump(mode="json")
+                for record in await runtime.list_records()
+            ]
+            merge_result = merge_asagus_and_download_csv(job_id, primary_records)
+            await runtime.add_secondary_record({
+                "job_id": job_id,
+                "status": "combined_csv_ready",
+                "method": "max_mode_merge",
+                "query": job.request.query,
+                "location": job.request.location,
+                "mode": job.request.mode,
+                "timestamp": utc_now().isoformat(),
+                "output_csv": merge_result.get("output_csv", ""),
+                "records_merged": merge_result.get("records_merged", 0),
+                "tools_merged": ",".join(merge_result.get("tools_merged", [])),
+            })
+            await emit(
+                job_id,
+                LayerName.storage,
+                "combined_csv_ready",
+                "Primary ASAGUS records and Download tool outputs were merged into one job CSV",
+                merge_result,
+            )
 
         await runtime.update_job(
             job_id,

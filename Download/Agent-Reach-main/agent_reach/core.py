@@ -40,3 +40,21 @@ class AgentReach:
         """Get formatted health report."""
         from agent_reach.doctor import check_all, format_report
         return format_report(check_all(self.config))
+
+    def asagus_status(self, bootstrap_dependencies: bool = True) -> Dict[str, dict]:
+        """Get ASAGUS co-engine readiness and channel status."""
+        from agent_reach.integrations.asagus import AsagusCoEngine, AsagusJobContext
+
+        return AsagusCoEngine(
+            AsagusJobContext.from_env(),
+            bootstrap_dependencies=bootstrap_dependencies,
+        ).status()
+
+    def run_asagus(self, bootstrap_dependencies: bool = True) -> Dict[str, dict]:
+        """Run Agent Reach using the ASAGUS job context from environment."""
+        from agent_reach.integrations.asagus import AsagusCoEngine, AsagusJobContext
+
+        return AsagusCoEngine(
+            AsagusJobContext.from_env(),
+            bootstrap_dependencies=bootstrap_dependencies,
+        ).run()

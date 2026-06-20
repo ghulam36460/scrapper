@@ -1,0 +1,607 @@
+{
+  "tool_id": "agent-reach",
+  "mode": "max",
+  "job_id": "6cd6eed9-00ef-4db1-8509-3ee14ee9c279",
+  "query": "Audit firm",
+  "location": "Qatar",
+  "limit": 25,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/Agent-Reach-main",
+  "started_at": 1781345886.9395127,
+  "dry_run": false,
+  "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/6cd6eed9-00ef-4db1-8509-3ee14ee9c279",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {
+    "job_id": "6cd6eed9-00ef-4db1-8509-3ee14ee9c279",
+    "mode": "max",
+    "query": "Audit firm",
+    "location": "Qatar",
+    "limit": 50,
+    "website_filter": "any",
+    "network_enabled": true,
+    "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "download_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download",
+    "pipeline_config": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/asagus_pipeline.json",
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "selected_tools": [
+      "agent-reach",
+      "scrapegraph-ai",
+      "scrapling",
+      "firecrawl",
+      "maxun",
+      "outreach",
+      "outreach-system",
+      "outreach-scraper",
+      "maps-scraper",
+      "scrapy",
+      "whatsapp-detector"
+    ],
+    "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass.",
+    "created_at": 1781345886.5627317
+  },
+  "tool_config": {
+    "tool_id": "agent-reach",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "entry_module": "agent_reach.integrations.asagus",
+    "pipeline_role": "native_asagus_co_engine",
+    "auto_install_missing_python_dependencies": true,
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true,
+      "channel_selection": "all_ready_channels",
+      "outputs": [
+        "agent-reach.json",
+        "agent-reach.csv"
+      ]
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "agent-reach",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "adapter": "agent_reach.integrations.asagus",
+  "integration_level": "agent_reach_native_asagus_co_engine",
+  "status": "completed",
+  "job_context": {
+    "job_id": "6cd6eed9-00ef-4db1-8509-3ee14ee9c279",
+    "query": "Audit firm",
+    "location": "Qatar",
+    "limit": 25,
+    "mode": "max",
+    "website_filter": "any",
+    "tool_id": "agent-reach",
+    "real_run": true,
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/6cd6eed9-00ef-4db1-8509-3ee14ee9c279",
+    "requested_channels": [],
+    "max_results": 25,
+    "dependency_bootstrap": true
+  },
+  "dependency_status": {
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "venv_bin": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin",
+    "auto_install": true,
+    "dependencies_checked": [
+      "requests>=2.28",
+      "feedparser>=6.0",
+      "python-dotenv>=1.0",
+      "loguru>=0.7",
+      "pyyaml>=6.0",
+      "rich>=13.0",
+      "yt-dlp>=2024.0"
+    ],
+    "missing_before": [],
+    "install_attempts": [],
+    "post_install_actions": [
+      {
+        "name": "yt-dlp-js-runtime",
+        "ok": false,
+        "skipped": true,
+        "reason": "node not found"
+      }
+    ],
+    "missing_after": [],
+    "ok": true
+  },
+  "agent_reach_available": true,
+  "channels_status": {
+    "available": true,
+    "channels": {
+      "github": {
+        "status": "warn",
+        "message": "gh CLI 未安装。安装：https://cli.github.com",
+        "backends": [
+          "gh CLI"
+        ],
+        "tier": 0
+      },
+      "twitter": {
+        "status": "warn",
+        "message": "Twitter CLI 未安装。安装方式：\n  pipx install twitter-cli\n或：\n  uv tool install twitter-cli",
+        "backends": [
+          "twitter-cli",
+          "bird CLI (legacy)"
+        ],
+        "tier": 1
+      },
+      "youtube": {
+        "status": "warn",
+        "message": "yt-dlp 已安装但缺少 JS runtime（YouTube 必须）。\n  安装 Node.js 或 deno，然后运行：agent-reach install",
+        "backends": [
+          "yt-dlp"
+        ],
+        "tier": 0
+      },
+      "reddit": {
+        "status": "off",
+        "message": "需要安装 rdt-cli（推荐使用最新版 v0.4.2+）：\n  pip install 'rdt-cli>=0.4.2'\n或：\n  uv tool install rdt-cli\n最新源码：https://github.com/public-clis/rdt-cli\n安装后运行 `rdt login` 登录（需先在浏览器登录 reddit.com）",
+        "backends": [
+          "rdt-cli"
+        ],
+        "tier": 0
+      },
+      "bilibili": {
+        "status": "ok",
+        "message": "视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli",
+        "backends": [
+          "yt-dlp",
+          "bili-cli (可选)",
+          "B站搜索 API"
+        ],
+        "tier": 1
+      },
+      "xiaohongshu": {
+        "status": "off",
+        "message": "需要安装 xhs-cli：\n  pipx install xiaohongshu-cli\n或：\n  uv tool install xiaohongshu-cli\n安装后运行 `xhs login` 登录",
+        "backends": [
+          "xhs-cli (xiaohongshu-cli)"
+        ],
+        "tier": 1
+      },
+      "douyin": {
+        "status": "off",
+        "message": "需要 mcporter + douyin-mcp-server。安装步骤：\n  1. npm install -g mcporter\n  2. pip install douyin-mcp-server\n  3. 启动服务（见下方说明）\n  4. mcporter config add douyin http://localhost:18070/mcp\n  详见 https://github.com/yzfly/douyin-mcp-server",
+        "backends": [
+          "douyin-mcp-server"
+        ],
+        "tier": 2
+      },
+      "linkedin": {
+        "status": "off",
+        "message": "基本内容可通过 Jina Reader 读取。完整功能需要：\n  pip install linkedin-scraper-mcp\n  mcporter config add linkedin http://localhost:3000/mcp\n  详见 https://github.com/stickerdaniel/linkedin-mcp-server",
+        "backends": [
+          "linkedin-scraper-mcp",
+          "Jina Reader"
+        ],
+        "tier": 2
+      },
+      "wechat": {
+        "status": "warn",
+        "message": "Camoufox 可阅读公众号文章，但搜索功能需要 Exa。运行 `agent-reach install --env=auto` 安装 Exa。",
+        "backends": [
+          "Exa via mcporter (搜索+阅读)",
+          "Camoufox (可选阅读)"
+        ],
+        "tier": 0
+      },
+      "weibo": {
+        "status": "off",
+        "message": "需要 mcporter + mcp-server-weibo。安装步骤：\n  1. npm install -g mcporter\n  2. pip install git+https://github.com/Panniantong/mcp-server-weibo.git\n  3. mcporter config add weibo --command 'mcp-server-weibo'\n  详见 https://github.com/Panniantong/mcp-server-weibo",
+        "backends": [
+          "mcp-server-weibo"
+        ],
+        "tier": 1
+      },
+      "xiaoyuzhou": {
+        "status": "off",
+        "message": "需要 ffmpeg（音频转码和切片）。安装：\n  Ubuntu/Debian: apt install -y ffmpeg\n  macOS: brew install ffmpeg",
+        "backends": [
+          "groq-whisper",
+          "ffmpeg"
+        ],
+        "tier": 1
+      },
+      "v2ex": {
+        "status": "ok",
+        "message": "公开 API 可用（热门主题、节点浏览、主题详情、用户信息）",
+        "backends": [
+          "V2EX API (public)"
+        ],
+        "tier": 0
+      },
+      "xueqiu": {
+        "status": "warn",
+        "message": "Xueqiu API 连接失败：HTTP Error 400: 。请先登录雪球后运行：agent-reach configure --from-browser chrome",
+        "backends": [
+          "Xueqiu API (需要登录 Cookie)"
+        ],
+        "tier": 1
+      },
+      "rss": {
+        "status": "ok",
+        "message": "可读取 RSS/Atom 源",
+        "backends": [
+          "feedparser"
+        ],
+        "tier": 0
+      },
+      "exa_search": {
+        "status": "off",
+        "message": "需要 mcporter + Exa MCP。安装：\n  npm install -g mcporter\n  mcporter config add exa https://mcp.exa.ai/mcp",
+        "backends": [
+          "Exa via mcporter"
+        ],
+        "tier": 0
+      },
+      "web": {
+        "status": "ok",
+        "message": "通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）",
+        "backends": [
+          "Jina Reader"
+        ],
+        "tier": 0
+      }
+    },
+    "ready_channels": [
+      "bilibili",
+      "v2ex",
+      "rss",
+      "web"
+    ],
+    "ready_count": 4,
+    "total_channels": 16
+  },
+  "channels_requested": [
+    "bilibili",
+    "rss",
+    "v2ex",
+    "web"
+  ],
+  "channels_used": [
+    "bilibili",
+    "rss",
+    "v2ex",
+    "web"
+  ],
+  "message": "Agent Reach completed with 15 records",
+  "records_found": 15,
+  "urls_discovered": 17,
+  "urls_attempted": 17,
+  "search_attempts": [
+    {
+      "source": "duckduckgo.com",
+      "query": "Audit firm Qatar official website contact email phone",
+      "url": "https://duckduckgo.com/html/?q=Audit+firm+Qatar+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "Audit firm Qatar official website contact email phone",
+      "url": "https://www.google.com/search?q=Audit+firm+Qatar+official+website+contact+email+phone",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "Audit firm Qatar business website contact",
+      "url": "https://duckduckgo.com/html/?q=Audit+firm+Qatar+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "Audit firm Qatar business website contact",
+      "url": "https://www.google.com/search?q=Audit+firm+Qatar+business+website+contact",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "Audit firm Qatar address phone email",
+      "url": "https://duckduckgo.com/html/?q=Audit+firm+Qatar+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "Audit firm Qatar address phone email",
+      "url": "https://www.google.com/search?q=Audit+firm+Qatar+address+phone+email",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    }
+  ],
+  "scrape_attempts": [
+    {
+      "channel": "web",
+      "url": "https://mbn-audit.com/contact/en",
+      "ok": true,
+      "error": null,
+      "content_length": 1621
+    },
+    {
+      "channel": "web",
+      "url": "https://albatel-qatar.com",
+      "ok": true,
+      "error": null,
+      "content_length": 1655
+    },
+    {
+      "channel": "web",
+      "url": "https://alyafeiauditors.qa",
+      "ok": true,
+      "error": null,
+      "content_length": 5565
+    },
+    {
+      "channel": "web",
+      "url": "https://nexiabasel.com",
+      "ok": true,
+      "error": null,
+      "content_length": 4314
+    },
+    {
+      "channel": "web",
+      "url": "https://qataryello.com/category/Audit_and_accounting",
+      "ok": true,
+      "error": null,
+      "content_length": 5604
+    },
+    {
+      "channel": "web",
+      "url": "https://jbapartner.com/en/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 15977
+    },
+    {
+      "channel": "web",
+      "url": "https://mnaauditors.qa/contact-us",
+      "ok": false,
+      "error": "The read operation timed out",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://morisonqatar.com/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 5018
+    },
+    {
+      "channel": "web",
+      "url": "https://jaraudit.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 8431
+    },
+    {
+      "channel": "web",
+      "url": "https://tsa-qatar.com",
+      "ok": true,
+      "error": null,
+      "content_length": 15159
+    },
+    {
+      "channel": "web",
+      "url": "https://mbgcorp.com/qatar",
+      "ok": true,
+      "error": null,
+      "content_length": 41271
+    },
+    {
+      "channel": "web",
+      "url": "http://akauditors.com",
+      "ok": true,
+      "error": null,
+      "content_length": 14855
+    },
+    {
+      "channel": "web",
+      "url": "https://krestonsvp.com",
+      "ok": true,
+      "error": null,
+      "content_length": 11388
+    },
+    {
+      "channel": "web",
+      "url": "https://sbauditors.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 2407
+    },
+    {
+      "channel": "web",
+      "url": "https://alkhalifaca.com/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 2144
+    },
+    {
+      "channel": "web",
+      "url": "https://alsada-auditing.com/CONTACT-US",
+      "ok": true,
+      "error": null,
+      "content_length": 1890
+    },
+    {
+      "channel": "web",
+      "url": "https://ey.com/en_qa/locations/qatar",
+      "ok": false,
+      "error": "ASAGUS tool timeout after 240s",
+      "content_length": 0
+    }
+  ],
+  "channel_attempts": [
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json bilisearch10:Audit firm",
+      "ok": true,
+      "return_code": 0,
+      "stdout": "{\"id\": \"Audit firm\", \"title\": \"Audit firm\", \"_type\": \"playlist\", \"entries\": [{\"ie_key\": \"BiliBili\", \"id\": \"805457765\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av805457765\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"450054952\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av450054952\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"112674541144371\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av112674541144371\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"116355261007570\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av116355261007570\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"73145608\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av73145608\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"116678977394306\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av116678977394306\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"115998610949695\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av115998610949695\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"870483949\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av870483949\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"538956169\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av538956169\", \"__x_forwarded_for_ip\": null}, {\"ie_key\": \"BiliBili\", \"id\": \"115661741229909\", \"_type\": \"url\", \"url\": \"http://www.bilibili.com/video/av115661741229909\", \"__x_forwarded_for_ip\": null}], \"webpage_url\": \"bilisearch10:Audit firm\", \"original_url\": \"bilisearch10:Audit firm\", \"webpage_url_basename\": \"Audit firm\", \"webpage_url_domain\": null, \"extractor\": \"BiliBiliSearch\", \"extractor_key\": \"BiliBiliSearch\", \"release_year\": null, \"playlist_count\": 10, \"epoch\": 1781345916, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "",
+      "elapsed_seconds": 3.836,
+      "channel": "bilibili"
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 2.34
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.807
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.72
+    },
+    {
+      "channel": "rss",
+      "url": "https://albatel-qatar.com/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Server Error",
+      "elapsed_seconds": 1.892
+    },
+    {
+      "channel": "rss",
+      "url": "https://albatel-qatar.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Server Error",
+      "elapsed_seconds": 15.08
+    },
+    {
+      "channel": "rss",
+      "url": "https://albatel-qatar.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Server Error",
+      "elapsed_seconds": 1.549
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/feed",
+      "ok": false,
+      "entries": [],
+      "elapsed_seconds": 0.91
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.562
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.523
+    },
+    {
+      "channel": "rss",
+      "url": "https://nexiabasel.com/feed",
+      "ok": false,
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1033)>",
+      "elapsed_seconds": 1.109
+    },
+    {
+      "channel": "rss",
+      "url": "https://nexiabasel.com/rss.xml",
+      "ok": false,
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1033)>",
+      "elapsed_seconds": 0.623
+    },
+    {
+      "channel": "rss",
+      "url": "https://nexiabasel.com/atom.xml",
+      "ok": false,
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1033)>",
+      "elapsed_seconds": 0.678
+    },
+    {
+      "channel": "rss",
+      "url": "https://qataryello.com/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 2.143
+    },
+    {
+      "channel": "rss",
+      "url": "https://qataryello.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.774
+    },
+    {
+      "channel": "rss",
+      "url": "https://qataryello.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 4.667
+    },
+    {
+      "channel": "v2ex",
+      "ok": false,
+      "query": "Audit firm",
+      "error": "Remote end closed connection without response",
+      "elapsed_seconds": 19.499
+    }
+  ],
+  "output_csv": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/6cd6eed9-00ef-4db1-8509-3ee14ee9c279/agent-reach.csv",
+  "elapsed_seconds": 240.012,
+  "finished_at": 1781346126.95146,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/6cd6eed9-00ef-4db1-8509-3ee14ee9c279/agent-reach.json"
+}

@@ -119,6 +119,43 @@ def _run_outreach_score(root: Path, output_dir: Path) -> dict[str, Any]:
         return {"status": "failed", "message": str(exc)[:500]}
 
 
+def _run_agent_reach_tool(root: Path, args: argparse.Namespace, output_dir: Path) -> dict[str, Any]:
+    adapter_path = root / "asagus_adapter.py"
+    if not adapter_path.exists():
+        return {"status": "failed", "message": f"Agent Reach adapter not found: {adapter_path}"}
+
+    env_updates = {
+        "ASAGUS_TOOL_ID": "agent-reach",
+        "ASAGUS_JOB_ID": _env("ASAGUS_JOB_ID", "manual"),
+        "ASAGUS_QUERY": args.query,
+        "ASAGUS_LOCATION": args.location,
+        "ASAGUS_LIMIT": str(args.limit),
+        "ASAGUS_MODE": args.mode,
+        "ASAGUS_RUNS_ROOT": str(output_dir.parent),
+    }
+    previous_env = {key: os.environ.get(key) for key in env_updates}
+    os.environ.update(env_updates)
+
+    try:
+        sys.path.insert(0, str(root))
+        from asagus_adapter import AgentReachAdapter  # type: ignore
+
+        result = AgentReachAdapter().run()
+        if not isinstance(result, dict):
+            return {"status": "failed", "message": "Agent Reach adapter returned a non-dict result"}
+        return result
+    finally:
+        try:
+            sys.path.remove(str(root))
+        except ValueError:
+            pass
+        for key, value in previous_env.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="ASAGUS Download tool launcher")
     parser.add_argument("--tool-id", default=_env("ASAGUS_TOOL_ID"))
@@ -183,7 +220,7 @@ def main() -> int:
         elif args.tool_id == "scrapy":
             result = {"status": "completed", "package_available": _module_available("scrapy")}
         elif args.tool_id == "agent-reach":
-            result = {"status": "completed", "package_available": _module_available("agent_reach")}
+            result = _run_agent_reach_tool(root, args, output_dir)
         elif args.tool_id == "scrapegraph-ai":
             result = {"status": "prepared", "package_available": _module_available("scrapegraphai")}
         elif args.tool_id == "firecrawl":

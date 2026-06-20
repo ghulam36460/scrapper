@@ -282,6 +282,7 @@ export type ToolRun = {
   run_id: string;
   tool_id: string;
   tool_name: string;
+  job_id?: string;
   pid?: number;
   status: "running" | "completed" | "failed" | "killed";
   command?: string;
@@ -334,6 +335,13 @@ export const api = {
   // CSV Export
   exportRecordsCSV: () => `${API_URL}/api/records/export/csv`,
   exportSecondaryCSV: () => `${API_URL}/api/records/secondary/export/csv`,
+  exportCombinedCSV: (jobId: string) => `${API_URL}/api/records/export/combined-csv/${encodeURIComponent(jobId)}/download`,
+  buildCombinedCSV: (jobId: string) =>
+    request<Record<string, unknown>>(`/api/records/export/combined-csv/${encodeURIComponent(jobId)}`),
+  mergeToolCSV: (jobId: string) =>
+    request<Record<string, unknown>>(`/api/records/export/merged-csv/${encodeURIComponent(jobId)}`),
+  mergeSummary: (jobId: string) =>
+    request<Record<string, unknown>>(`/api/records/export/merged-csv/${encodeURIComponent(jobId)}/summary`),
   // Secondary DB
   secondaryRecords: () => request<{ count: number; records: Record<string, unknown>[] }>("/api/records/secondary"),
   // Tools Runner

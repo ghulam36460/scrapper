@@ -8,7 +8,7 @@ import io
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 
 from asagus.models import JobStatus
 from asagus.services.runtime import runtime
@@ -163,11 +163,37 @@ async def export_secondary_records_csv() -> StreamingResponse:
 
 @router.get("/records/export/merged-csv/{job_id}", dependencies=[Depends(require_operator)])
 async def export_merged_tools_csv(job_id: str) -> dict[str, Any]:
-    """✅ FIX #5: Merge CSV outputs from all Download tools for a job."""
+    """Merge CSV outputs from all Download tools for a job."""
     from asagus.services.csv_merger import merge_download_tools_csv
     
     result = merge_download_tools_csv(job_id)
     return result
+
+
+@router.get("/records/export/combined-csv/{job_id}", dependencies=[Depends(require_operator)])
+async def build_combined_job_csv(job_id: str) -> dict[str, Any]:
+    """Build one CSV from ASAGUS primary records plus Download tool outputs."""
+    from asagus.services.csv_merger import merge_asagus_and_download_csv
+
+    records = [record.model_dump(mode="json") for record in await runtime.list_records()]
+    return merge_asagus_and_download_csv(job_id, records)
+
+
+@router.get("/records/export/combined-csv/{job_id}/download", dependencies=[Depends(require_operator)])
+async def download_combined_job_csv(job_id: str) -> FileResponse:
+    """Build and download one CSV from ASAGUS primary records plus tool outputs."""
+    from asagus.services.csv_merger import merge_asagus_and_download_csv
+
+    records = [record.model_dump(mode="json") for record in await runtime.list_records()]
+    result = merge_asagus_and_download_csv(job_id, records)
+    output_csv = result.get("output_csv")
+    if not output_csv:
+        raise HTTPException(status_code=404, detail=result.get("status", "combined CSV unavailable"))
+    return FileResponse(
+        output_csv,
+        media_type="text/csv",
+        filename=f"asagus_combined_{job_id}.csv",
+    )
 
 
 @router.get("/records/export/merged-csv/{job_id}/summary", dependencies=[Depends(require_operator)])

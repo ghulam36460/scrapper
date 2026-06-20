@@ -1,0 +1,751 @@
+{
+  "tool_id": "agent-reach",
+  "mode": "max",
+  "job_id": "agent-reach-manual-1781348375",
+  "query": "audit firms",
+  "location": "Qatar",
+  "limit": 50,
+  "cwd": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/Agent-Reach-main",
+  "started_at": 1781348376.1072373,
+  "dry_run": false,
+  "backend_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781348375",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {},
+  "tool_config": {
+    "tool_id": "agent-reach",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "entry_module": "agent_reach.integrations.asagus",
+    "pipeline_role": "native_asagus_co_engine",
+    "auto_install_missing_python_dependencies": true,
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true,
+      "channel_selection": "all_ready_channels",
+      "outputs": [
+        "agent-reach.json",
+        "agent-reach.csv"
+      ]
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "agent-reach",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "adapter": "agent_reach.integrations.asagus",
+  "integration_level": "agent_reach_native_asagus_co_engine",
+  "status": "completed",
+  "job_context": {
+    "job_id": "agent-reach-manual-1781348375",
+    "query": "audit firms",
+    "location": "Qatar",
+    "limit": 50,
+    "mode": "max",
+    "website_filter": "all",
+    "tool_id": "agent-reach",
+    "real_run": true,
+    "runs_root": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs",
+    "output_dir": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781348375",
+    "requested_channels": [
+      "web",
+      "github",
+      "youtube",
+      "bilibili",
+      "v2ex",
+      "rss"
+    ],
+    "max_results": 50,
+    "dependency_bootstrap": true
+  },
+  "dependency_status": {
+    "backend_python": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin/python",
+    "venv_bin": "/home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/backend/.venv/bin",
+    "auto_install": true,
+    "dependencies_checked": [
+      "requests>=2.28",
+      "feedparser>=6.0",
+      "python-dotenv>=1.0",
+      "loguru>=0.7",
+      "pyyaml>=6.0",
+      "rich>=13.0",
+      "yt-dlp>=2024.0"
+    ],
+    "missing_before": [],
+    "install_attempts": [],
+    "post_install_actions": [
+      {
+        "name": "yt-dlp-js-runtime",
+        "ok": true,
+        "changed": false,
+        "path": "/home/ghulam/.config/yt-dlp/config"
+      }
+    ],
+    "missing_after": [],
+    "ok": true
+  },
+  "agent_reach_available": true,
+  "channels_status": {
+    "available": true,
+    "channels": {
+      "github": {
+        "status": "ok",
+        "message": "完整可用（读取、搜索、Fork、Issue、PR 等）",
+        "backends": [
+          "gh CLI"
+        ],
+        "tier": 0
+      },
+      "twitter": {
+        "status": "warn",
+        "message": "Twitter CLI 未安装。安装方式：\n  pipx install twitter-cli\n或：\n  uv tool install twitter-cli",
+        "backends": [
+          "twitter-cli",
+          "bird CLI (legacy)"
+        ],
+        "tier": 1
+      },
+      "youtube": {
+        "status": "ok",
+        "message": "可提取视频信息和字幕",
+        "backends": [
+          "yt-dlp"
+        ],
+        "tier": 0
+      },
+      "reddit": {
+        "status": "off",
+        "message": "需要安装 rdt-cli（推荐使用最新版 v0.4.2+）：\n  pip install 'rdt-cli>=0.4.2'\n或：\n  uv tool install rdt-cli\n最新源码：https://github.com/public-clis/rdt-cli\n安装后运行 `rdt login` 登录（需先在浏览器登录 reddit.com）",
+        "backends": [
+          "rdt-cli"
+        ],
+        "tier": 0
+      },
+      "bilibili": {
+        "status": "ok",
+        "message": "视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli",
+        "backends": [
+          "yt-dlp",
+          "bili-cli (可选)",
+          "B站搜索 API"
+        ],
+        "tier": 1
+      },
+      "xiaohongshu": {
+        "status": "off",
+        "message": "需要安装 xhs-cli：\n  pipx install xiaohongshu-cli\n或：\n  uv tool install xiaohongshu-cli\n安装后运行 `xhs login` 登录",
+        "backends": [
+          "xhs-cli (xiaohongshu-cli)"
+        ],
+        "tier": 1
+      },
+      "douyin": {
+        "status": "off",
+        "message": "需要 mcporter + douyin-mcp-server。安装步骤：\n  1. npm install -g mcporter\n  2. pip install douyin-mcp-server\n  3. 启动服务（见下方说明）\n  4. mcporter config add douyin http://localhost:18070/mcp\n  详见 https://github.com/yzfly/douyin-mcp-server",
+        "backends": [
+          "douyin-mcp-server"
+        ],
+        "tier": 2
+      },
+      "linkedin": {
+        "status": "off",
+        "message": "基本内容可通过 Jina Reader 读取。完整功能需要：\n  pip install linkedin-scraper-mcp\n  mcporter config add linkedin http://localhost:3000/mcp\n  详见 https://github.com/stickerdaniel/linkedin-mcp-server",
+        "backends": [
+          "linkedin-scraper-mcp",
+          "Jina Reader"
+        ],
+        "tier": 2
+      },
+      "wechat": {
+        "status": "warn",
+        "message": "Camoufox 可阅读公众号文章，但搜索功能需要 Exa。运行 `agent-reach install --env=auto` 安装 Exa。",
+        "backends": [
+          "Exa via mcporter (搜索+阅读)",
+          "Camoufox (可选阅读)"
+        ],
+        "tier": 0
+      },
+      "weibo": {
+        "status": "off",
+        "message": "需要 mcporter + mcp-server-weibo。安装步骤：\n  1. npm install -g mcporter\n  2. pip install git+https://github.com/Panniantong/mcp-server-weibo.git\n  3. mcporter config add weibo --command 'mcp-server-weibo'\n  详见 https://github.com/Panniantong/mcp-server-weibo",
+        "backends": [
+          "mcp-server-weibo"
+        ],
+        "tier": 1
+      },
+      "xiaoyuzhou": {
+        "status": "off",
+        "message": "需要 ffmpeg（音频转码和切片）。安装：\n  Ubuntu/Debian: apt install -y ffmpeg\n  macOS: brew install ffmpeg",
+        "backends": [
+          "groq-whisper",
+          "ffmpeg"
+        ],
+        "tier": 1
+      },
+      "v2ex": {
+        "status": "ok",
+        "message": "公开 API 可用（热门主题、节点浏览、主题详情、用户信息）",
+        "backends": [
+          "V2EX API (public)"
+        ],
+        "tier": 0
+      },
+      "xueqiu": {
+        "status": "warn",
+        "message": "Xueqiu API 连接失败：HTTP Error 400: 。请先登录雪球后运行：agent-reach configure --from-browser chrome",
+        "backends": [
+          "Xueqiu API (需要登录 Cookie)"
+        ],
+        "tier": 1
+      },
+      "rss": {
+        "status": "ok",
+        "message": "可读取 RSS/Atom 源",
+        "backends": [
+          "feedparser"
+        ],
+        "tier": 0
+      },
+      "exa_search": {
+        "status": "off",
+        "message": "需要 mcporter + Exa MCP。安装：\n  npm install -g mcporter\n  mcporter config add exa https://mcp.exa.ai/mcp",
+        "backends": [
+          "Exa via mcporter"
+        ],
+        "tier": 0
+      },
+      "web": {
+        "status": "ok",
+        "message": "通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）",
+        "backends": [
+          "Jina Reader"
+        ],
+        "tier": 0
+      }
+    },
+    "ready_channels": [
+      "github",
+      "youtube",
+      "bilibili",
+      "v2ex",
+      "rss",
+      "web"
+    ],
+    "ready_count": 6,
+    "total_channels": 16
+  },
+  "channels_requested": [
+    "web",
+    "github",
+    "youtube",
+    "bilibili",
+    "v2ex",
+    "rss"
+  ],
+  "channels_used": [
+    "bilibili",
+    "github",
+    "rss",
+    "v2ex",
+    "web",
+    "youtube"
+  ],
+  "message": "Agent Reach completed with 17 records",
+  "records_found": 17,
+  "urls_discovered": 19,
+  "urls_attempted": 19,
+  "search_attempts": [
+    {
+      "source": "duckduckgo.com",
+      "query": "audit firms Qatar official website contact email phone",
+      "url": "https://duckduckgo.com/html/?q=audit+firms+Qatar+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "audit firms Qatar official website contact email phone",
+      "url": "https://www.google.com/search?q=audit+firms+Qatar+official+website+contact+email+phone",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "audit firms Qatar business website contact",
+      "url": "https://duckduckgo.com/html/?q=audit+firms+Qatar+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 96
+    },
+    {
+      "source": "www.google.com",
+      "query": "audit firms Qatar business website contact",
+      "url": "https://www.google.com/search?q=audit+firms+Qatar+business+website+contact",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "audit firms Qatar address phone email",
+      "url": "https://duckduckgo.com/html/?q=audit+firms+Qatar+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "audit firms Qatar address phone email",
+      "url": "https://www.google.com/search?q=audit+firms+Qatar+address+phone+email",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "urls_found": 0
+    }
+  ],
+  "scrape_attempts": [
+    {
+      "channel": "web",
+      "url": "https://morisonqatar.com",
+      "ok": false,
+      "error": "The read operation timed out",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://mnaauditors.qa",
+      "ok": true,
+      "error": null,
+      "content_length": 24827
+    },
+    {
+      "channel": "web",
+      "url": "https://mbn-audit.com/contact/en",
+      "ok": true,
+      "error": null,
+      "content_length": 1621
+    },
+    {
+      "channel": "web",
+      "url": "https://hlb-ag.com",
+      "ok": true,
+      "error": null,
+      "content_length": 50418
+    },
+    {
+      "channel": "web",
+      "url": "https://alyafeiauditors.qa",
+      "ok": false,
+      "error": "HTTP Error 451: Unavailable For Legal Reasons",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://nexiabasel.com",
+      "ok": true,
+      "error": null,
+      "content_length": 4361
+    },
+    {
+      "channel": "web",
+      "url": "https://jbapartner.com/en/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 16024
+    },
+    {
+      "channel": "web",
+      "url": "https://mbgcorp.com/qatar/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 12591
+    },
+    {
+      "channel": "web",
+      "url": "https://qataryello.com/category/Audit_and_accounting",
+      "ok": true,
+      "error": null,
+      "content_length": 5604
+    },
+    {
+      "channel": "web",
+      "url": "http://akauditors.com",
+      "ok": true,
+      "error": null,
+      "content_length": 14855
+    },
+    {
+      "channel": "web",
+      "url": "https://jaraudit.com",
+      "ok": true,
+      "error": null,
+      "content_length": 9844
+    },
+    {
+      "channel": "web",
+      "url": "https://crownaccountant.com/post/top-10-audit-firms-in-qatar-trusted-financial-experts",
+      "ok": true,
+      "error": null,
+      "content_length": 4440
+    },
+    {
+      "channel": "web",
+      "url": "https://alhashimiaudit.com",
+      "ok": true,
+      "error": null,
+      "content_length": 9320
+    },
+    {
+      "channel": "web",
+      "url": "https://krestonsvp.com",
+      "ok": true,
+      "error": null,
+      "content_length": 11435
+    },
+    {
+      "channel": "web",
+      "url": "https://yellowpages.qa/web",
+      "ok": true,
+      "error": null,
+      "content_length": 777
+    },
+    {
+      "channel": "web",
+      "url": "https://sbauditors.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 2407
+    },
+    {
+      "channel": "web",
+      "url": "https://alsada-auditing.com/CONTACT-US",
+      "ok": true,
+      "error": null,
+      "content_length": 1890
+    },
+    {
+      "channel": "web",
+      "url": "https://sakauditors.com",
+      "ok": true,
+      "error": null,
+      "content_length": 7549
+    },
+    {
+      "channel": "web",
+      "url": "https://tsa-qatar.com",
+      "ok": true,
+      "error": null,
+      "content_length": 15159
+    }
+  ],
+  "channel_attempts": [
+    {
+      "command": "gh search repos audit firms --sort stars --limit 10",
+      "ok": true,
+      "return_code": 0,
+      "stdout": "0xsnowman/auditing-firm-site\tAuditing dashboard for audit firm\tpublic\t2024-09-13T02:04:15Z\npaavaninfotech/audit_management\tThis is a custom Frappe/ERPNext app designed for **Audit Firms** and **Internal Audit Teams** to plan, execute, track, and report audits effectively.\tpublic\t2026-05-07T10:56:04Z\nJorgeRodriguezsec/CTDsec\tBlockchain Security Auditing Firm | Blockchain Development Specialists | 8+ Years Experience in Blockchain | Providing Value for Clients\tpublic\t2023-05-02T12:15:22Z\nbipin0x01/AuditManagement\tAudit Firm Management System made using MERN Stack and hosted on heroku.\tpublic\t2024-01-05T09:05:11Z\nSoDisliked/Disliked-Auditing-DevOps\tFirst Angular IO and NodeJS project of creating a DevOps for a fictive auditing firm.\tpublic\t2023-08-06T09:20:50Z\nminshad313/Big4-MNC-s-Financial-Risk-Detection-Dashboard\tA deep-dive data analysis of the world's leading audit firms (PwC, Deloitte, EY, KPMG).\tpublic\t2026-05-29T00:14:03Z\nSalamiAyotofunmi/audit_tracking_system\tFlask & PostgreSQL based Audit Tracking System for managing key operational data to solve the limitations of traditional manual record-keeping systems in financial auditing firms\tpublic\t2026-02-11T08:39:53Z\njiexia0109/auditor-turnover\tThis is a replication of building Audit Firm and Office Characteristics variables following Chen(JAR, 2024) and State-level variables following Carnes et.al.(JAR, 2023)\tpublic\t2025-11-13T17:33:03Z\npeppai/audit\t#PeppaAI has successfully completed the smart contract audit, by the top audit firm @CoinsultAudits we remain committed to ensuring the security of our protocol and providing excellent service to our users\tpublic\t2023-05-12T15:52:41Z\nWhiteKnightK/Contract-Audit-Navigator\tContract Audit Navigator is a comprehensive directory of smart contract security audit platforms. It provides a curated collection of leading audit firms and tools worldwide, categorized and detailed to help developers and teams find the most suitable auditing services.\tpublic\t2024-12-24T00:52:34Z\n",
+      "stderr": "",
+      "elapsed_seconds": 1.746,
+      "channel": "github"
+    },
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json ytsearch10:audit firms",
+      "ok": true,
+      "return_code": 0,
+      "stdout": "{\"id\": \"audit firms\", \"title\": \"audit firms\", \"_type\": \"playlist\", \"entries\": [{\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"v7nVsN9l-y4\", \"url\": \"https://www.youtube.com/watch?v=v7nVsN9l-y4\", \"title\": \"Who are the Big Four firms and what do they do?\", \"description\": \"The Big Four auditing firms work with nearly every single major company on the planet. At the same time, they work extensively\\u00a0...\", \"duration\": 129.0, \"channel_id\": \"UCY5FlBd-7-5eI3mRZzwjO0w\", \"channel\": \"360info\", \"channel_url\": \"https://www.youtube.com/channel/UCY5FlBd-7-5eI3mRZzwjO0w\", \"uploader\": \"360info\", \"uploader_id\": \"@360info_org\", \"uploader_url\": \"https://www.youtube.com/@360info_org\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/vi/v7nVsN9l-y4/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDPP4s1TlsTk866CUZiFJXQkj9lvw\", \"height\": 202, \"width\": 360}, {\"url\": \"https://i.ytimg.com/vi/v7nVsN9l-y4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDv4EiP7ArLx7MG5C8_NeTZzMWYsw\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 50244, \"live_status\": null, \"channel_is_verified\": null, \"__x_forwarded_for_ip\": null}, {\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"v4TdfebOjv0\", \"url\": \"https://www.youtube.com/watch?v=v4TdfebOjv0\", \"title\": \"Complete details of Audit Firms in Pakistan | QCR vs Non QCR Audit Firms\", \"description\": \"Professional's Legacy is a platform which provides Development Courses, Mentorship, Guidance and Business Consultancy.\", \"duration\": 335.0, \"channel_id\": \"UC0NDAeBU4f7Yfpt_2CxBUBw\", \"channel\": \"Professional's Legacy\", \"channel_url\": \"https://www.youtube.com/channel/UC0NDAeBU4f7Yfpt_2CxBUBw\", \"uploader\": \"Professional's Legacy\", \"uploader_id\": \"@professionallegacy\", \"uploader_url\": \"https://www.youtube.com/@professionallegacy\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/vi/v4TdfebOjv0/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA3FH0rj27S\n...[truncated]...\n\"url\": \"https://i.ytimg.com/vi/XqJFvuUiyR4/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB8POKkp-PoiZGyT7pl69udQiKJmQ\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 6576, \"live_status\": null, \"channel_is_verified\": true, \"__x_forwarded_for_ip\": null}, {\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"LKe74hgNlD8\", \"url\": \"https://www.youtube.com/watch?v=LKe74hgNlD8\", \"title\": \"How to Get a Job in Audit Firms After Graduation | Complete Roadmap\", \"description\": \"Welcome to Professional Talk \\u2013 Your Gateway to a Professional Career! For Professional CV + CV Review: Contact: +92 300\\u00a0...\", \"duration\": 833.0, \"channel_id\": \"UCi7RsaqHoc8cUhALdZh3clQ\", \"channel\": \"Professional Talk\", \"channel_url\": \"https://www.youtube.com/channel/UCi7RsaqHoc8cUhALdZh3clQ\", \"uploader\": \"Professional Talk\", \"uploader_id\": \"@realprofessionaltalk\", \"uploader_url\": \"https://www.youtube.com/@realprofessionaltalk\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/vi/LKe74hgNlD8/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBpLrhOXlYb8aR9UYI-GnpLzf3v6A\", \"height\": 202, \"width\": 360}, {\"url\": \"https://i.ytimg.com/vi/LKe74hgNlD8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC4tfLzrDOrKf4QcHG0q5pt4-cu3A\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 1526, \"live_status\": null, \"channel_is_verified\": null, \"__x_forwarded_for_ip\": null}], \"webpage_url\": \"ytsearch10:audit firms\", \"original_url\": \"ytsearch10:audit firms\", \"webpage_url_basename\": \"audit firms\", \"webpage_url_domain\": null, \"extractor\": \"youtube:search\", \"extractor_key\": \"YoutubeSearch\", \"release_year\": null, \"playlist_count\": 10, \"epoch\": 1781348404, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "",
+      "elapsed_seconds": 3.014,
+      "channel": "youtube"
+    },
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json bilisearch10:audit firms",
+      "ok": false,
+      "return_code": 1,
+      "stdout": "{\"id\": \"audit firms\", \"title\": \"audit firms\", \"_type\": \"playlist\", \"entries\": [null], \"webpage_url\": \"bilisearch10:audit firms\", \"original_url\": \"bilisearch10:audit firms\", \"webpage_url_basename\": \"audit firms\", \"webpage_url_domain\": null, \"extractor\": \"BiliBiliSearch\", \"extractor_key\": \"BiliBiliSearch\", \"release_year\": null, \"requested_entries\": [1], \"playlist_count\": 0, \"epoch\": 1781348406, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "ERROR: Unable to download JSON metadata: HTTP Error 412: Precondition Failed (caused by <HTTPError 412: Precondition Failed>)\n",
+      "elapsed_seconds": 2.706,
+      "channel": "bilibili"
+    },
+    {
+      "channel": "rss",
+      "url": "https://morisonqatar.com/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.646
+    },
+    {
+      "channel": "rss",
+      "url": "https://morisonqatar.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 400: Bad Request",
+      "elapsed_seconds": 1.103
+    },
+    {
+      "channel": "rss",
+      "url": "https://morisonqatar.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 400: Bad Request",
+      "elapsed_seconds": 1.093
+    },
+    {
+      "channel": "rss",
+      "url": "https://mnaauditors.qa/feed",
+      "ok": false,
+      "error": "The read operation timed out",
+      "elapsed_seconds": 5.677
+    },
+    {
+      "channel": "rss",
+      "url": "https://mnaauditors.qa/rss.xml",
+      "ok": false,
+      "error": "The read operation timed out",
+      "elapsed_seconds": 5.244
+    },
+    {
+      "channel": "rss",
+      "url": "https://mnaauditors.qa/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 4.405
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 2.724
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.906
+    },
+    {
+      "channel": "rss",
+      "url": "https://mbn-audit.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.734
+    },
+    {
+      "channel": "rss",
+      "url": "https://hlb-ag.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Transfer Pricing in Qatar: Complete 2026 Guide for Businesses and Multinational Companies",
+          "link": "https://www.hlb-ag.com/transfer-pricing-in-qatar-complete-2026-guide-for-businesses-and-multinational-companies/?utm_source=rss&utm_medium=rss&utm_campaign=transfer-pricing-in-qatar-complete-2026-guide-for-businesses-and-multinational-companies"
+        },
+        {
+          "title": "E‑Invoicing in Qatar-Future Readiness",
+          "link": "https://www.hlb-ag.com/e%e2%80%91invoicing-in-qatar-future-readiness/?utm_source=rss&utm_medium=rss&utm_campaign=e%25e2%2580%2591invoicing-in-qatar-future-readiness"
+        },
+        {
+          "title": "Choosing A Top Audit Firm in Qatar: A Practical Guide for Businesses and Investors",
+          "link": "https://www.hlb-ag.com/choosing-a-top-audit-firm-in-qatar-a-practical-guide-for-businesses-and-investors/?utm_source=rss&utm_medium=rss&utm_campaign=choosing-a-top-audit-firm-in-qatar-a-practical-guide-for-businesses-and-investors"
+        }
+      ],
+      "elapsed_seconds": 3.718
+    },
+    {
+      "channel": "rss",
+      "url": "https://hlb-ag.com/rss.xml",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Transfer Pricing in Qatar: Complete 2026 Guide for Businesses and Multinational Companies",
+          "link": "https://www.hlb-ag.com/transfer-pricing-in-qatar-complete-2026-guide-for-businesses-and-multinational-companies/"
+        },
+        {
+          "title": "In-Country Value (ICV) Certification Program",
+          "link": "https://www.hlb-ag.com/services/audit-and-assurance/in-country-value-icv-certification-program/"
+        },
+        {
+          "title": "E‑Invoicing in Qatar-Future Readiness",
+          "link": "https://www.hlb-ag.com/e%e2%80%91invoicing-in-qatar-future-readiness/"
+        }
+      ],
+      "elapsed_seconds": 2.316
+    },
+    {
+      "channel": "rss",
+      "url": "https://hlb-ag.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 3.653
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/feed",
+      "ok": false,
+      "entries": [],
+      "elapsed_seconds": 1.038
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.755
+    },
+    {
+      "channel": "rss",
+      "url": "https://alyafeiauditors.qa/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.513
+    },
+    {
+      "channel": "v2ex",
+      "ok": true,
+      "query": "audit firms",
+      "records": [
+        {
+          "id": 1220089,
+          "title": "Anthropic 因美国政府要求，关闭了所有外国公民的 Fable 5/ Mythos 5 的访问权限",
+          "url": "https://www.v2ex.com/t/1220089",
+          "replies": 67,
+          "node_name": "claude",
+          "node_title": "Claude",
+          "content": "![]( https://i.v2ex.co/4vLp3643.jpeg)\r\n\r\nhttps://www.anthropic.com/news/fable-mythos-access\r\n\r\n在美国境内的外国人也不行，不知道他们要怎么识别。",
+          "created": 1781314592
+        },
+        {
+          "id": 1220083,
+          "title": "iPhone 17 / iPhone Air 怎么选？",
+          "url": "https://www.v2ex.com/t/1220083",
+          "replies": 50,
+          "node_name": "apple",
+          "node_title": "Apple",
+          "content": "主力机是小米 17Pro ，最近有点想研究一下 IOS 的 App 开发，顺便买个果子手机自己用一下。\r\n\r\n看了一下京东价格分别是 4999 和 5070 。\r\n\r\n大佬们推荐哪个呢？",
+          "created": 1781310630
+        },
+        {
+          "id": 1220086,
+          "title": "大家用 codex 的时候没有觉得界面很卡吗",
+          "url": "https://www.v2ex.com/t/1220086",
+          "replies": 39,
+          "node_name": "openai",
+          "node_title": "OpenAI",
+          "content": "不知道是我个人感觉还是啥，感觉整个 codex 界面非常卡顿，思考的时间也很长，经常出现 time out 的情况，这是正常情况吗？",
+          "created": 1781312366
+        },
+        {
+          "id": 1220042,
+          "title": "分享近两个月的遭遇，顺便也给 V 友们一点小建议",
+          "url": "https://www.v2ex.com/t/1220042",
+          "replies": 37,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "2026 年，对于我，以及我家来说，简直是灾难的一年。\r\n\r\n## 灾难之始\r\n\r\n今年四月下旬，就在我满心欢喜准备五一去准小舅子婚礼时，突然接到了父亲的微信。我以为只是寻常的问候，等刷完手里的娱乐视频后，点开微信，只看到一行字：“你妈的嗓子里出了个东西，医生说得去大医院看”。于是顿感不妙，紧急拨过去电话，询问缘由，说喉咙里长了个肿块，不疼不痒吃了消炎药也没变化。 在我查了以后，只觉得坏也就是做个",
+          "created": 1781270202
+        },
+        {
+          "id": 1220070,
+          "title": "c 真能比 Python 快这么多？",
+          "url": "https://www.v2ex.com/t/1220070",
+          "replies": 36,
+          "node_name": "programmer",
+          "node_title": "程序员",
+          "content": "事情是这样的，最近几天在接手别人的一个 python 写的仿真程序，这个程序的运行速度奇慢无比，于是 -m cProfile 看了一眼  \r\n检查了一下之后发现程序运行一次大概 500 秒，其中大约有 170 秒都花在一个模拟用的计算函数里了，暂且称其为函数 A 吧  \r\n函数 A 大概做了两件事，首先调用了几次函数 B ，去几个表里查表并线性插值，这个过程大概花了 40 秒，这个 40 秒也是优",
+          "created": 1781282050
+        },
+        {
+          "id": 1220119,
+          "title": "央视开始报道中转站了",
+          "url": "https://www.v2ex.com/t/1220119",
+          "replies": 33,
+          "node_name": "programmer",
+          "node_title": "程序员",
+          "content": "https://mp.weixin.qq.com/s/-s5ihFhJ9BqyYZRo7ZgwYw\r\n看起来小中转站们离死不远了",
+          "created": 1781319968
+        },
+        {
+          "id": 1220095,
+          "title": "有人需要换汇吗？",
+          "url": "https://www.v2ex.com/t/1220095",
+          "replies": 32,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "美股不能投资了。把几万块钱现在转出到香港银行卡上了，但是转到国内比较麻烦，而且手续费也比较高，我看了下 wise 上面，基本要损失 1% 左右，想问下有老哥需要换汇吗？大概就是：你在境内（最好杭州，面对面），想转钱到香港卡，那我可以用香港卡转你，你国内再给我钱。有需要可以联系：amFtZXNqaWFuZ3g=",
+          "created": 1781315912
+        },
+        {
+          "id": 1220063,
+          "title": "Kimi K2.7 Code 发布了，有人已经替换 Claude Code / Codex 了吗?",
+          "url": "https://www.v2ex.com/t/1220063",
+          "replies": 31,
+          "node_name": "programmer",
+          "node_title": "程序员",
+          "content": "刚刚看到 Kimi 发布了 K2.7 Code 。\r\n\r\n官方给的数据：\r\n\r\n- Kimi Code Bench v2 +21.8%\r\n- Program Bench +11.0%\r\n- MLS Bench Lite +31.5%\r\n- 推理 Token 消耗降低 30%\r\n\r\n有没有已经体验过的大佬说说感受？",
+          "created": 1781278690
+        },
+        {
+          "id": 1220136,
+          "title": "为何从学校出来的大概率是牛马",
+          "url": "https://www.v2ex.com/t/1220136",
+          "replies": 25,
+          "node_name": "career",
+          "node_title": "职场话题",
+          "content": "到底是什么知识让我们觉得自己只能是牛马",
+          "created": 1781326814
+        },
+        {
+          "id": 1220118,
+          "title": "为什么本站和 X 上有人喜欢用拼音缩写来代替国内社交媒体上可能的敏感词？",
+          "url": "https://www.v2ex.com/t/1220118",
+          "replies": 23,
+          "node_name": "qna",
+          "node_title": "问与答",
+          "content": "包括但不限于：\r\n```\r\n政府 -> ZF\r\n管理局 -> GLJ\r\n警察 -> JC\r\n疫情 -> YQ\r\n翻墙 -> FQ\r\n\r\n...\r\n```\r\n\r\n在国内社媒上某些词发不出去，为了正常交流只能用缩写代替敏感词，这个可以理解。\r\n\r\n但是既然已经翻墙上网了，为什么还要自我阉割来用缩写代替敏感词呢？翻墙上网不就是为了能不受限制地学习/交流/生活吗？这个时候还要自我阉割，到底是为了什么？",
+          "created": 1781319948
+        }
+      ],
+      "elapsed_seconds": 0.477
+    }
+  ],
+  "output_csv": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781348375/agent-reach.csv",
+  "elapsed_seconds": 179.551,
+  "finished_at": 1781348555.6579275,
+  "output_json": "/home/ghulam/Desktop/scrapper-main/scrapper-main/Download/.asagus-runs/agent-reach-manual-1781348375/agent-reach.json"
+}

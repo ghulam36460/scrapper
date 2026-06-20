@@ -39,6 +39,28 @@ def create_server():
             Tool(name="get_status",
                  description="Get Agent Reach status: which channels are installed and active.",
                  inputSchema={"type": "object", "properties": {}}),
+            Tool(name="get_asagus_status",
+                 description="Get ASAGUS co-engine readiness, backend venv dependency status, and ready channels.",
+                 inputSchema={
+                     "type": "object",
+                     "properties": {
+                         "bootstrap": {"type": "boolean", "default": True},
+                     },
+                 }),
+            Tool(name="run_asagus_job",
+                 description="Run Agent Reach as an ASAGUS co-engine job. Dry-run unless real_run is true.",
+                 inputSchema={
+                     "type": "object",
+                     "properties": {
+                         "query": {"type": "string"},
+                         "location": {"type": "string"},
+                         "limit": {"type": "integer", "default": 25},
+                         "job_id": {"type": "string"},
+                         "channels": {"type": "string"},
+                         "real_run": {"type": "boolean", "default": False},
+                     },
+                     "required": ["query"],
+                 }),
         ]
 
     @server.call_tool()
@@ -46,6 +68,28 @@ def create_server():
         try:
             if name == "get_status":
                 result = eyes.doctor_report()
+            elif name == "get_asagus_status":
+                from agent_reach.integrations.asagus import AsagusCoEngine, AsagusJobContext
+
+                bootstrap = bool(arguments.get("bootstrap", True)) if arguments else True
+                result = AsagusCoEngine(
+                    AsagusJobContext.from_env(),
+                    bootstrap_dependencies=bootstrap,
+                ).status()
+            elif name == "run_asagus_job":
+                from agent_reach.integrations.asagus import AsagusCoEngine, AsagusJobContext
+
+                arguments = arguments or {}
+                context = AsagusJobContext.from_env()
+                context.query = str(arguments.get("query") or context.query)
+                context.location = str(arguments.get("location") or context.location)
+                context.limit = int(arguments.get("limit") or context.limit)
+                context.job_id = str(arguments.get("job_id") or context.job_id)
+                context.real_run = bool(arguments.get("real_run", False))
+                channels = str(arguments.get("channels") or "")
+                context.requested_channels = [item.strip() for item in channels.split(",") if item.strip()]
+                context.output_dir = context.runs_root / context.job_id
+                result = AsagusCoEngine(context).run()
             else:
                 result = f"Unknown tool: {name}"
 

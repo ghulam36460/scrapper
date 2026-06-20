@@ -1,6 +1,6 @@
 import { LLMSettings, ScrapeJob } from "./api";
 
-export type Tab = "setup" | "run" | "algorithms" | "pipeline" | "records" | "search" | "tools" | "dbmanager" | "envconfig";
+export type Tab = "setup" | "run" | "algorithms" | "pipeline" | "records" | "search" | "tools" | "dbmanager" | "envconfig" | "agentreach";
 
 export type JobProgress = {
   percent: number;
@@ -17,6 +17,7 @@ export function titleFor(tab: Tab) {
   if (tab === "tools") return "Download Tools";
   if (tab === "dbmanager") return "DB Manager";
   if (tab === "envconfig") return "ENV Config";
+  if (tab === "agentreach") return "Agent-Reach";
   return "Retrieval";
 }
 

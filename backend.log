@@ -1,0 +1,65 @@
+INFO:     Started server process [151784]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:40886 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55260 - "POST /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42514 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59572 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59574 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58812 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58816 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51162 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54336 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54352 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56262 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56266 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47054 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47062 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:50:46] INFO: Fetched (200) <GET https://artandthensome.com/17-best-restaurants-doha-2024/> (referer: https://www.google.com/)
+INFO:     127.0.0.1:58400 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:50:53] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurant_Review-g294009-d7316775-Reviews-Al_Mourjan_Restaurant-Doha.html> (referer: https://www.google.com/)
+[2026-06-12 14:50:54] INFO: Fetched (403) <GET https://www.tripadvisor.com.sg/Restaurant_Review-g294009-d25310924-Reviews-Tono_Qatar-Doha.html> (referer: https://www.google.com/)
+INFO:     127.0.0.1:58414 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57640 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57644 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36326 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52110 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52114 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39546 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39556 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:52:06] INFO: Fetched (200) <GET https://www.qatarimmigration.org/news/romantic-restaurants-doha> (referer: https://www.google.com/)
+INFO:     127.0.0.1:48096 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48106 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48982 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48998 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50906 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36294 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36302 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:52:48] INFO: Fetched (403) <GET https://www.tripadvisor.in/Restaurant_Review-g294009-d26595308-Reviews-Taiga_Qatar-Doha.html> (referer: https://www.google.com/)
+INFO:     127.0.0.1:59724 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59740 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60524 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:52:59] INFO: Fetched (200) <GET https://dinewinelove.com/best-restaurants-in-doha-top-5-doha-restaurants/> (referer: https://www.google.com/)
+INFO:     127.0.0.1:60538 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:53:07] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurants-g294009-Doha.html> (referer: https://www.google.com/)
+INFO:     127.0.0.1:45074 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:53:14] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurant_Review-g294009-d25186155-Reviews-Mosavali_Restaurant_Doha-Doha.html> (referer: https://www.google.com/)
+INFO:     127.0.0.1:45088 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51796 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:53:22] INFO: Fetched (200) <GET https://elitetraveler.com/finest-dining/restaurants-finest-dining/best-restaurants-doha> (referer: https://www.google.com/)
+INFO:     127.0.0.1:51812 - "GET /api/jobs HTTP/1.1" 200 OK
+[2026-06-12 14:53:30] INFO: Fetched (403) <GET https://www.tripadvisor.co.za/ShowUserReviews-g294009-d15273210-r684335190-La_Mar_Doha-Doha.html> (referer: https://www.google.com/)
+INFO:     127.0.0.1:43234 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57786 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57796 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43522 - "GET /api/jobs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52814 - "GET /api/records HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52830 - "GET /api/records/secondary HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52832 - "GET /api/runtime/persistence-stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52846 - "GET /api/records/export/csv HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52860 - "GET /api/records/secondary/export/csv HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [151784]

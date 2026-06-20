@@ -1,0 +1,115 @@
+═══════════════════════════════════════════════════════════════
+  ASAGUS Scraper v3 - Quick Command Reference
+═══════════════════════════════════════════════════════════════
+
+📍 LOCATION: /home/ghulam/Desktop/scrapper-main/scrapper-main
+
+═══════════════════════════════════════════════════════════════
+✅ ALL SERVICES STOPPED - Ready to Start Fresh
+═══════════════════════════════════════════════════════════════
+
+🚀 START SERVICES (Easiest Way)
+───────────────────────────────────────────────────────────────
+cd /home/ghulam/Desktop/scrapper-main/scrapper-main
+./START_SERVICES.sh
+
+This starts:
+  • Backend:  http://localhost:8000
+  • Frontend: http://localhost:5173
+  • Shows PIDs and log locations
+
+
+🛑 STOP SERVICES
+───────────────────────────────────────────────────────────────
+./STOP_SERVICES.sh
+
+
+🧪 RUN COMPLETE TEST (Issue #7 Verification)
+───────────────────────────────────────────────────────────────
+./VERIFY_INTELLIGENT_BEHAVIOR.sh
+
+This will:
+  1. Clean data (with backup)
+  2. Start backend + frontend
+  3. Run 2 test jobs
+  4. Verify Download tools work (dry_run=false)
+  5. Verify deduplication
+  6. Generate report
+
+Time: 10-15 minutes
+
+
+📋 MANUAL START (Alternative)
+───────────────────────────────────────────────────────────────
+
+Terminal 1 - Backend:
+cd asagus-scraper-v3/backend
+.venv/bin/python -m uvicorn asagus.main:app --host 127.0.0.1 --port 8000 --reload
+
+Terminal 2 - Frontend:
+cd asagus-scraper-v3/frontend
+npm run dev
+
+
+📊 CHECK STATUS
+───────────────────────────────────────────────────────────────
+
+Backend health:
+curl http://localhost:8000/api/health
+
+Frontend (browser):
+http://localhost:5173
+
+API documentation:
+http://localhost:8000/docs
+
+
+🔍 VIEW LOGS
+───────────────────────────────────────────────────────────────
+
+Backend:
+tail -f asagus-scraper-v3/backend/backend.log
+
+Frontend:
+tail -f asagus-scraper-v3/frontend/frontend.log
+
+
+📚 DOCUMENTATION FILES
+───────────────────────────────────────────────────────────────
+
+• HOW_TO_START.md                           - Start/stop guide
+• README_ISSUE_7_FIX.md                     - Quick fix summary
+• COMPLETE_FIX_AND_VERIFICATION_SUMMARY.md  - Full summary
+• ISSUE_7_FIXED_SUMMARY.md                  - Technical details
+• INTELLIGENT_BEHAVIOR_VERIFICATION.md      - Behavior guide
+• QUICK_TEST_GUIDE.md                       - Quick test reference
+
+
+✅ WHAT'S FIXED
+───────────────────────────────────────────────────────────────
+
+Issue #7: Download tools now work in MAX mode ✅
+  • Changed: tools_runner.py line 425
+  • Before: ASAGUS_DRY_RUN = "1" (always dry-run)
+  • After:  ASAGUS_DRY_RUN = "0" if network_enabled else "1"
+
+All Intelligent Behaviors Working ✅
+  • Partial records stored
+  • Deduplication on re-run
+  • History checking
+  • Auto-persistence
+
+
+🎯 NEXT STEP
+───────────────────────────────────────────────────────────────
+
+Run the verification test:
+
+  ./VERIFY_INTELLIGENT_BEHAVIOR.sh
+
+This proves everything works!
+
+
+═══════════════════════════════════════════════════════════════
+  All services stopped. Ready to start!
+═══════════════════════════════════════════════════════════════
