@@ -20,7 +20,14 @@ from asagus.layers.crawl_control import CrawlControlPlane
 from asagus.layers.discovery import SearchDiscoveryLayer
 from asagus.layers.dom_tools import DOMTools
 from asagus.layers.enrichment import EnrichmentLayer
-from asagus.layers.extraction import ExtractionLayer
+from asagus.layers.extraction import (
+    ExtractionLayer, 
+    should_skip_url, 
+    extract_jsonld, 
+    clean_name, 
+    normalize_phone, 
+    fix_encoding
+)
 from asagus.layers.fetch import FetchLayer
 from asagus.layers.graph import GraphRelationshipEngine
 from asagus.layers.indexing import IndexingLayer
@@ -462,6 +469,18 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
 
                     await runtime.update_job(job_id, current_url=candidate.url, progress_message="Checking compliance")
 
+                    if should_skip_url(candidate.url):
+                        result["skipped"] = 1
+                        await emit(
+                            job_id,
+                            LayerName.crawl_control,
+                            "url_filter_skip",
+                            "URL was skipped based on listing page patterns",
+                            {"url": candidate.url},
+                        )
+                        await _log_to_secondary_db(candidate.url, "skipped", error_reason="url_filter")
+                        return result
+
                     if job.request.skip_existing and await runtime.has_seen_url(candidate.url):
                         result["skipped"] = 1
                         await emit(
@@ -645,6 +664,30 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
                     elif extracted is None:
                         await runtime.update_job(job_id, current_url=candidate.url, progress_message="Extracting business data")
                         extracted = await extractor.extract(fetch, decision, job.request.llm_enabled)
+
+                        # --- Step 5: Clean karo ---
+                        print(f"DEBUG: Raw extracted: {extracted.model_dump() if extracted else 'None'}")
+                        extracted.name = clean_name(extracted.name)
+                        extracted.phone = normalize_phone(extracted.phone, location=job.request.location) or ""
+                        extracted.whatsapp = normalize_phone(extracted.whatsapp, location=job.request.location) or ""
+                        for key in ['name', 'address', 'city']:
+                            if getattr(extracted, key):
+                                setattr(extracted, key, fix_encoding(getattr(extracted, key)))
+                        print(f"DEBUG: After cleaning name: {extracted.name}")
+
+                        # --- Step 6: Discard karo agar naam hi nahi ---
+                        if not extracted.name:
+                            print(f"DEBUG: Discarding record because name is empty.")
+                            result["skipped"] = 1
+                            await emit(
+                                job_id,
+                                LayerName.extraction,
+                                "no_name_skip",
+                                "Record discarded because business name is empty after cleaning",
+                                {"url": candidate.url},
+                            )
+                            return result
+
                         if archive_info:
                             extracted = extracted.model_copy(
                                 update={"raw_fields": {**extracted.raw_fields, "raw_html_archive": archive_info}}

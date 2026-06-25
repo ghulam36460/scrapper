@@ -18,6 +18,106 @@ from asagus.models import (
     SelectorFingerprint,
     utc_now,
 )
+from bs4 import BeautifulSoup
+
+
+# --- Utility Functions from Prompt ---
+
+SKIP_PATTERNS = [
+    "/best-", "/top-", "/list", "/directory",
+    "/search", "/category", "/restaurants-in-", "/tag/", "/restaurant"
+]
+
+def should_skip_url(url: str) -> bool:
+    # Check if URL contains any of the skip patterns or is a directory page
+    lower_url = url.lower()
+    # Add patterns that might not have a leading slash
+    extended_patterns = SKIP_PATTERNS + ["best-", "top-", "list/", "directory/", "search/", "category/", "restaurants-in-", "/tag/", "restaurant/", "/restaurant"]
+    return any(p in lower_url for p in extended_patterns)
+
+VALID_TYPES = [
+    "Restaurant", "FoodEstablishment", "LocalBusiness",
+    "CafeOrCoffeeShop", "FastFoodRestaurant", "BarOrPub"
+]
+
+def extract_jsonld(html: str) -> dict | None:
+    soup = BeautifulSoup(html, 'html.parser')
+    for tag in soup.find_all('script', type='application/ld+json'):
+        try:
+            data = json.loads(tag.string or '')
+            if data.get('@type') in VALID_TYPES:
+                addr = data.get('address', {})
+                return {
+                    "name": data.get("name"),
+                    "phone": data.get("telephone"),
+                    "email": data.get("email"),
+                    "address": addr.get("streetAddress"),
+                    "city": addr.get("addressLocality"),
+                    "country": addr.get("addressCountry"),
+                    "rating": data.get("aggregateRating", {}).get("ratingValue"),
+                    "review_count": data.get("aggregateRating", {}).get("reviewCount"),
+                    "website": data.get("url"),
+                    "lat": data.get("geo", {}).get("latitude"),
+                    "lng": data.get("geo", {}).get("longitude"),
+                }
+        except Exception:
+            pass
+    return None
+
+def clean_name(raw: str) -> str:
+    raw = re.sub(r"^(Home|Welcome|About)\s*[\|\-–—]\s*", "", raw)
+    raw = re.sub(r"\s*[\|\-–—].*$", "", raw)
+    raw = raw.strip()
+    if len(raw) < 2 or len(raw) > 120:
+        return "" # invalid naam
+    return raw
+
+import phonenumbers
+from bs4 import BeautifulSoup
+from typing import Optional
+
+# Mapping for country hints based on input location context
+# If precise country codes are needed for regions.
+LOCATION_REGION_MAP = {
+    "pakistan": "PK", "lahore": "PK", "karachi": "PK", "islamabad": "PK",
+    "uae": "AE", "dubai": "AE", "abu dhabi": "AE",
+    "italy": "IT", "rome": "IT", "milan": "IT"
+}
+
+def normalize_phone(raw: str, location: str = "") -> Optional[str]:
+    if not raw:
+        return None
+    
+    # 1. Infer region hint from location
+    region_hint = "PK" # Default
+    location_lower = location.lower()
+    for city, code in LOCATION_REGION_MAP.items():
+        if city in location_lower:
+            region_hint = code
+            break
+            
+    try:
+        # Try parsing
+        parsed = phonenumbers.parse(raw, region_hint)
+        if phonenumbers.is_valid_number(parsed):
+            return phonenumbers.format_number(
+                parsed, phonenumbers.PhoneNumberFormat.E164
+            )
+    except:
+        pass
+        
+    # Fallback: Basic digit cleaning if library fails
+    digits = re.sub(r'\D', '', str(raw))
+    return f"+{digits}" if 8 <= len(digits) <= 15 else None
+
+def fix_encoding(text: str) -> str:
+    if not text:
+        return text
+    try:
+        # Latin-1 se galat decode hue UTF-8 ko fix karo
+        return text.encode('latin-1').decode('utf-8')
+    except (UnicodeEncodeError, UnicodeDecodeError):
+        return text # already correct hai
 
 
 EMAIL_RE = re.compile(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}")
@@ -340,7 +440,44 @@ class ExtractionLayer:
         )
         if record.confidence >= 0.55:
             self._store_fingerprints(fetch, record)
+        return self._clean_record(record)
+
+    def _clean_record(self, record: ExtractedRecord) -> ExtractedRecord:
+        """Surgical cleaning of extracted record fields to remove noise."""
+        
+        # 1. Clean Phone Number (Remove scientific notation and extra spaces)
+        if record.phone:
+            # If scientific notation (e.g., 9.23E+11), convert to int/str
+            phone_str = str(record.phone)
+            if 'E+' in phone_str or 'e+' in phone_str:
+                phone_str = str(int(float(phone_str)))
+            # Keep only digits and plus
+            cleaned_phone = re.sub(r'[^\d+]', '', phone_str)
+            record.phone = cleaned_phone if len(cleaned_phone) >= 8 else ""
+
+        # 2. Clean Email (Filter garbage/user-agent strings)
+        if record.email:
+            if not self._is_valid_clean_email(record.email):
+                record.email = ""
+
+        # 3. Clean Name/Title (Fix encoding)
+        if record.name:
+            # Fix utf-8 issues
+            record.name = record.name.encode('utf-8', 'replace').decode('utf-8')
+            # Replace common garbage
+            record.name = re.sub(r'â€“', '-', record.name)
+            record.name = re.sub(r'\s+', ' ', record.name).strip()
+
         return record
+
+    def _is_valid_clean_email(self, email: str) -> bool:
+        """Validate email against garbage patterns."""
+        if any(bad in email.lower() for bad in ["useragent", "webpack", "script", "example", "test"]):
+            return False
+        if len(email.split('@')[0]) < 2:
+            return False
+        return True
+
 
     def _extract_dom_fingerprint(self, fetch: FetchResult, base: ExtractedRecord) -> ExtractedRecord:
         domain = urlparse(fetch.url).netloc.lower()
