@@ -1,15 +1,26 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import time
 
 import httpx
 
 from asagus.layers.browser import ChromiumBrowserPool
+from asagus.layers.challenge_detector import ChallengeDetector
+from asagus.layers.escalation import (
+    EscalationLadder,
+    EscalationStep,
+    StepPlan,
+    is_blocked,
+)
 from asagus.layers.external_adapters import ScraplingFetchAdapter
 from asagus.layers.proxy import ProxyPoolManager
+from asagus.layers.session_store import SessionStore
+from asagus.models import FetchMode, FetchResult, PolicyDecision, ProxyEndpoint, ProxyTier, URLCandidate
 from asagus.layers.social_auth import SocialAuthLayer
-from asagus.models import FetchMode, FetchResult, PolicyDecision, ProxyEndpoint, URLCandidate
+
+logger = logging.getLogger(__name__)
 
 try:
     from curl_cffi.requests import AsyncSession as CurlAsyncSession
@@ -39,6 +50,9 @@ class FetchLayer:
         browser_pool: ChromiumBrowserPool | None = None,
         social_auth_layer: SocialAuthLayer | None = None,
         antibot_orchestrator=None,
+        session_store: SessionStore | None = None,
+        enable_escalation: bool = True,
+        max_escalation_step: EscalationStep = EscalationStep.stealth_session,
     ) -> None:
         self.enable_network_fetch = enable_network_fetch
         self.proxy_manager = proxy_manager or ProxyPoolManager()
@@ -46,6 +60,10 @@ class FetchLayer:
         self.scrapling_fetch = ScraplingFetchAdapter()
         self.social_auth_layer = social_auth_layer
         self.antibot_orchestrator = antibot_orchestrator
+        self.session_store = session_store
+        self.enable_escalation = enable_escalation
+        self.max_escalation_step = max_escalation_step
+        self.challenge_detector = ChallengeDetector()
 
     async def close(self) -> None:
         await self.browser_pool.close()
@@ -94,6 +112,9 @@ class FetchLayer:
                 if social_auth.required:
                     return dynamic
 
+        if self.enable_escalation:
+            return await self._fetch_with_escalation(candidate, decision, started)
+
         if decision.fetch_mode == FetchMode.dynamic:
             try:
                 dynamic = await asyncio.wait_for(
@@ -117,6 +138,124 @@ class FetchLayer:
             return dynamic
 
         return await self._static_fetch(candidate, started, proxy)
+
+    # ── Escalation ladder ────────────────────────────────────────────────
+
+    async def _fetch_with_escalation(
+        self,
+        candidate: URLCandidate,
+        decision: PolicyDecision,
+        started: float,
+    ) -> FetchResult:
+        """Climb the avoidance ladder until a page is not blocked/challenged.
+
+        Each rung is progressively stronger (static -> dynamic -> stealth ->
+        stealth + reused session). On a successful stealth render we persist
+        the clearance cookies so future requests to the same domain skip the
+        challenge entirely.
+        """
+        stealth_available = self._stealth_available()
+        has_saved_session = False
+        if self.session_store is not None:
+            has_saved_session = bool(await self.session_store.path_if_valid(candidate.url))
+
+        # Start no lower than the policy's requested mode.
+        start_step = EscalationStep.dynamic if decision.fetch_mode == FetchMode.dynamic else EscalationStep.static
+        ladder = EscalationLadder(
+            start_step=start_step,
+            max_step=self.max_escalation_step,
+            has_saved_session=has_saved_session,
+            stealth_available=stealth_available,
+        )
+
+        last_result: FetchResult | None = None
+        attempts: list[str] = []
+        for plan in ladder:
+            proxy = self._choose_proxy_for(candidate, plan.proxy_tier)
+            result = await self._execute_step(candidate, decision, plan, started, proxy)
+            challenge = self.challenge_detector.detect(
+                result.html, result.status_code, final_url=result.final_url
+            )
+            blocked = is_blocked(result.status_code, bool(challenge.get("is_challenged")), result.html)
+            attempts.append(f"{plan.label}:{result.status_code}:{'blocked' if blocked else 'ok'}")
+            last_result = result
+
+            if not blocked and result.html:
+                if attempts:
+                    result.error = (result.error + f" | escalation={','.join(attempts)}").strip(" |")
+                logger.debug("Escalation succeeded for %s via %s", candidate.url, plan.label)
+                return result
+
+            logger.debug("Escalation step %s blocked for %s (status=%s)", plan.label, candidate.url, result.status_code)
+
+        # Ladder exhausted: every rung was blocked.
+        if last_result is None:
+            last_result = FetchResult(
+                url=candidate.url,
+                fetch_mode=FetchMode.static,
+                render_time_ms=int((time.perf_counter() - started) * 1000),
+                error="escalation_no_attempts",
+            )
+        last_result.error = (
+            f"escalation_exhausted_manual_review | {','.join(attempts)} | {last_result.error}"
+        ).strip(" |")
+        logger.info("Escalation exhausted for %s; flagged for manual review", candidate.url)
+        return last_result
+
+    def _stealth_available(self) -> bool:
+        """True if any stealth browser engine is usable."""
+        try:
+            engines = self.browser_pool.available_engines()
+        except Exception:
+            return False
+        return any(engines.get(name) for name in ("patchright", "camoufox", "nodriver"))
+
+    def _choose_proxy_for(self, candidate: URLCandidate, tier: ProxyTier) -> ProxyEndpoint:
+        """Pick a proxy for an escalation rung, honoring the job's strategy."""
+        strategy = str(candidate.metadata.get("proxy_strategy", "auto"))
+        if strategy in {"none"}:
+            return self.proxy_manager.choose(candidate, strategy)
+        # The ladder requests a specific tier; pass it as the strategy so the
+        # proxy manager prefers that tier when an endpoint is configured.
+        return self.proxy_manager.choose(candidate, tier.value)
+
+    async def _execute_step(
+        self,
+        candidate: URLCandidate,
+        decision: PolicyDecision,
+        plan: StepPlan,
+        started: float,
+        proxy: ProxyEndpoint,
+    ) -> FetchResult:
+        """Run a single escalation rung and return its FetchResult."""
+        if not plan.use_browser:
+            return await self._static_fetch(candidate, started, proxy)
+
+        engine = "auto" if plan.prefer_stealth_engine else "playwright"
+        storage_state_path = ""
+        if plan.use_saved_session and self.session_store is not None:
+            storage_state_path = await self.session_store.path_if_valid(candidate.url)
+
+        try:
+            return await asyncio.wait_for(
+                self._dynamic_placeholder(
+                    candidate,
+                    started,
+                    proxy,
+                    storage_state_path=storage_state_path,
+                    engine_override=engine,
+                    capture_session=plan.prefer_stealth_engine,
+                ),
+                timeout=60,
+            )
+        except asyncio.TimeoutError:
+            return FetchResult(
+                url=candidate.url,
+                fetch_mode=FetchMode.dynamic,
+                proxy_used=proxy.id,
+                render_time_ms=int((time.perf_counter() - started) * 1000),
+                error=f"browser_render_global_timeout_60s:{plan.label}",
+            )
 
     async def _static_fetch(self, candidate: URLCandidate, started: float, proxy: ProxyEndpoint) -> FetchResult:
         if CurlAsyncSession is not None:
@@ -239,12 +378,16 @@ class FetchLayer:
         started: float,
         proxy: ProxyEndpoint,
         storage_state_path: str = "",
+        engine_override: str = "",
+        capture_session: bool = False,
     ) -> FetchResult:
         try:
-            html, status_final = await self.browser_pool.render(
+            html, status_final, session_state = await self.browser_pool.render_with_session(
                 candidate.url,
                 proxy_url=proxy.endpoint,
                 storage_state_path=storage_state_path,
+                engine_override=engine_override,
+                capture_session=capture_session,
             )
             # Robust parsing: format is "status_code:final_url"
             if ":" in status_final:
@@ -257,6 +400,14 @@ class FetchLayer:
             except (ValueError, TypeError):
                 status_code = 200
             self.proxy_manager.register_result(proxy.id, success=status_code < 400, blocked=status_code in {403, 429})
+            # Persist a cleared session for reuse on this domain.
+            if (
+                capture_session
+                and session_state
+                and status_code < 400
+                and self.session_store is not None
+            ):
+                await self.session_store.save(candidate.url, session_state)
             return FetchResult(
                 url=candidate.url,
                 status_code=status_code,

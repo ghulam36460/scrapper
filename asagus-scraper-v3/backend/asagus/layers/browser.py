@@ -36,12 +36,40 @@ class ChromiumBrowserPool:
         self._browser = None
 
     async def render(self, url: str, proxy_url: str = "", storage_state_path: str = "") -> tuple[str, str]:
+        html, status_final, _ = await self.render_with_session(
+            url, proxy_url=proxy_url, storage_state_path=storage_state_path
+        )
+        return html, status_final
+
+    async def render_with_session(
+        self,
+        url: str,
+        proxy_url: str = "",
+        storage_state_path: str = "",
+        capture_session: bool = False,
+        engine_override: str = "",
+    ) -> tuple[str, str, dict | None]:
+        """Render a page and optionally capture the resulting session state.
+
+        Returns ``(html, "status:final_url", storage_state | None)``. The
+        storage_state is only captured for the Playwright path (the engine
+        that exposes ``context.storage_state()``); stealth engines return
+        ``None`` for it and rely on their own session handling.
+
+        ``engine_override`` lets a caller (e.g. the escalation ladder) pick a
+        specific engine for this single render without mutating pool state.
+        """
+        effective_engine = engine_override or self.engine
         async with self._semaphore:
-            if self.engine != "playwright" and not storage_state_path:
-                rendered = await self._render_with_selected_engine(url, proxy_url=proxy_url)
+            # Stealth engines cannot consume a Playwright storage_state file,
+            # so a saved session forces the Playwright path.
+            if effective_engine != "playwright" and not storage_state_path:
+                rendered = await self._render_with_selected_engine(
+                    url, proxy_url=proxy_url, engine=effective_engine
+                )
                 if rendered is not None:
-                    return rendered
-            elif storage_state_path and self.engine != "playwright":
+                    return rendered[0], rendered[1], None
+            elif storage_state_path and effective_engine != "playwright":
                 logger.info("Using Playwright Chromium for storage-state session rendering")
 
             async with self._page(proxy_url=proxy_url, storage_state_path=storage_state_path) as page:
@@ -50,7 +78,13 @@ class ChromiumBrowserPool:
                 html = await page.content()
                 final_url = page.url
                 status = response.status if response else 0
-                return html, f"{status}:{final_url}"
+                session_state: dict | None = None
+                if capture_session:
+                    try:
+                        session_state = await page.context.storage_state()
+                    except Exception as exc:  # pragma: no cover - defensive
+                        logger.debug("Could not capture storage_state for %s: %s", url, exc)
+                return html, f"{status}:{final_url}", session_state
 
     async def close(self) -> None:
         if self._browser:
@@ -60,12 +94,15 @@ class ChromiumBrowserPool:
             await self._playwright.stop()
             self._playwright = None
 
-    async def _render_with_selected_engine(self, url: str, proxy_url: str = "") -> tuple[str, str] | None:
+    async def _render_with_selected_engine(
+        self, url: str, proxy_url: str = "", engine: str = ""
+    ) -> tuple[str, str] | None:
+        selected = engine or self.engine
         engines: list[str]
-        if self.engine == "auto":
+        if selected == "auto":
             engines = ["camoufox", "patchright", "nodriver"]
         else:
-            engines = [self.engine]
+            engines = [selected]
 
         for engine in engines:
             try:
@@ -85,7 +122,7 @@ class ChromiumBrowserPool:
             if rendered is not None:
                 return rendered
 
-        logger.warning("Browser engine %s unavailable; falling back to Playwright Chromium", self.engine)
+        logger.warning("Browser engine %s unavailable; falling back to Playwright Chromium", selected)
         return None
 
     async def _render_with_patchright(self, url: str, proxy_url: str = "") -> tuple[str, str] | None:
@@ -205,7 +242,7 @@ class ChromiumBrowserPool:
             "headless": self.headless,
             "camoufox_binary_path": self.camoufox_binary_path,
             "challenge_bypass": False,
-            "storage_state_sessions": "playwright_context_only",
+            "storage_state_sessions": "playwright_context_capture_and_reuse",
             "available_engines": self.available_engines(),
             "purpose": "render JavaScript pages when policy/compliance allow dynamic fetch",
         }

@@ -21,6 +21,8 @@ from asagus.layers.compliance import ComplianceLayer
 from asagus.layers.crawl_control import CrawlControlPlane
 from asagus.layers.discovery import SearchDiscoveryLayer
 from asagus.layers.dom_tools import DOMTools
+from asagus.layers.escalation import EscalationStep
+from asagus.layers.session_store import SessionStore
 from asagus.layers.enrichment import EnrichmentLayer
 from asagus.layers.extraction import (
     ExtractionLayer,
@@ -247,6 +249,13 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
         )
         orchestrator = AntiBotOrchestrator(antibot_config)
 
+        # Per-domain session store enables challenge-clearance cookie reuse so
+        # a passed Cloudflare/DataDome interstitial is not re-triggered.
+        session_store = None
+        if settings.enable_session_reuse:
+            sessions_dir = settings.session_store_dir or str(runtime.data_dir / "browser_sessions")
+            session_store = SessionStore(sessions_dir, ttl_seconds=settings.session_ttl_seconds)
+
         fetcher = FetchLayer(
             enable_network_fetch=effective_network_fetch,
             proxy_manager=proxy_manager,
@@ -259,6 +268,9 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
             ),
             social_auth_layer=social_auth,
             antibot_orchestrator=orchestrator,
+            session_store=session_store,
+            enable_escalation=settings.enable_escalation_ladder,
+            max_escalation_step=EscalationStep[settings.escalation_max_step],
         )
         discovery = SearchDiscoveryLayer(effective_search_discovery)
         dom_tools = DOMTools()

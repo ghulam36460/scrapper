@@ -87,6 +87,13 @@ class Settings(BaseSettings):
     selector_fingerprint_min_confidence: float = Field(default=0.75, ge=0.0, le=1.0)
     llm_extraction_min_confidence: float = Field(default=0.50, ge=0.0, le=1.0)
 
+    # Anti-bot avoidance: escalation ladder + per-domain session reuse
+    enable_escalation_ladder: bool = True
+    escalation_max_step: Literal["static", "dynamic", "stealth", "stealth_session"] = "stealth_session"
+    enable_session_reuse: bool = True
+    session_store_dir: str = ""
+    session_ttl_seconds: int = Field(default=1500, ge=60, le=86400)
+
     default_unknown_domain_delay_seconds: float = 2.0
     max_job_limit: int = 5000
     enable_network_fetch: bool = True
