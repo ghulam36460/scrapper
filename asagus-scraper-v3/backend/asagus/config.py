@@ -17,6 +17,7 @@ class Settings(BaseSettings):
 
     app_name: str = "ASAGUS Scraper 3.0"
     environment: Literal["local", "staging", "production"] = "local"
+    log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"] = "INFO"
     api_host: str = "0.0.0.0"
     api_port: int = 8000
     frontend_origin: str = "http://localhost:3000"
