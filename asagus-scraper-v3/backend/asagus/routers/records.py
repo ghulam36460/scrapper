@@ -10,6 +10,7 @@ from typing import Any
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
 
+from asagus.layers.noise_reduction import format_csv_cell
 from asagus.models import JobStatus
 from asagus.services.runtime import runtime
 from asagus.routers.deps import require_operator
@@ -76,6 +77,8 @@ async def export_records_csv() -> StreamingResponse:
         "email_verified", "email_mx_checked", "phone_valid", "whatsapp_valid", "website_alive",
         # Metrics
         "record_completeness", "confidence", "duplicate_score",
+        # Data quality (noise reduction SKILL)
+        "cleaning_confidence", "cleaning_issues", "manual_review_required",
         # Source
         "source", "source_url", "method",
         # Compliance
@@ -94,15 +97,13 @@ async def export_records_csv() -> StreamingResponse:
 
         for record in records:
             row = record.model_dump(mode="json")
-            # Convert complex fields to strings for CSV
-            if "entity_tags" in row and isinstance(row["entity_tags"], list):
-                row["entity_tags"] = ", ".join(row["entity_tags"])
-            if "ner_entities" in row and isinstance(row["ner_entities"], dict):
-                row["ner_entities"] = "; ".join(f"{k}: {','.join(v)}" for k, v in row["ner_entities"].items())
-            if "dedupe_reasons" in row and isinstance(row["dedupe_reasons"], list):
-                row["dedupe_reasons"] = ", ".join(row["dedupe_reasons"])
-            
-            writer.writerow({k: row.get(k, "") for k in fieldnames})
+            # Surface the data-quality signals stored under raw_fields so they
+            # appear as first-class CSV columns.
+            raw = row.get("raw_fields") or {}
+            row["cleaning_confidence"] = raw.get("cleaning_confidence", "")
+            row["cleaning_issues"] = raw.get("cleaning_issues", [])
+            # Every cell is normalized to a clean, single-line string.
+            writer.writerow({k: format_csv_cell(row.get(k, "")) for k in fieldnames})
             yield output.getvalue()
             output.seek(0)
             output.truncate(0)
@@ -147,7 +148,7 @@ async def export_secondary_records_csv() -> StreamingResponse:
         output.truncate(0)
 
         for record in records:
-            writer.writerow({k: record.get(k, "") for k in fieldnames})
+            writer.writerow({k: format_csv_cell(record.get(k, "")) for k in fieldnames})
             yield output.getvalue()
             output.seek(0)
             output.truncate(0)

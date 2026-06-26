@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import os
 from dataclasses import dataclass
 from typing import Any
@@ -11,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from asagus import __version__
 from asagus.config import Settings, get_settings
+from asagus.logging_config import configure_logging
 from asagus.layers.antibot_orchestrator import AntiBotConfig, AntiBotOrchestrator
 from asagus.layers.antibot_layer2_stealth import StealthApproach
 from asagus.layers.antibot_layer3_tls import BrowserTLSFingerprint
@@ -21,16 +23,14 @@ from asagus.layers.discovery import SearchDiscoveryLayer
 from asagus.layers.dom_tools import DOMTools
 from asagus.layers.enrichment import EnrichmentLayer
 from asagus.layers.extraction import (
-    ExtractionLayer, 
-    should_skip_url, 
-    extract_jsonld, 
-    clean_name, 
-    normalize_phone, 
-    fix_encoding
+    ExtractionLayer,
+    should_skip_url,
+    normalize_phone,
 )
 from asagus.layers.fetch import FetchLayer
 from asagus.layers.graph import GraphRelationshipEngine
 from asagus.layers.indexing import IndexingLayer
+from asagus.layers.noise_reduction import clean_record_fields
 from asagus.layers.nlp_intelligence import NLPIntelligenceLayer
 from asagus.layers.policy import PolicyEngine
 from asagus.layers.proxy import ProxyPoolManager
@@ -71,6 +71,8 @@ from asagus.services.job_helpers import (
     website_filter_allows,
 )
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class AppServices:
@@ -103,6 +105,8 @@ class AppServices:
 
 def create_app() -> FastAPI:
     settings = get_settings()
+    configure_logging(settings.log_level)
+    logger.info("Starting %s in %s environment", settings.app_name, settings.environment)
     hydrate_runtime_llm(settings)
     app = FastAPI(
         title="ASAGUS Scraper 3.0 API",
@@ -665,28 +669,73 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
                         await runtime.update_job(job_id, current_url=candidate.url, progress_message="Extracting business data")
                         extracted = await extractor.extract(fetch, decision, job.request.llm_enabled)
 
-                        # --- Step 5: Clean karo ---
-                        print(f"DEBUG: Raw extracted: {extracted.model_dump() if extracted else 'None'}")
-                        extracted.name = clean_name(extracted.name)
-                        extracted.phone = normalize_phone(extracted.phone, location=job.request.location) or ""
-                        extracted.whatsapp = normalize_phone(extracted.whatsapp, location=job.request.location) or ""
-                        for key in ['name', 'address', 'city']:
-                            if getattr(extracted, key):
-                                setattr(extracted, key, fix_encoding(getattr(extracted, key)))
-                        print(f"DEBUG: After cleaning name: {extracted.name}")
+                        # --- Step 5: Non-destructive noise reduction + scoring ---
+                        # Clean fields and compute a quality score WITHOUT
+                        # dropping records (noise reduction / data-validation
+                        # SKILLs). Phone normalization keeps the raw value as a
+                        # fallback so we never lose a contact just because it
+                        # failed strict E.164 parsing.
+                        logger.debug(
+                            "Raw extracted record for %s: %s",
+                            candidate.url,
+                            extracted.model_dump() if extracted else None,
+                        )
+                        normalized_phone = normalize_phone(extracted.phone, location=job.request.location)
+                        normalized_whatsapp = normalize_phone(extracted.whatsapp, location=job.request.location)
+                        extracted.phone = normalized_phone or (extracted.phone or "").strip()
+                        extracted.whatsapp = normalized_whatsapp or (extracted.whatsapp or "").strip()
 
-                        # --- Step 6: Discard karo agar naam hi nahi ---
+                        has_contact = bool(extracted.phone or extracted.whatsapp or extracted.email)
+                        cleaning = clean_record_fields(
+                            {
+                                "name": extracted.name,
+                                "address": extracted.address,
+                                "city": extracted.city,
+                                "category": extracted.category,
+                            },
+                            has_contact=has_contact,
+                        )
+                        extracted.name = cleaning.fields["name"]
+                        extracted.address = cleaning.fields["address"]
+                        extracted.city = cleaning.fields["city"]
+                        extracted.category = cleaning.fields["category"]
+                        # Blend cleaning quality into the extraction confidence
+                        # so low-quality records are flagged, not discarded.
+                        extracted.confidence = round(
+                            min(extracted.confidence or 0.0, cleaning.confidence)
+                            if extracted.confidence
+                            else cleaning.confidence,
+                            3,
+                        )
+                        extracted.raw_fields = {
+                            **extracted.raw_fields,
+                            "cleaning_confidence": cleaning.confidence,
+                            "cleaning_issues": cleaning.issues,
+                            "phone_normalized": bool(normalized_phone),
+                            "whatsapp_normalized": bool(normalized_whatsapp),
+                        }
+                        logger.debug(
+                            "Cleaned record for %s name=%r confidence=%.3f issues=%s",
+                            candidate.url,
+                            extracted.name,
+                            cleaning.confidence,
+                            cleaning.issues,
+                        )
+
+                        # --- Step 6: Keep record even without a name; flag it ---
+                        # Records with no business name are no longer dropped.
+                        # They are marked for review and given a synthetic
+                        # placeholder so they still reach the CSV.
                         if not extracted.name:
-                            print(f"DEBUG: Discarding record because name is empty.")
-                            result["skipped"] = 1
+                            extracted.manual_review_required = True
+                            extracted.raw_fields["name_missing"] = True
                             await emit(
                                 job_id,
                                 LayerName.extraction,
-                                "no_name_skip",
-                                "Record discarded because business name is empty after cleaning",
-                                {"url": candidate.url},
+                                "name_missing_flagged",
+                                "Business name empty after cleaning; record kept and flagged for review",
+                                {"url": candidate.url, "confidence": extracted.confidence},
                             )
-                            return result
 
                         if archive_info:
                             extracted = extracted.model_copy(
