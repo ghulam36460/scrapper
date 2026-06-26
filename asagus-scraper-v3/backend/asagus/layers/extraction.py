@@ -445,15 +445,20 @@ class ExtractionLayer:
     def _clean_record(self, record: ExtractedRecord) -> ExtractedRecord:
         """Surgical cleaning of extracted record fields to remove noise."""
         
-        # 1. Clean Phone Number (Remove scientific notation and extra spaces)
+        # 1. Clean Phone Number (Remove scientific notation; preserve valid formatting)
         if record.phone:
-            # If scientific notation (e.g., 9.23E+11), convert to int/str
             phone_str = str(record.phone)
+            # If scientific notation (e.g., 9.23E+11), convert to digits-only
             if 'E+' in phone_str or 'e+' in phone_str:
                 phone_str = str(int(float(phone_str)))
-            # Keep only digits and plus
-            cleaned_phone = re.sub(r'[^\d+]', '', phone_str)
-            record.phone = cleaned_phone if len(cleaned_phone) >= 8 else ""
+                cleaned_phone = re.sub(r'[^\d+]', '', phone_str)
+                record.phone = cleaned_phone if len(cleaned_phone) >= 8 else ""
+            else:
+                # Validate digit count without destroying formatting
+                digits_only = re.sub(r'[^\d]', '', phone_str)
+                if len(digits_only) < 8:
+                    record.phone = ""
+                # Otherwise keep the original formatted phone as-is
 
         # 2. Clean Email (Filter garbage/user-agent strings)
         if record.email:
@@ -472,8 +477,15 @@ class ExtractionLayer:
 
     def _is_valid_clean_email(self, email: str) -> bool:
         """Validate email against garbage patterns."""
-        if any(bad in email.lower() for bad in ["useragent", "webpack", "script", "example", "test"]):
+        lower_email = email.lower()
+        # Reject emails with JS/build-tool artifacts in any part
+        if any(bad in lower_email for bad in ["useragent", "webpack", "script"]):
             return False
+        # Reject known placeholder *domains* (not substring matches)
+        if "@" in lower_email:
+            domain = lower_email.rsplit("@", 1)[1]
+            if domain in PLACEHOLDER_EMAIL_DOMAINS:
+                return False
         if len(email.split('@')[0]) < 2:
             return False
         return True
