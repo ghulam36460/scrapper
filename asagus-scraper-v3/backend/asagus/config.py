@@ -100,6 +100,16 @@ class Settings(BaseSettings):
     enable_search_discovery: bool = True
     enable_infra_persistence: bool = False
 
+    # Residential Proxies config
+    use_residential_proxies: bool = False
+    active_proxy_provider: str = "brightdata"
+    proxy_rotation_mode: Literal["sticky", "gateway"] = "sticky"
+    proxy_sticky_duration: int = Field(default=900, ge=30, le=86400)
+    proxy_country: str = ""
+    proxy_region: str = ""
+    provider_username: str = ""
+    provider_password: str = ""
+
     @property
     def cors_origin_list(self) -> list[str]:
         value = self.cors_origins.strip()

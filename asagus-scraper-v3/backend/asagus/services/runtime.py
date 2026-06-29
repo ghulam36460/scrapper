@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import re
 import shutil
 import time
@@ -23,6 +24,8 @@ from asagus.models import (
     ScrapeJob,
     utc_now,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class RuntimeState:
@@ -512,6 +515,36 @@ class RuntimeState:
         except Exception:
             self.secondary_records = deque(maxlen=50_000)
 
+    def _safe_replace(self, src: Path, dst: Path) -> None:
+        """Safely replace dst with src, retrying on Windows PermissionError (WinError 5)."""
+        import os
+        import time
+
+        max_attempts = 5
+        backoff = 0.05  # 50ms initial backoff
+        
+        for attempt in range(1, max_attempts + 1):
+            try:
+                src.replace(dst)
+                return
+            except PermissionError as exc:
+                is_win_error_5 = False
+                if os.name == "nt":
+                    # PermissionError's winerror attribute is 5 for Access is Denied on Windows
+                    if getattr(exc, "winerror", None) == 5:
+                        is_win_error_5 = True
+                
+                if is_win_error_5 and attempt < max_attempts:
+                    logger.warning(
+                        "Retrying atomic file replace due to Windows sharing violation (WinError 5): "
+                        "attempt %d/%d for %s -> %s. Error: %s",
+                        attempt, max_attempts, src.name, dst.name, exc
+                    )
+                    time.sleep(backoff)
+                    backoff *= 2
+                else:
+                    raise exc
+
     def _persist_jobs_locked(self) -> None:
         self.data_dir.mkdir(parents=True, exist_ok=True)
         payload = {
@@ -520,7 +553,7 @@ class RuntimeState:
         }
         tmp_path = self.jobs_path.with_suffix(".tmp")
         tmp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        tmp_path.replace(self.jobs_path)
+        self._safe_replace(tmp_path, self.jobs_path)
 
     def _persist_events_locked(self) -> None:
         self.data_dir.mkdir(parents=True, exist_ok=True)
