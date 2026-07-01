@@ -1,0 +1,26 @@
+{
+  "tool_id": "maxun",
+  "status": "no_records",
+  "message": "Maxun ran self-contained but found no records.",
+  "missing": [
+    "node",
+    "node_modules (run npm install in maxun-develop)",
+    "MAXUN_API_URL",
+    "MAXUN_ROBOT_ID (map a recorded robot for this job)"
+  ],
+  "readiness": {
+    "node_available": false,
+    "node_modules_built": false,
+    "api_url_set": false,
+    "robot_mapped": false
+  },
+  "job_context": {
+    "job_id": "1cfe328b-afbf-4502-b2e4-8086698611df",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

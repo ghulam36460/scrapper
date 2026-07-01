@@ -9,20 +9,21 @@
 <body>
   <main class="app-shell">
     <section class="panel hero">
+      <div class="hero-badge">⚡ Multi-core • Parallel • Real-time</div>
       <h1>🎯 Deep Business Intelligence Lead Generator</h1>
       <p>Multi-source extraction: Google Maps → Website → Google Search → Cross-verification</p>
-      <p style="font-size: 0.85em; opacity: 0.8;">Extracts: WhatsApp, Instagram, Facebook, Email, Tech Stack, and more.</p>
+      <p class="hero-sub">Extracts WhatsApp, Instagram, Facebook, Email, Tech Stack, and more.</p>
     </section>
 
     <section class="panel controls">
       <div class="grid">
         <label>
           Keyword
-          <input id="keyword" type="text" placeholder="cafe, restaurant, dentist..." />
+          <input id="keyword" type="text" placeholder="cafe, restaurant, dentist..." autocomplete="off" />
         </label>
         <label>
           Location
-          <input id="location" type="text" placeholder="City/Town, State/Region, Country" />
+          <input id="location" type="text" placeholder="City/Town, State/Region, Country" autocomplete="off" />
           <small class="location-hint">Type city/state/country (or country short form like USA) and choose exact match from suggestions.</small>
           <div id="locationSuggestions" class="location-suggestions" aria-live="polite"></div>
         </label>
@@ -42,6 +43,7 @@
           Extraction Mode
           <select id="extractionMode">
             <option value="ultra">🚀 Ultra Deep (ALL engines + Cross-verification)</option>
+            <option value="maximum">💎 Maximum (Maps + Web Search + ALL engines)</option>
             <option value="deep" selected>🔍 Deep (Maps + Website + Google Search)</option>
             <option value="enhanced">⚙️ Enhanced (Maps + Website analysis)</option>
             <option value="basic">⚡ Basic (Fastest, Maps only)</option>
@@ -90,7 +92,7 @@
             <button id="clearSelectedHistoryFilesBtn" type="button" class="small-btn">Clear Selection</button>
           </div>
         </div>
-        <small>Select previous output files. Selected files ke businesses next scrape mein dobara include nahi honge.</small>
+        <small>Select previous output files. Businesses in the selected files will be excluded from the next scrape.</small>
         <div id="historyFilesList" class="history-files-list">Loading output history files...</div>
       </div>
 
@@ -99,6 +101,26 @@
         <button id="stopBtn" class="secondary" disabled>⏹ Stop</button>
         <button id="downloadBtn" class="secondary" disabled>📥 Download CSV</button>
       </div>
+
+      <!-- ============ LIVE PROGRESS BAR ============ -->
+      <section class="progress-panel" id="progressPanel" aria-hidden="true">
+        <div class="progress-head">
+          <div class="progress-title">
+            <span class="progress-spinner" id="progressSpinner"></span>
+            <span id="progressPhase">Working…</span>
+          </div>
+          <div class="progress-stats">
+            <span id="progressCounts">0 / 0</span>
+            <span class="progress-divider">•</span>
+            <span id="progressElapsed">0s</span>
+          </div>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack">
+          <div class="progress-fill" id="progressFill"></div>
+          <span class="progress-percent" id="progressPercent">0%</span>
+        </div>
+        <small class="progress-message" id="progressMessage">Ready.</small>
+      </section>
 
       <p id="status" class="status">Ready.</p>
     </section>
@@ -117,6 +139,13 @@
     </section>
 
     <section class="panel table-panel">
+      <div class="table-toolbar">
+        <h3>📋 Results</h3>
+        <div class="table-toolbar-actions">
+          <input id="resultSearch" type="search" placeholder="🔎 Filter results (name, email, phone…)" />
+          <span class="result-count" id="resultCount">0 shown</span>
+        </div>
+      </div>
       <div class="table-wrap">
         <table id="resultsTable">
           <thead>
@@ -138,6 +167,10 @@
         </table>
       </div>
     </section>
+
+    <footer class="app-footer">
+      <small>Runs locally • Parallel multi-core engine • Data stays on your machine</small>
+    </footer>
   </main>
 
   <script src="script.js"></script>

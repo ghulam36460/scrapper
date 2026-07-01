@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Playwright browsers cache (installed via `playwright install`)
+ms-playwright/
+
+# Scraper output (generated lead CSVs + scrape history)
+output/*.csv
+output/history/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local notes / personal files
+New.txt
+*.docx

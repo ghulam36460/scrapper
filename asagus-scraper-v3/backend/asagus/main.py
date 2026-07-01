@@ -332,55 +332,87 @@ async def run_job(job_id: str, services: AppServices | None = None) -> None:
             f"{job.request.mode} mode initialized",
             mode_plan(job.request, resource_profile, antibot_plan),
         )
-        if job.request.mode == "max":
-            from asagus.services.tools_runner import launch_max_mode_tools
+        # ── Parallel Download-tool workers ──────────────────────────────────
+        # Auto-launch the Download scraper tools as parallel workers for any
+        # active scraping mode. MAX mode launches the full tool set; deeper
+        # modes (deep, deep_agent, comprehensive, research, adaptive, parallel)
+        # launch the scraper-worker subset. Each tool receives the real mode so
+        # depth-aware tools (e.g. Maps scraper -> enhanced/deep/ultra/maximum)
+        # pick the matching engine. API-only and outreach/messaging tools are
+        # excluded by tools_runner.scraper_worker_tool_ids().
+        _TOOL_WORKER_MODES = {
+            "deep", "deep_agent", "comprehensive", "research", "adaptive", "parallel", "max",
+        }
+        if job.request.run_download_tools and job.request.mode in _TOOL_WORKER_MODES:
+            from asagus.services.tools_runner import (
+                launch_max_mode_tools,
+                max_mode_tool_ids,
+                scraper_worker_tool_ids,
+            )
             from asagus.services.agent_reach_enrichment import get_enrichment_service
 
-            # ✅ PHASE 4: Ensure Agent-Reach is available for MAX mode enrichment
-            agent_reach = get_enrichment_service()
-            if not agent_reach.is_available():
-                await emit(
-                    job_id,
-                    LayerName.ai_app,
-                    "agent_reach_installing",
-                    "Agent-Reach not found, attempting automatic installation",
-                    {}
-                )
-                install_result = await agent_reach.ensure_installed()
-                await emit(
-                    job_id,
-                    LayerName.ai_app,
-                    "agent_reach_install_result",
-                    install_result["message"],
-                    install_result
-                )
+            if job.request.mode == "max":
+                selected_tool_ids = max_mode_tool_ids()
+                tools_scope = "max_all_tools"
             else:
+                selected_tool_ids = scraper_worker_tool_ids()
+                tools_scope = "scraper_workers"
+
+            # Ensure Agent-Reach is available when it is part of the selection
+            # (used as an enrichment/discovery co-engine, not a message sender).
+            if "agent-reach" in selected_tool_ids:
+                agent_reach = get_enrichment_service()
+                if not agent_reach.is_available():
+                    await emit(
+                        job_id,
+                        LayerName.ai_app,
+                        "agent_reach_installing",
+                        "Agent-Reach not found, attempting automatic installation",
+                        {},
+                    )
+                    install_result = await agent_reach.ensure_installed()
+                    await emit(
+                        job_id,
+                        LayerName.ai_app,
+                        "agent_reach_install_result",
+                        install_result["message"],
+                        install_result,
+                    )
+                else:
+                    await emit(
+                        job_id,
+                        LayerName.ai_app,
+                        "agent_reach_ready",
+                        "Agent-Reach co-engine is ready for enrichment",
+                        {
+                            "available_channels": agent_reach.enabled_channels,
+                            "channel_count": len(agent_reach.enabled_channels),
+                        },
+                    )
+
+            if selected_tool_ids:
+                max_mode_tool_runs = await launch_max_mode_tools(
+                    job_id=job_id,
+                    query=job.request.query,
+                    location=job.request.location,
+                    limit=job.request.limit,
+                    website_filter=resolved_website_filter,
+                    network_enabled=effective_network_fetch,
+                    tool_ids=selected_tool_ids,
+                    mode=job.request.mode,
+                )
                 await emit(
                     job_id,
                     LayerName.ai_app,
-                    "agent_reach_ready",
-                    "Agent-Reach co-engine is ready for enrichment",
+                    "tool_workers_started",
+                    f"Launched {len(max_mode_tool_runs)} Download tool worker(s) in parallel ({tools_scope})",
                     {
-                        "available_channels": agent_reach.enabled_channels,
-                        "channel_count": len(agent_reach.enabled_channels)
-                    }
+                        "count": len(max_mode_tool_runs),
+                        "scope": tools_scope,
+                        "mode": job.request.mode,
+                        "tools": max_mode_tool_runs,
+                    },
                 )
-
-            max_mode_tool_runs = await launch_max_mode_tools(
-                job_id=job_id,
-                query=job.request.query,
-                location=job.request.location,
-                limit=job.request.limit,
-                website_filter=resolved_website_filter,
-                network_enabled=effective_network_fetch,
-            )
-            await emit(
-                job_id,
-                LayerName.ai_app,
-                "max_mode_tools_started",
-                "MAX mode launched available Download tools in parallel",
-                {"count": len(max_mode_tool_runs), "tools": max_mode_tool_runs},
-            )
 
         # Seed the initial frontier. Cap each discovery call at 200 results
         # (DDGS / HTML fallback practical limit) to avoid API overload, but

@@ -1,0 +1,527 @@
+{
+  "tool_id": "agent-reach",
+  "adapter": "agent_reach.integrations.asagus",
+  "integration_level": "agent_reach_native_asagus_co_engine",
+  "status": "completed",
+  "dry_run": false,
+  "mode": "deep",
+  "job_context": {
+    "job_id": "phase1-fail",
+    "query": "florist",
+    "location": "Lahore",
+    "limit": 5,
+    "mode": "deep",
+    "website_filter": "all",
+    "tool_id": "agent-reach",
+    "real_run": true,
+    "runs_root": "/home/ghulam/Desktop/scrapper/Download/Agent-Reach-main/../.asagus-runs",
+    "output_dir": "/home/ghulam/Desktop/scrapper/Download/Agent-Reach-main/../.asagus-runs/phase1-fail",
+    "requested_channels": [],
+    "max_results": 5,
+    "dependency_bootstrap": true
+  },
+  "dependency_status": {
+    "backend_python": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend/.venv/bin/python",
+    "venv_bin": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend/.venv/bin",
+    "auto_install": true,
+    "dependencies_checked": [
+      "requests>=2.28",
+      "feedparser>=6.0",
+      "python-dotenv>=1.0",
+      "loguru>=0.7",
+      "pyyaml>=6.0",
+      "rich>=13.0",
+      "yt-dlp>=2024.0"
+    ],
+    "missing_before": [],
+    "install_attempts": [],
+    "post_install_actions": [
+      {
+        "name": "yt-dlp-js-runtime",
+        "ok": true,
+        "changed": false,
+        "path": "/root/.config/yt-dlp/config"
+      }
+    ],
+    "missing_after": [],
+    "ok": true
+  },
+  "agent_reach_available": true,
+  "channels_status": {
+    "available": true,
+    "channels": {
+      "github": {
+        "status": "ok",
+        "message": "完整可用（读取、搜索、Fork、Issue、PR 等）",
+        "backends": [
+          "gh CLI"
+        ],
+        "tier": 0
+      },
+      "twitter": {
+        "status": "warn",
+        "message": "Twitter CLI 未安装。安装方式：\n  pipx install twitter-cli\n或：\n  uv tool install twitter-cli",
+        "backends": [
+          "twitter-cli",
+          "bird CLI (legacy)"
+        ],
+        "tier": 1
+      },
+      "youtube": {
+        "status": "ok",
+        "message": "可提取视频信息和字幕",
+        "backends": [
+          "yt-dlp"
+        ],
+        "tier": 0
+      },
+      "reddit": {
+        "status": "off",
+        "message": "需要安装 rdt-cli（推荐使用最新版 v0.4.2+）：\n  pip install 'rdt-cli>=0.4.2'\n或：\n  uv tool install rdt-cli\n最新源码：https://github.com/public-clis/rdt-cli\n安装后运行 `rdt login` 登录（需先在浏览器登录 reddit.com）",
+        "backends": [
+          "rdt-cli"
+        ],
+        "tier": 0
+      },
+      "bilibili": {
+        "status": "ok",
+        "message": "视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli",
+        "backends": [
+          "yt-dlp",
+          "bili-cli (可选)",
+          "B站搜索 API"
+        ],
+        "tier": 1
+      },
+      "xiaohongshu": {
+        "status": "off",
+        "message": "需要安装 xhs-cli：\n  pipx install xiaohongshu-cli\n或：\n  uv tool install xiaohongshu-cli\n安装后运行 `xhs login` 登录",
+        "backends": [
+          "xhs-cli (xiaohongshu-cli)"
+        ],
+        "tier": 1
+      },
+      "douyin": {
+        "status": "off",
+        "message": "需要 mcporter + douyin-mcp-server。安装步骤：\n  1. npm install -g mcporter\n  2. pip install douyin-mcp-server\n  3. 启动服务（见下方说明）\n  4. mcporter config add douyin http://localhost:18070/mcp\n  详见 https://github.com/yzfly/douyin-mcp-server",
+        "backends": [
+          "douyin-mcp-server"
+        ],
+        "tier": 2
+      },
+      "linkedin": {
+        "status": "off",
+        "message": "基本内容可通过 Jina Reader 读取。完整功能需要：\n  pip install linkedin-scraper-mcp\n  mcporter config add linkedin http://localhost:3000/mcp\n  详见 https://github.com/stickerdaniel/linkedin-mcp-server",
+        "backends": [
+          "linkedin-scraper-mcp",
+          "Jina Reader"
+        ],
+        "tier": 2
+      },
+      "wechat": {
+        "status": "warn",
+        "message": "Camoufox 可阅读公众号文章，但搜索功能需要 Exa。运行 `agent-reach install --env=auto` 安装 Exa。",
+        "backends": [
+          "Exa via mcporter (搜索+阅读)",
+          "Camoufox (可选阅读)"
+        ],
+        "tier": 0
+      },
+      "weibo": {
+        "status": "off",
+        "message": "需要 mcporter + mcp-server-weibo。安装步骤：\n  1. npm install -g mcporter\n  2. pip install git+https://github.com/Panniantong/mcp-server-weibo.git\n  3. mcporter config add weibo --command 'mcp-server-weibo'\n  详见 https://github.com/Panniantong/mcp-server-weibo",
+        "backends": [
+          "mcp-server-weibo"
+        ],
+        "tier": 1
+      },
+      "xiaoyuzhou": {
+        "status": "off",
+        "message": "需要 ffmpeg（音频转码和切片）。安装：\n  Ubuntu/Debian: apt install -y ffmpeg\n  macOS: brew install ffmpeg",
+        "backends": [
+          "groq-whisper",
+          "ffmpeg"
+        ],
+        "tier": 1
+      },
+      "v2ex": {
+        "status": "ok",
+        "message": "公开 API 可用（热门主题、节点浏览、主题详情、用户信息）",
+        "backends": [
+          "V2EX API (public)"
+        ],
+        "tier": 0
+      },
+      "xueqiu": {
+        "status": "warn",
+        "message": "Xueqiu API 连接失败：HTTP Error 400: 。请先登录雪球后运行：agent-reach configure --from-browser chrome",
+        "backends": [
+          "Xueqiu API (需要登录 Cookie)"
+        ],
+        "tier": 1
+      },
+      "rss": {
+        "status": "ok",
+        "message": "可读取 RSS/Atom 源",
+        "backends": [
+          "feedparser"
+        ],
+        "tier": 0
+      },
+      "exa_search": {
+        "status": "off",
+        "message": "需要 mcporter + Exa MCP。安装：\n  npm install -g mcporter\n  mcporter config add exa https://mcp.exa.ai/mcp",
+        "backends": [
+          "Exa via mcporter"
+        ],
+        "tier": 0
+      },
+      "web": {
+        "status": "ok",
+        "message": "通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）",
+        "backends": [
+          "Jina Reader"
+        ],
+        "tier": 0
+      }
+    },
+    "ready_channels": [
+      "github",
+      "youtube",
+      "bilibili",
+      "v2ex",
+      "rss",
+      "web"
+    ],
+    "ready_count": 6,
+    "total_channels": 16
+  },
+  "channels_requested": [
+    "bilibili",
+    "github",
+    "rss",
+    "v2ex",
+    "web",
+    "youtube"
+  ],
+  "channels_used": [
+    "bilibili",
+    "github",
+    "rss",
+    "v2ex",
+    "web",
+    "youtube"
+  ],
+  "message": "Agent Reach completed with 5 records",
+  "records_found": 5,
+  "urls_discovered": 14,
+  "urls_attempted": 5,
+  "search_attempts": [
+    {
+      "source": "duckduckgo.com",
+      "query": "florist Lahore official website contact email phone",
+      "url": "https://duckduckgo.com/html/?q=florist+Lahore+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "florist Lahore official website contact email phone",
+      "url": "https://www.google.com/search?q=florist+Lahore+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 1
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "florist Lahore business website contact",
+      "url": "https://duckduckgo.com/html/?q=florist+Lahore+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "florist Lahore business website contact",
+      "url": "https://www.google.com/search?q=florist+Lahore+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 5
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "florist Lahore address phone email",
+      "url": "https://duckduckgo.com/html/?q=florist+Lahore+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "florist Lahore address phone email",
+      "url": "https://www.google.com/search?q=florist+Lahore+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 1
+    }
+  ],
+  "scrape_attempts": [
+    {
+      "channel": "web",
+      "url": "https://theflowerstudio.pk/pages/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 20423
+    },
+    {
+      "channel": "web",
+      "url": "https://lahoreflowerhub.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 9632
+    },
+    {
+      "channel": "web",
+      "url": "https://bloomboxco.pk/pages/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 616
+    },
+    {
+      "channel": "web",
+      "url": "https://bloomex.pk/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 6053
+    },
+    {
+      "channel": "web",
+      "url": "https://houseofflowers.pk/pages/contact-details",
+      "ok": true,
+      "error": null,
+      "content_length": 9434
+    }
+  ],
+  "channel_attempts": [
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json bilisearch5:florist",
+      "ok": false,
+      "return_code": 1,
+      "stdout": "{\"id\": \"florist\", \"title\": \"florist\", \"_type\": \"playlist\", \"entries\": [null], \"webpage_url\": \"bilisearch5:florist\", \"original_url\": \"bilisearch5:florist\", \"webpage_url_basename\": \"florist\", \"webpage_url_domain\": null, \"extractor\": \"BiliBiliSearch\", \"extractor_key\": \"BiliBiliSearch\", \"release_year\": null, \"requested_entries\": [1], \"playlist_count\": 0, \"epoch\": 1782857689, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "ERROR: Unable to download JSON metadata: HTTP Error 412: Precondition Failed (caused by <HTTPError 412: Precondition Failed>)\n",
+      "elapsed_seconds": 1.207,
+      "channel": "bilibili"
+    },
+    {
+      "command": "gh search repos florist --sort stars --limit 5",
+      "ok": true,
+      "return_code": 0,
+      "stdout": "danderfer/Comp_Sci_Sem_2\tAccording to all known laws of aviation, there is no way that a bee should be able to fly. Its wings are too small to get its fat little body off the ground. The bee, of course, flies anyway. Because bees don’t care what humans think is impossible.” SEQ. 75 - “INTRO TO BARRY” INT. BENSON HOUSE - DAY ANGLE ON: Sneakers on the ground. Camera PANS UP to reveal BARRY BENSON’S BEDROOM ANGLE ON: Barry’s hand flipping through different sweaters in his closet. BARRY Yellow black, yellow black, yellow black, yellow black, yellow black, yellow black...oohh, black and yellow... ANGLE ON: Barry wearing the sweater he picked, looking in the mirror. BARRY (CONT’D) Yeah, let’s shake it up a little. He picks the black and yellow one. He then goes to the sink, takes the top off a CONTAINER OF HONEY, and puts some honey into his hair. He squirts some in his mouth and gargles. Then he takes the lid off the bottle, and rolls some on like deodorant. CUT TO: INT. BENSON HOUSE KITCHEN - CONTINUOUS Barry’s mother, JANET BENSON, yells up at Barry. JANET BENSON Barry, breakfast is ready! CUT TO: \"Bee Movie\" - JS REVISIONS 8/13/07 1. INT. BARRY’S ROOM - CONTINUOUS BARRY Coming! SFX: Phone RINGING. Barry’s antennae vibrate as they RING like a phone. Barry’s hands are wet. He looks around for a towel. BARRY (CONT’D) Hang on a second! He wipes his hands on his sweater, and pulls his antennae down to his ear and mouth. BARRY (CONT'D) Hello? His best friend, ADAM FLAYMAN, is on the other end. ADAM Barry? BARRY Adam? ADAM Can you believe this is happening? BARRY Can’t believe it. I’ll pick you up. Barry sticks his stinger in a sharpener. SFX: BUZZING AS HIS STINGER IS SHARPENED. He tests the sharpness with his finger. SFX: Bing. BARRY (CONT’D) Looking sharp. ANGLE ON: Barry hovering down the hall, sliding down the staircase bannister. Barry’s mother, JANET BENSON, is in the kitchen. JANET BENSON Barry, why don’t you use the stairs? Your father paid good money for those. \"Be\n...[truncated]...\n flower? Where? Of course I saw the flower! That was genius! Thank you. But we're not done yet. Listen, everyone! This runway is covered with the last pollen from the last flowers available anywhere on Earth. That means this is our Last Chance. We're the only ones who make honey, pollinate flowers and dress like this. If we're gonna survive as a species, this is our moment! What do you say? Are we going to be bees, or just Museum of Natural History keychains? We're bees! Keychain! Then follow me! Except Keychain. Hold on, Barry. Here. You've earned this. Yeah! I'm a Pollen Jock! And it's a perfect fit. All I gotta do are the sleeves. Oh, yeah. That's our Barry. Mom! The bees are back! If anybody needs to make a call, now's the time. I got a feeling we'll be working late tonight! Here's your change. Have a great afternoon! Can I help who's next? Would you like some honey with that? It is bee-approved. Don't forget these. Milk, cream, cheese, it's all me. And I don't see a nickel! Sometimes I just feel like a piece of meat! I had no idea. Barry, I'm sorry. Have you got a moment? Would you excuse me? My mosquito associate will help you. Sorry I'm late. He's a lawyer too? I was already a blood-sucking parasite. All I needed was a briefcase. Have a great afternoon! Barry, I just got this huge tulip order, and I can't get them anywhere. No problem, Vannie. Just leave it to me. You're a lifesaver, Barry. Can I help who's next? All right, scramble, jocks! It's time to fly. Thank you, Barry! That bee is living my life! Let it go, Kenny. When will this nightmare end?! Let it all go. Beautiful day to fly. Sure is. Between you and me, I was dying to get out of that office. You have got to start thinking bee, my friend. Thinking bee! Me? Hold it. Let's just stop for a second. Hold it. I'm sorry. I'm sorry, everyone. Can we stop here? I'm not making a major life decision during a production number! All right. Take ten, everybody. Wrap it up, guys. I h\tpublic\t2026-06-09T17:06:47Z\n",
+      "stderr": "",
+      "elapsed_seconds": 1.821,
+      "channel": "github"
+    },
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json ytsearch5:florist",
+      "ok": true,
+      "return_code": 0,
+      "stdout": "{\"id\": \"florist\", \"title\": \"florist\", \"_type\": \"playlist\", \"entries\": [{\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"EjrqWmRE4qQ\", \"url\": \"https://www.youtube.com/watch?v=EjrqWmRE4qQ\", \"title\": \"Work with me (1 Hour) | Relaxing Flower Shop ASMR \\ud83c\\udf37 | Soft Music & Florist Vlog\", \"description\": \"Hi, I\\u2019m Seol :)\\nWelcome to Garden In Seol \\ud83c\\udf37\\n\\nSpend a calm hour with me surrounded by flowers.\\nThis video blends soft ...\", \"duration\": 3601.0, \"channel_id\": \"UCtnUd1fATmgAWjGSZ3IfqaA\", \"channel\": \"\\uc124 Seol\\u2019s Life\", \"channel_url\": \"https://www.youtube.com/channel/UCtnUd1fATmgAWjGSZ3IfqaA\", \"uploader\": \"\\uc124 Seol\\u2019s Life\", \"uploader_id\": \"@seolslife\", \"uploader_url\": \"https://www.youtube.com/@seolslife\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/vi/EjrqWmRE4qQ/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC6SFwPp2IDPOhTdmPW7nYlvcjc3w\", \"height\": 202, \"width\": 360}, {\"url\": \"https://i.ytimg.com/vi/EjrqWmRE4qQ/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkll10HDm2lUAL17gg1O3vbm_0iw\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 255454, \"live_status\": null, \"channel_is_verified\": null, \"__x_forwarded_for_ip\": null}, {\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"wbNAiN8FTfc\", \"url\": \"https://www.youtube.com/watch?v=wbNAiN8FTfc\", \"title\": \"Floor Is Lava Song - THE KIBOOMERS Preschool Songs - Freeze Dance\", \"description\": \"Sing-along and learn with The Kiboomers! Our freeze song for kids is a fun lava game to play for a kindergarten or toddler dance\\u00a0...\", \"duration\": 211.0, \"channel_id\": \"UCLy6-72NzYpFztbJ7jNEMkg\", \"channel\": \"The Kiboomers - Kids Music Channel\", \"channel_url\": \"https://www.youtube.com/channel/UCLy6-72NzYpFztbJ7jNEMkg\", \"uploader\": \"The Kiboomers - Kids Music Channel\", \"uploader_id\": \"@thekiboomers\", \"uploader_url\": \"https://www.youtube.com/@thekiboomers\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/v\n...[truncated]...\neight\": 202, \"width\": 360}, {\"url\": \"https://i.ytimg.com/vi/J-Ay3n1S1j8/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDyViBz6itLDQXjWNcMbrs2sCW1FA\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 430932, \"live_status\": null, \"channel_is_verified\": null, \"__x_forwarded_for_ip\": null}, {\"_type\": \"url\", \"ie_key\": \"Youtube\", \"id\": \"k7NmnNflRJE\", \"url\": \"https://www.youtube.com/watch?v=k7NmnNflRJE\", \"title\": \"how i became a florist & flower farmer with no experience\", \"description\": \"Hi friends! Popping in mid-week for an extra video for y'all! In today's video, I'm sharing how I became a florist and flower farmer\\u00a0...\", \"duration\": 1300.0, \"channel_id\": \"UC2o5cTuUiSRrSLGk7AOSPFQ\", \"channel\": \"Marigold Manor\", \"channel_url\": \"https://www.youtube.com/channel/UC2o5cTuUiSRrSLGk7AOSPFQ\", \"uploader\": \"Marigold Manor\", \"uploader_id\": \"@marigoldmanor16\", \"uploader_url\": \"https://www.youtube.com/@marigoldmanor16\", \"thumbnails\": [{\"url\": \"https://i.ytimg.com/vi/k7NmnNflRJE/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCgO2wOnuCMw8yN9OiVH-x_44yOjw\", \"height\": 202, \"width\": 360}, {\"url\": \"https://i.ytimg.com/vi/k7NmnNflRJE/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDY-evzMWaUY7f61IWk8zgiqqjM-w\", \"height\": 404, \"width\": 720}], \"timestamp\": null, \"release_timestamp\": null, \"availability\": null, \"view_count\": 19180, \"live_status\": null, \"channel_is_verified\": null, \"__x_forwarded_for_ip\": null}], \"webpage_url\": \"ytsearch5:florist\", \"original_url\": \"ytsearch5:florist\", \"webpage_url_basename\": \"florist\", \"webpage_url_domain\": null, \"extractor\": \"youtube:search\", \"extractor_key\": \"YoutubeSearch\", \"release_year\": null, \"playlist_count\": 5, \"epoch\": 1782857693, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "",
+      "elapsed_seconds": 2.008,
+      "channel": "youtube"
+    },
+    {
+      "channel": "rss",
+      "url": "https://theflowerstudio.pk/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Send Mother’s Day Gifts to Pakistan from Abroad (2026 Guide)",
+          "link": "https://theflowerstudio.pk/send-mothers-day-gifts-to-pakistan-from-abroad/"
+        },
+        {
+          "title": "Send Gifts to Pakistan from the UK and USA – A Complete Guide for 2026",
+          "link": "https://theflowerstudio.pk/send-gifts-to-pakistan-from-uk-and-usa-2026-guide/"
+        },
+        {
+          "title": "10 Best Ramadan Gift Baskets 2026: A Guide to Sending Gifts in Pakistan",
+          "link": "https://theflowerstudio.pk/best-ramadan-gift-baskets-pakistan/"
+        }
+      ],
+      "elapsed_seconds": 2.415
+    },
+    {
+      "channel": "rss",
+      "url": "https://theflowerstudio.pk/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.84
+    },
+    {
+      "channel": "rss",
+      "url": "https://theflowerstudio.pk/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.819
+    },
+    {
+      "channel": "rss",
+      "url": "https://lahoreflowerhub.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "How Same-Day Flower Delivery in Lahore Actually Works",
+          "link": "https://lahoreflowerhub.com/how-same-day-flower-delivery-in-lahore-actually-works/"
+        }
+      ],
+      "elapsed_seconds": 3.053
+    },
+    {
+      "channel": "rss",
+      "url": "https://lahoreflowerhub.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.144
+    },
+    {
+      "channel": "rss",
+      "url": "https://lahoreflowerhub.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.921
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomboxco.pk/feed",
+      "ok": false,
+      "error": "HTTP Error 402: Payment Required",
+      "elapsed_seconds": 1.083
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomboxco.pk/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.862
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomboxco.pk/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 402: Payment Required",
+      "elapsed_seconds": 0.922
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomex.pk/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Celebrate Mother’s Day with Beautiful Flowers and Perfect Gift Hampers",
+          "link": "https://bloomex.pk/mothers-day-flowers-and-gift-hampers/"
+        },
+        {
+          "title": "hello world",
+          "link": "https://bloomex.pk/hello-world/"
+        }
+      ],
+      "elapsed_seconds": 2.167
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomex.pk/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.313
+    },
+    {
+      "channel": "rss",
+      "url": "https://bloomex.pk/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.922
+    },
+    {
+      "channel": "rss",
+      "url": "https://houseofflowers.pk/feed",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.841
+    },
+    {
+      "channel": "rss",
+      "url": "https://houseofflowers.pk/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.435
+    },
+    {
+      "channel": "rss",
+      "url": "https://houseofflowers.pk/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.924
+    },
+    {
+      "channel": "v2ex",
+      "ok": true,
+      "query": "florist",
+      "records": [
+        {
+          "id": 1223821,
+          "title": "好奇大家用的牙膏是什么牌子的？",
+          "url": "https://www.v2ex.com/t/1223821",
+          "replies": 162,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "个人听的比较多的：黑人牙膏、高露洁、云南白药、参半、俊小白。\r\n    \r\n\t现在我一般用的都是参半，大家能感受出来不同牙膏的区别么？因为我现在固定用一个品牌，之前有刷到广告试了一下俊小白，说实话，可能个人不是很敏感，我一直体会不出不同品牌牙膏的区别。\r\n\r\n\t好奇大家用什么牙膏的品牌，能感受出不同品牌的区别么？",
+          "created": 1782782618
+        },
+        {
+          "id": 1223800,
+          "title": "“万一免五”股票基金大笑脸低佣开户，抽鼠标迈从 A7 V3 PRO+；键盘迈从 Ace 68 V2。",
+          "url": "https://www.v2ex.com/t/1223800",
+          "replies": 127,
+          "node_name": "promotions",
+          "node_title": "推广",
+          "content": "这周抽鼠标迈从 A7 V3 PRO+，键盘迈从 Ace 68 V2 ；用了一个月，打游戏真心不错。\r\n大笑脸开户 股票，etf 全网超低费率，欢迎来开！开户和推荐朋友都有红包！\r\n⚠️回帖即可参与！\r\nhttps://i.v2ex.co/3n5Z4Yptl.jpeg\r\n⚠️大笑脸低佣开户推荐：\r\nGF 证券：ETF 万 0.5 免 5 [etf 费率最低，适合 etf ，打新，纳指，宽基，LOF ",
+          "created": 1782779072
+        },
+        {
+          "id": 1223840,
+          "title": "苹果电脑全线涨价，大家还会继续买吗？",
+          "url": "https://www.v2ex.com/t/1223840",
+          "replies": 115,
+          "node_name": "qna",
+          "node_title": "问与答",
+          "content": "我有一台 2012 款 macbook pro ，现在还能跑。\r\n\r\n最近安装上 Claude Code ，勉强能跟上 AI 时代。\r\n\r\n不过，配置实在太老旧，brew 根本不敢更新。\r\n\r\n---\r\n\r\n打算换台笔记本，看中了 M5MAX + 2T + 128G ，\r\n\r\n没涨价前 4w 多，涨价后 5w 多，相差 6k 。\r\n\r\n感觉被劝退，待年底出 M6 ，再看看。\r\n\r\n---\r\n\r\n其",
+          "created": 1782784676
+        },
+        {
+          "id": 1223807,
+          "title": "广东农村堂弟不爱读书，中专/技校已经极限了，求建议：未来还有哪些相对靠谱的出路？",
+          "url": "https://www.v2ex.com/t/1223807",
+          "replies": 112,
+          "node_name": "career",
+          "node_title": "职场话题",
+          "content": "",
+          "created": 1782780792
+        },
+        {
+          "id": 1223876,
+          "title": "经济下行，我做了这些事情来节省开支，然后发现对生活品质几乎没有影响……欢迎补充",
+          "url": "https://www.v2ex.com/t/1223876",
+          "replies": 107,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "1.电信宽带降资费； 3 年合约期到了，我把电信宽带从 239/月降到了 109/月的低配套餐，无非就是带宽变小了，免费通话和赠送流量变少了，低配套餐实际使用下来，毫无体感上的区别；各地区政策可能不同，甚至携号转网换运营商可能省得更多。\r\n\r\n2.短途出行主要骑车或地铁，开车变少了。老油车了，油价高。久了习惯了，反而不想开车了，开支比公共交通更大，停车之类的也很麻烦。\r\n\r\n3.各类 App 的会",
+          "created": 1782789753
+        }
+      ],
+      "elapsed_seconds": 0.995
+    }
+  ],
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/Agent-Reach-main/../.asagus-runs/phase1-fail/agent-reach.csv",
+  "elapsed_seconds": 94.269
+}

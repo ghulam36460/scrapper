@@ -1,0 +1,15 @@
+{
+  "tool_id": "scrapling",
+  "status": "integrated",
+  "message": "Scrapling is integrated into main ASAGUS extraction layer",
+  "note": "This tool provides parser capabilities to the main scraper",
+  "job_context": {
+    "job_id": "1962cb5b-c4c4-40d5-a088-098a50f0420c",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

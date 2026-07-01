@@ -12,8 +12,15 @@ from urllib.parse import urlparse
 from flask import Flask, jsonify, request, send_file
 import requests
 from url_filters import is_business_website
+import concurrency_config as cc
 
 # Import all scrapers for different modes
+# Maximum - ALL engines + web search + cross-verification (new highest tier)
+try:
+    from maximum_scraper import MaximumScraper
+except ImportError:
+    MaximumScraper = None
+
 # Ultra Deep - uses ALL engines in parallel with cross-verification
 try:
     from ultra_scraper import UltraDeepScraper
@@ -83,8 +90,8 @@ NOMINATIM_SEARCH_URL = "https://nominatim.openstreetmap.org/search"
 NOMINATIM_USER_AGENT = "lead-scraper-location-assistant/1.0"
 LOCATION_SUGGEST_TIMEOUT = 8
 LOCATION_SUGGEST_MAX = 10
-EMAIL_ENRICHMENT_MAX_TARGETS = 160
-EMAIL_ENRICHMENT_WORKERS = 6
+EMAIL_ENRICHMENT_MAX_TARGETS = 500
+EMAIL_ENRICHMENT_WORKERS = cc.ENRICH_WORKERS
 
 COUNTRY_ALIASES = {
     "usa": "United States",
@@ -116,6 +123,13 @@ def get_available_modes() -> Dict:
             "value": "ultra",
             "label": "🚀 Ultra Deep (ALL engines + Cross-verification)",
             "description": "Uses ALL extraction engines in parallel with cross-verification. Highest accuracy, slowest speed."
+        })
+    
+    if MaximumScraper:
+        modes.append({
+            "value": "maximum",
+            "label": "💎 Maximum (Maps + Web Search + ALL engines)",
+            "description": "The ultimate mode: Google Maps + DuckDuckGo/Bing web search + ALL analysis engines + cross-verification. Finds businesses not on Maps too."
         })
     
     if DeepBusinessScraper:
@@ -290,6 +304,7 @@ def scrape() -> Dict:
         "enhanced": "Enhanced (Maps + Website)",
         "deep": "Deep (Maps + Website + Google Search)",
         "ultra": "Ultra Deep (ALL engines + Cross-verification)",
+        "maximum": "Maximum (Maps + Web Search + ALL engines + Cross-verification)",
     }
     mode_desc = mode_descriptions.get(extraction_mode, extraction_mode)
     exclusion_business_ids: Set[str] = set()
@@ -353,7 +368,25 @@ def scrape() -> Dict:
         # Choose scraper based on extraction mode
         scraper = None
         
-        if extraction_mode == "ultra":
+        if extraction_mode == "maximum":
+            # Maximum - Maps + Web Search + ALL engines
+            if MaximumScraper:
+                log.info("Using MAXIMUM scraper (Maps + Web Search + ALL engines)")
+                scraper = MaximumScraper(
+                    max_results=max_results,
+                    headless=headless,
+                    website_filter=website_filter,
+                    deep_search=deep_search,
+                    verify_socials=verify_socials,
+                    skip_duplicates=skip_duplicates,
+                    logger=log,
+                    progress_callback=report_progress,
+                )
+            else:
+                log.warning("MaximumScraper not available, falling back to Ultra")
+                extraction_mode = "ultra"
+
+        if extraction_mode == "ultra" and scraper is None:
             # Ultra Deep - uses ALL engines in parallel with cross-verification
             if UltraDeepScraper:
                 log.info("Using ULTRA DEEP scraper (all engines + cross-verification)")
@@ -961,5 +994,6 @@ if __name__ == "__main__":
     except ValueError:
         port = 5001
 
+    log.info("Concurrency profile: %s", cc.summary())
     log.info("Starting server on http://%s:%s", host, port)
     app.run(host=host, port=port, debug=False, threaded=True)

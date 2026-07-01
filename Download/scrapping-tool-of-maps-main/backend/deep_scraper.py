@@ -27,6 +27,7 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from email_extractor import WebsiteExtractor
 from maps_city_coverage import build_citywide_queries
 from url_filters import is_business_website, normalize_business_website
+import concurrency_config as cc
 
 
 # ============================================================================
@@ -675,7 +676,7 @@ class DeepBusinessScraper:
             self.log.info(f"📊 History: {stats.get('search_total', 0)} previously scraped for this search")
 
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=self.headless)
+            browser = p.chromium.launch(**cc.launch_kwargs(self.headless))
             context = browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

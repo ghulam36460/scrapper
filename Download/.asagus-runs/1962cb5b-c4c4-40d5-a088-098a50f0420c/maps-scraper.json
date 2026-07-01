@@ -1,0 +1,18 @@
+{
+  "tool_id": "maps-scraper",
+  "status": "completed",
+  "mode": "max",
+  "engine_used": "maximum_scraper.MaximumScraper",
+  "records": 9,
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/1962cb5b-c4c4-40d5-a088-098a50f0420c/maps-scraper.csv",
+  "elapsed_seconds": 167.29,
+  "job_context": {
+    "job_id": "1962cb5b-c4c4-40d5-a088-098a50f0420c",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

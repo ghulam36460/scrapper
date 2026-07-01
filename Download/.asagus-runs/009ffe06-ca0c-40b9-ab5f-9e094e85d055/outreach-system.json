@@ -1,0 +1,16 @@
+{
+  "tool_id": "outreach-system",
+  "status": "ready",
+  "message": "Outreach system ready for lead scoring",
+  "note": "This tool scores and segments leads after they are scraped",
+  "dry_run_only": true,
+  "job_context": {
+    "job_id": "009ffe06-ca0c-40b9-ab5f-9e094e85d055",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

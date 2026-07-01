@@ -1,0 +1,72 @@
+{
+  "tool_id": "maps-scraper",
+  "mode": "balanced",
+  "job_id": "test-dry",
+  "query": "restaurants",
+  "location": "Lahore",
+  "limit": 5,
+  "cwd": "/home/ghulam/Desktop/scrapper/Download/scrapping-tool-of-maps-main",
+  "started_at": 1782852452.3991313,
+  "dry_run": true,
+  "backend_root": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend",
+  "backend_python": "/home/ghulam/Desktop/scrapper/Download/../asagus-scraper-v3/backend/.venv/bin/python",
+  "python_executable": "/home/ghulam/Desktop/scrapper/Download/scrapping-tool-of-maps-main/../../asagus-scraper-v3/backend/.venv/bin/python",
+  "python_prefix": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend/.venv",
+  "pipeline_output_dir": "../.asagus-runs/test-dry",
+  "root_pipeline": {
+    "name": "ASAGUS Download Tool Pipeline",
+    "version": 1,
+    "backend_root": "../asagus-scraper-v3/backend",
+    "backend_python": "../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "asagus_tool_launcher.py",
+    "runs_root": ".asagus-runs",
+    "pipeline_contract": {
+      "input_env": [
+        "ASAGUS_JOB_ID",
+        "ASAGUS_QUERY",
+        "ASAGUS_LOCATION",
+        "ASAGUS_LIMIT",
+        "ASAGUS_MODE",
+        "ASAGUS_WEBSITE_FILTER",
+        "ASAGUS_TOOL_ID"
+      ],
+      "output_files": [
+        ".asagus-runs/<job-id>/<tool-id>.json",
+        ".asagus-runs/<job-id>/<tool-id>.csv"
+      ],
+      "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass."
+    }
+  },
+  "pipeline_manifest": {},
+  "tool_config": {
+    "tool_id": "maps-scraper",
+    "uses_asagus_backend_venv": true,
+    "backend_python": "../../asagus-scraper-v3/backend/.venv/bin/python",
+    "launcher": "../asagus_tool_launcher.py",
+    "pipeline_role": "maps_scraper_adapter",
+    "max_mode": {
+      "enabled": true,
+      "receives_job_context": true,
+      "real_browser_run_env": "ASAGUS_TOOL_REAL_RUN"
+    }
+  },
+  "pipeline": {
+    "upstream": [
+      "asagus.core.discovery",
+      "asagus.core.fetch",
+      "asagus.core.extraction"
+    ],
+    "current": "maps-scraper",
+    "downstream": [
+      "asagus.core.enrichment",
+      "asagus.core.storage",
+      "asagus.core.indexing"
+    ],
+    "contract": "job-context-json-and-csv-artifacts"
+  },
+  "status": "prepared",
+  "message": "Real maps/browser run disabled for this tool launch; ASAGUS core job is the active scraper.",
+  "finished_at": 1782852452.3992605,
+  "elapsed_seconds": 0.0,
+  "output_json": "../.asagus-runs/test-dry/maps-scraper.json"
+}

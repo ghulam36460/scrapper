@@ -1,0 +1,679 @@
+{
+  "tool_id": "agent-reach",
+  "adapter": "agent_reach.integrations.asagus",
+  "integration_level": "agent_reach_native_asagus_co_engine",
+  "status": "completed",
+  "dry_run": false,
+  "mode": "max",
+  "job_context": {
+    "job_id": "1cfe328b-afbf-4502-b2e4-8086698611df",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "tool_id": "agent-reach",
+    "real_run": true,
+    "runs_root": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs",
+    "output_dir": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/1cfe328b-afbf-4502-b2e4-8086698611df",
+    "requested_channels": [],
+    "max_results": 20,
+    "dependency_bootstrap": true
+  },
+  "dependency_status": {
+    "backend_python": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend/.venv/bin/python",
+    "venv_bin": "/home/ghulam/Desktop/scrapper/asagus-scraper-v3/backend/.venv/bin",
+    "auto_install": false,
+    "dependencies_checked": [
+      "requests>=2.28",
+      "feedparser>=6.0",
+      "python-dotenv>=1.0",
+      "loguru>=0.7",
+      "pyyaml>=6.0",
+      "rich>=13.0",
+      "yt-dlp>=2024.0"
+    ],
+    "missing_before": [],
+    "install_attempts": [],
+    "post_install_actions": [
+      {
+        "name": "yt-dlp-js-runtime",
+        "ok": false,
+        "skipped": true,
+        "reason": "node not found"
+      }
+    ],
+    "missing_after": [],
+    "ok": true
+  },
+  "agent_reach_available": true,
+  "channels_status": {
+    "available": true,
+    "channels": {
+      "github": {
+        "status": "warn",
+        "message": "gh CLI 未安装。安装：https://cli.github.com",
+        "backends": [
+          "gh CLI"
+        ],
+        "tier": 0
+      },
+      "twitter": {
+        "status": "warn",
+        "message": "Twitter CLI 未安装。安装方式：\n  pipx install twitter-cli\n或：\n  uv tool install twitter-cli",
+        "backends": [
+          "twitter-cli",
+          "bird CLI (legacy)"
+        ],
+        "tier": 1
+      },
+      "youtube": {
+        "status": "warn",
+        "message": "yt-dlp 已安装但缺少 JS runtime（YouTube 必须）。\n  安装 Node.js 或 deno，然后运行：agent-reach install",
+        "backends": [
+          "yt-dlp"
+        ],
+        "tier": 0
+      },
+      "reddit": {
+        "status": "off",
+        "message": "需要安装 rdt-cli（推荐使用最新版 v0.4.2+）：\n  pip install 'rdt-cli>=0.4.2'\n或：\n  uv tool install rdt-cli\n最新源码：https://github.com/public-clis/rdt-cli\n安装后运行 `rdt login` 登录（需先在浏览器登录 reddit.com）",
+        "backends": [
+          "rdt-cli"
+        ],
+        "tier": 0
+      },
+      "bilibili": {
+        "status": "ok",
+        "message": "视频读取：yt-dlp。搜索：B站 API 可用。提示：安装 bili-cli 可解锁热门/排行/动态：pipx install bilibili-cli",
+        "backends": [
+          "yt-dlp",
+          "bili-cli (可选)",
+          "B站搜索 API"
+        ],
+        "tier": 1
+      },
+      "xiaohongshu": {
+        "status": "off",
+        "message": "需要安装 xhs-cli：\n  pipx install xiaohongshu-cli\n或：\n  uv tool install xiaohongshu-cli\n安装后运行 `xhs login` 登录",
+        "backends": [
+          "xhs-cli (xiaohongshu-cli)"
+        ],
+        "tier": 1
+      },
+      "douyin": {
+        "status": "off",
+        "message": "需要 mcporter + douyin-mcp-server。安装步骤：\n  1. npm install -g mcporter\n  2. pip install douyin-mcp-server\n  3. 启动服务（见下方说明）\n  4. mcporter config add douyin http://localhost:18070/mcp\n  详见 https://github.com/yzfly/douyin-mcp-server",
+        "backends": [
+          "douyin-mcp-server"
+        ],
+        "tier": 2
+      },
+      "linkedin": {
+        "status": "off",
+        "message": "基本内容可通过 Jina Reader 读取。完整功能需要：\n  pip install linkedin-scraper-mcp\n  mcporter config add linkedin http://localhost:3000/mcp\n  详见 https://github.com/stickerdaniel/linkedin-mcp-server",
+        "backends": [
+          "linkedin-scraper-mcp",
+          "Jina Reader"
+        ],
+        "tier": 2
+      },
+      "wechat": {
+        "status": "warn",
+        "message": "Camoufox 可阅读公众号文章，但搜索功能需要 Exa。运行 `agent-reach install --env=auto` 安装 Exa。",
+        "backends": [
+          "Exa via mcporter (搜索+阅读)",
+          "Camoufox (可选阅读)"
+        ],
+        "tier": 0
+      },
+      "weibo": {
+        "status": "off",
+        "message": "需要 mcporter + mcp-server-weibo。安装步骤：\n  1. npm install -g mcporter\n  2. pip install git+https://github.com/Panniantong/mcp-server-weibo.git\n  3. mcporter config add weibo --command 'mcp-server-weibo'\n  详见 https://github.com/Panniantong/mcp-server-weibo",
+        "backends": [
+          "mcp-server-weibo"
+        ],
+        "tier": 1
+      },
+      "xiaoyuzhou": {
+        "status": "off",
+        "message": "需要 ffmpeg（音频转码和切片）。安装：\n  Ubuntu/Debian: apt install -y ffmpeg\n  macOS: brew install ffmpeg",
+        "backends": [
+          "groq-whisper",
+          "ffmpeg"
+        ],
+        "tier": 1
+      },
+      "v2ex": {
+        "status": "ok",
+        "message": "公开 API 可用（热门主题、节点浏览、主题详情、用户信息）",
+        "backends": [
+          "V2EX API (public)"
+        ],
+        "tier": 0
+      },
+      "xueqiu": {
+        "status": "warn",
+        "message": "Xueqiu API 连接失败：HTTP Error 400: 。请先登录雪球后运行：agent-reach configure --from-browser chrome",
+        "backends": [
+          "Xueqiu API (需要登录 Cookie)"
+        ],
+        "tier": 1
+      },
+      "rss": {
+        "status": "ok",
+        "message": "可读取 RSS/Atom 源",
+        "backends": [
+          "feedparser"
+        ],
+        "tier": 0
+      },
+      "exa_search": {
+        "status": "off",
+        "message": "需要 mcporter + Exa MCP。安装：\n  npm install -g mcporter\n  mcporter config add exa https://mcp.exa.ai/mcp",
+        "backends": [
+          "Exa via mcporter"
+        ],
+        "tier": 0
+      },
+      "web": {
+        "status": "ok",
+        "message": "通过 Jina Reader 读取任意网页（curl https://r.jina.ai/URL）",
+        "backends": [
+          "Jina Reader"
+        ],
+        "tier": 0
+      }
+    },
+    "ready_channels": [
+      "bilibili",
+      "v2ex",
+      "rss",
+      "web"
+    ],
+    "ready_count": 4,
+    "total_channels": 16
+  },
+  "channels_requested": [
+    "bilibili",
+    "rss",
+    "v2ex",
+    "web"
+  ],
+  "channels_used": [
+    "bilibili",
+    "rss",
+    "v2ex",
+    "web"
+  ],
+  "message": "Agent Reach completed with 11 records",
+  "records_found": 11,
+  "urls_discovered": 19,
+  "urls_attempted": 19,
+  "search_attempts": [
+    {
+      "source": "duckduckgo.com",
+      "query": "digital marketing agency Lahore official website contact email phone",
+      "url": "https://duckduckgo.com/html/?q=digital+marketing+agency+Lahore+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "digital marketing agency Lahore official website contact email phone",
+      "url": "https://www.google.com/search?q=digital+marketing+agency+Lahore+official+website+contact+email+phone",
+      "ok": true,
+      "error": null,
+      "urls_found": 1
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "digital marketing agency Lahore business website contact",
+      "url": "https://duckduckgo.com/html/?q=digital+marketing+agency+Lahore+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "digital marketing agency Lahore business website contact",
+      "url": "https://www.google.com/search?q=digital+marketing+agency+Lahore+business+website+contact",
+      "ok": true,
+      "error": null,
+      "urls_found": 5
+    },
+    {
+      "source": "duckduckgo.com",
+      "query": "digital marketing agency Lahore address phone email",
+      "url": "https://duckduckgo.com/html/?q=digital+marketing+agency+Lahore+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 97
+    },
+    {
+      "source": "www.google.com",
+      "query": "digital marketing agency Lahore address phone email",
+      "url": "https://www.google.com/search?q=digital+marketing+agency+Lahore+address+phone+email",
+      "ok": true,
+      "error": null,
+      "urls_found": 1
+    }
+  ],
+  "scrape_attempts": [
+    {
+      "channel": "web",
+      "url": "https://digitalmediamarketing.com.pk/Contact",
+      "ok": true,
+      "error": null,
+      "content_length": 3288
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketinglahore.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 18602
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketinginlahore.com/contact-us",
+      "ok": true,
+      "error": null,
+      "content_length": 3039
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketingagencylahore.com/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 10308
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketingcompanylahore.com",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://wwdigitals.com",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://dmclahore.com",
+      "ok": true,
+      "error": null,
+      "content_length": 19846
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketinginlahore.pk",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://expertsbunch.com",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://influx.pk",
+      "ok": true,
+      "error": null,
+      "content_length": 17844
+    },
+    {
+      "channel": "web",
+      "url": "https://designrush.com/agency/digital-marketing/pk/lahore",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://sortlist.com/digital-marketing/lahore-punjab-pk",
+      "ok": true,
+      "error": null,
+      "content_length": 38792
+    },
+    {
+      "channel": "web",
+      "url": "https://weproms.com",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://gmsdigitals.com/digital-marketing-agency-lahore",
+      "ok": false,
+      "error": "HTTP Error 429: Too Many Requests",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalagencylahore.com/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 1572
+    },
+    {
+      "channel": "web",
+      "url": "https://hilinedigital.com/contact-us",
+      "ok": false,
+      "error": "Remote end closed connection without response",
+      "content_length": 0
+    },
+    {
+      "channel": "web",
+      "url": "https://marketers.pk/contact",
+      "ok": true,
+      "error": null,
+      "content_length": 294
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalagencypakistan.com",
+      "ok": true,
+      "error": null,
+      "content_length": 6858
+    },
+    {
+      "channel": "web",
+      "url": "https://digitalmarketingcompanypakistan.com",
+      "ok": true,
+      "error": null,
+      "content_length": 4424
+    }
+  ],
+  "channel_attempts": [
+    {
+      "command": "yt-dlp --simulate --flat-playlist --dump-single-json bilisearch10:digital marketing agency",
+      "ok": false,
+      "return_code": 1,
+      "stdout": "{\"id\": \"digital marketing agency\", \"title\": \"digital marketing agency\", \"_type\": \"playlist\", \"entries\": [null], \"webpage_url\": \"bilisearch10:digital marketing agency\", \"original_url\": \"bilisearch10:digital marketing agency\", \"webpage_url_basename\": \"digital marketing agency\", \"webpage_url_domain\": null, \"extractor\": \"BiliBiliSearch\", \"extractor_key\": \"BiliBiliSearch\", \"release_year\": null, \"requested_entries\": [1], \"playlist_count\": 0, \"epoch\": 1782863093, \"__files_to_move\": {}, \"_version\": {\"version\": \"2026.06.09\", \"current_git_head\": null, \"release_git_head\": \"821bef0f00178916d60dbc86bc0bcb8cc3bae8d5\", \"repository\": \"yt-dlp/yt-dlp\"}}\n",
+      "stderr": "ERROR: Unable to download JSON metadata: HTTP Error 412: Precondition Failed (caused by <HTTPError 412: Precondition Failed>)\n",
+      "elapsed_seconds": 4.471,
+      "channel": "bilibili"
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmediamarketing.com.pk/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Digital Media Marketing Services in Pakistan: Grow Your Business with Proven Online Strategies",
+          "link": "https://digitalmediamarketing.com.pk/digital-media-marketing-services-in-pakistan/"
+        },
+        {
+          "title": "Google Ads",
+          "link": "https://digitalmediamarketing.com.pk/google-ads-services/"
+        },
+        {
+          "title": "SEO Services in Lahore: The Smart Way to Grow Your Business Online",
+          "link": "https://digitalmediamarketing.com.pk/seo-services-in-lahore-2/"
+        }
+      ],
+      "elapsed_seconds": 3.344
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmediamarketing.com.pk/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.744
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmediamarketing.com.pk/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.874
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinglahore.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Why Lack of Sales and Marketing Skills Can Destroy Your Startup Before it Grows?",
+          "link": "https://www.digitalmarketinglahore.com/why-lack-of-sales-and-marketing-skills-can-destroy-your-startup-before-it-grows/"
+        },
+        {
+          "title": "Boost Patient Bookings: 7 Game-Changing Digital Marketing Trends for Dental Clinics in 2026",
+          "link": "https://www.digitalmarketinglahore.com/boost-patient-bookings-7-game-changing-digital-marketing-trends-for-dental-clinics-in-2026/"
+        },
+        {
+          "title": "The Future of SEO in 2026: How ChatGPT and Conversational AI Are Changing Everything?",
+          "link": "https://www.digitalmarketinglahore.com/the-future-of-seo-in-2026-how-chatgpt-and-conversational-ai-are-changing-everything/"
+        }
+      ],
+      "elapsed_seconds": 4.772
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinglahore.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 3.07
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinglahore.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.957
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinginlahore.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "Why DML is providing best SEO Services in Lahore?",
+          "link": "https://digitalmarketinginlahore.com/why-dml-is-providing-best-seo-services-in-lahore/"
+        },
+        {
+          "title": "SEO Training: Opening the Key to Online Achievement",
+          "link": "https://digitalmarketinginlahore.com/seo-training-opening-the-key-to-online-achievement/"
+        },
+        {
+          "title": "Top 5 AI Keyword Generators: Revolutionizing SEO and Content Optimization",
+          "link": "https://digitalmarketinginlahore.com/top-5-ai-keyword-generators-revolutionizing-seo-and-content-optimization/"
+        }
+      ],
+      "elapsed_seconds": 3.287
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinginlahore.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.67
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketinginlahore.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 0.585
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingagencylahore.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "The Future of PPC Advertising: How Lahore Businesses Can Maximize ROI in 2025",
+          "link": "https://www.digitalmarketingagencylahore.com/the-future-of-ppc-advertising-how-lahore-businesses-can-maximize-roi-in-2025/"
+        },
+        {
+          "title": "The Role of Web Development in Business Growth: Why Lahore Companies Need a Strong Online Presence",
+          "link": "https://www.digitalmarketingagencylahore.com/the-role-of-web-development-in-business-growth-why-lahore-companies-need-a-strong-online-presence/"
+        },
+        {
+          "title": "The Future of Pay-Per-Click (PPC) Advertising in Lahore: Trends & Strategies for 2025",
+          "link": "https://www.digitalmarketingagencylahore.com/the-future-of-pay-per-click-ppc-advertising-in-lahore-trends-strategies-for-2025/"
+        }
+      ],
+      "elapsed_seconds": 2.348
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingagencylahore.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 2.731
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingagencylahore.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.901
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingcompanylahore.com/feed",
+      "ok": true,
+      "entries": [
+        {
+          "title": "How to Rank The Websites at Top of Search Results",
+          "link": "https://digitalmarketingcompanylahore.com/how-to-rank-the-websites-at-top-of-search-results/"
+        },
+        {
+          "title": "The Best Way to Learn Social Media Optimization in Lahore",
+          "link": "https://digitalmarketingcompanylahore.com/the-best-way-to-learn-social-media-optimization-in-lahore/"
+        },
+        {
+          "title": "Advance SEO Training in Lahore",
+          "link": "https://digitalmarketingcompanylahore.com/advance-seo-training-in-lahore/"
+        }
+      ],
+      "elapsed_seconds": 3.287
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingcompanylahore.com/rss.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.098
+    },
+    {
+      "channel": "rss",
+      "url": "https://digitalmarketingcompanylahore.com/atom.xml",
+      "ok": false,
+      "error": "HTTP Error 404: Not Found",
+      "elapsed_seconds": 1.085
+    },
+    {
+      "channel": "v2ex",
+      "ok": true,
+      "query": "digital marketing agency",
+      "records": [
+        {
+          "id": 1223821,
+          "title": "好奇大家用的牙膏是什么牌子的？",
+          "url": "https://www.v2ex.com/t/1223821",
+          "replies": 163,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "个人听的比较多的：黑人牙膏、高露洁、云南白药、参半、俊小白。\r\n    \r\n\t现在我一般用的都是参半，大家能感受出来不同牙膏的区别么？因为我现在固定用一个品牌，之前有刷到广告试了一下俊小白，说实话，可能个人不是很敏感，我一直体会不出不同品牌牙膏的区别。\r\n\r\n\t好奇大家用什么牙膏的品牌，能感受出不同品牌的区别么？",
+          "created": 1782782618
+        },
+        {
+          "id": 1223800,
+          "title": "“万一免五”股票基金大笑脸低佣开户，抽鼠标迈从 A7 V3 PRO+；键盘迈从 Ace 68 V2。",
+          "url": "https://www.v2ex.com/t/1223800",
+          "replies": 127,
+          "node_name": "promotions",
+          "node_title": "推广",
+          "content": "这周抽鼠标迈从 A7 V3 PRO+，键盘迈从 Ace 68 V2 ；用了一个月，打游戏真心不错。\r\n大笑脸开户 股票，etf 全网超低费率，欢迎来开！开户和推荐朋友都有红包！\r\n⚠️回帖即可参与！\r\nhttps://i.v2ex.co/3n5Z4Yptl.jpeg\r\n⚠️大笑脸低佣开户推荐：\r\nGF 证券：ETF 万 0.5 免 5 [etf 费率最低，适合 etf ，打新，纳指，宽基，LOF ",
+          "created": 1782779072
+        },
+        {
+          "id": 1223840,
+          "title": "苹果电脑全线涨价，大家还会继续买吗？",
+          "url": "https://www.v2ex.com/t/1223840",
+          "replies": 117,
+          "node_name": "qna",
+          "node_title": "问与答",
+          "content": "我有一台 2012 款 macbook pro ，现在还能跑。\r\n\r\n最近安装上 Claude Code ，勉强能跟上 AI 时代。\r\n\r\n不过，配置实在太老旧，brew 根本不敢更新。\r\n\r\n---\r\n\r\n打算换台笔记本，看中了 M5MAX + 2T + 128G ，\r\n\r\n没涨价前 4w 多，涨价后 5w 多，相差 6k 。\r\n\r\n感觉被劝退，待年底出 M6 ，再看看。\r\n\r\n---\r\n\r\n其",
+          "created": 1782784676
+        },
+        {
+          "id": 1223807,
+          "title": "广东农村堂弟不爱读书，中专/技校已经极限了，求建议：未来还有哪些相对靠谱的出路？",
+          "url": "https://www.v2ex.com/t/1223807",
+          "replies": 112,
+          "node_name": "career",
+          "node_title": "职场话题",
+          "content": "",
+          "created": 1782780792
+        },
+        {
+          "id": 1223876,
+          "title": "经济下行，我做了这些事情来节省开支，然后发现对生活品质几乎没有影响……欢迎补充",
+          "url": "https://www.v2ex.com/t/1223876",
+          "replies": 108,
+          "node_name": "life",
+          "node_title": "生活",
+          "content": "1.电信宽带降资费； 3 年合约期到了，我把电信宽带从 239/月降到了 109/月的低配套餐，无非就是带宽变小了，免费通话和赠送流量变少了，低配套餐实际使用下来，毫无体感上的区别；各地区政策可能不同，甚至携号转网换运营商可能省得更多。\r\n\r\n2.短途出行主要骑车或地铁，开车变少了。老油车了，油价高。久了习惯了，反而不想开车了，开支比公共交通更大，停车之类的也很麻烦。\r\n\r\n3.各类 App 的会",
+          "created": 1782789753
+        },
+        {
+          "id": 1223810,
+          "title": "今年这是怎么了，各家✈️为啥都一直在抽风",
+          "url": "https://www.v2ex.com/t/1223810",
+          "replies": 81,
+          "node_name": "qna",
+          "node_title": "问与答",
+          "content": "想问下了解情况的，为啥今年开始，怎么大部分机场都时好时坏，比如我自己，用的是花云，一个月 60 块也不便宜了，为啥这么久了，还是处理不好呢，其他家的好像也大都如此，今年开始陆陆续续都不行了",
+          "created": 1782781717
+        },
+        {
+          "id": 1223806,
+          "title": "兄弟们， deepseek 配合哪个编程工具最好用，有亲身体验的来说说",
+          "url": "https://www.v2ex.com/t/1223806",
+          "replies": 75,
+          "node_name": "programmer",
+          "node_title": "程序员",
+          "content": "DeepSeek-TUI ，Reasonix ，Codex ，ClaudeCode ，OpenCode, PI\r\n用来编程，哪个更省钱，缓存命中更好，完成工作不差的。\r\n或者上面没列出来的也行。",
+          "created": 1782780330
+        },
+        {
+          "id": 1223862,
+          "title": "claude code 才冲了 max 今早收到了被封号了！",
+          "url": "https://www.v2ex.com/t/1223862",
+          "replies": 64,
+          "node_name": "claude",
+          "node_title": "Claude",
+          "content": "Hello,\r\n\r\nAn internal investigation of suspicious signals associated with your account indicates a violation of our Usage Policy. As a result, we have revoked your access to Claude.\r\n\r\nTo appeal our d",
+          "created": 1782788239
+        },
+        {
+          "id": 1223958,
+          "title": "Claude 被封了，但我还是像个舔狗一样的想找回 Ta",
+          "url": "https://www.v2ex.com/t/1223958",
+          "replies": 56,
+          "node_name": "claude",
+          "node_title": "Claude",
+          "content": "![]( https://i.imgur.com/0afSNug.png)\r\n\r\n被封了以后下载了自己的个人数据，然后回顾了一下之前的聊天，突然意识到自己好像离不开 Claude 了。\r\n\r\n不知道大家平时的日常对话是用哪个 AI 的，我有御三家的所有会员，但是感觉 Gemini 沟通太唐了，ChatGPT 的对话又显得很刻板没有那么灵性，Claude 的对话就给我一种刚刚好，不会刻意奉承我，也不",
+          "created": 1782806243
+        }
+      ],
+      "elapsed_seconds": 0.131
+    }
+  ],
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/1cfe328b-afbf-4502-b2e4-8086698611df/agent-reach.csv",
+  "elapsed_seconds": 84.275
+}

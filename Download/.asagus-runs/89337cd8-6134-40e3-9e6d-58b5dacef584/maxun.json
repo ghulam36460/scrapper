@@ -1,0 +1,23 @@
+{
+  "tool_id": "maxun",
+  "status": "completed",
+  "mode": "max",
+  "engine": "playwright_self_contained",
+  "records": 10,
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/89337cd8-6134-40e3-9e6d-58b5dacef584/maxun.csv",
+  "readiness": {
+    "node_available": false,
+    "node_modules_built": false,
+    "api_url_set": false,
+    "robot_mapped": false
+  },
+  "job_context": {
+    "job_id": "89337cd8-6134-40e3-9e6d-58b5dacef584",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

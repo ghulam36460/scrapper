@@ -46,6 +46,32 @@ _MAX_MODE_TOOL_IDS = (
     "whatsapp-detector",
 )
 
+# Scraper-worker tools that should auto-run in parallel for any active scraping
+# job, respecting the main-scraper mode. This intentionally EXCLUDES:
+#   - API-only connectors (firecrawl: needs FIRECRAWL_API_KEY)
+#   - messaging / outreach senders (outreach, outreach-system, agent-reach
+#     outreach side, whatsapp-detector)
+# agent-reach is kept because it is used as an enrichment/discovery co-engine,
+# not as a message sender, in this pipeline.
+_SCRAPER_WORKER_TOOL_IDS = (
+    "maps-scraper",
+    "scrapy",
+    "scrapegraph-ai",
+    "maxun",
+    "agent-reach",
+)
+
+# Tools that must never auto-run as scraper workers (need API keys or are for
+# sending outreach/messages). They can still be launched explicitly by the user.
+_EXCLUDED_FROM_AUTO_SCRAPE = frozenset(
+    {
+        "firecrawl",          # requires FIRECRAWL_API_KEY (external API)
+        "outreach",           # message sending
+        "outreach-system",    # message sending / CRM
+        "whatsapp-detector",  # messaging-side validation service
+    }
+)
+
 
 def _sanitize_tool_args(args: list[str]) -> list[str]:
     """Validate and sanitize subprocess arguments to prevent injection."""
@@ -176,6 +202,21 @@ def max_mode_tool_ids() -> list[str]:
     """Return Download tools that should be launched with ASAGUS max mode."""
     available = {tool["id"] for tool in list_tools() if tool["available"]}
     return [tool_id for tool_id in _MAX_MODE_TOOL_IDS if tool_id in available]
+
+
+def scraper_worker_tool_ids() -> list[str]:
+    """Return scraper-worker tools to auto-run in parallel for a scraping job.
+
+    Excludes API-only connectors and outreach/messaging senders. These run for
+    any active scraping mode (deep, deep_agent, max, ...), each respecting the
+    main-scraper mode.
+    """
+    available = {tool["id"] for tool in list_tools() if tool["available"]}
+    return [
+        tool_id
+        for tool_id in _SCRAPER_WORKER_TOOL_IDS
+        if tool_id in available and tool_id not in _EXCLUDED_FROM_AUTO_SCRAPE
+    ]
 
 
 def list_tools() -> list[dict[str, Any]]:
@@ -325,6 +366,12 @@ async def run_tool(
 
 
 def _find_entry_point(folder: Path, meta: dict[str, Any]) -> str | None:
+    # A tool's own real adapter always wins. This makes every tool that ships an
+    # `asagus_adapter.py` run as a real autonomous worker instead of the generic
+    # status-only launcher.
+    own_adapter = folder / "asagus_adapter.py"
+    if own_adapter.exists() and own_adapter.is_file():
+        return "asagus_adapter.py"
     for ep in meta.get("entry_points", []):
         if ep == "asagus:auto":
             if _ASAGUS_LAUNCHER.exists():
@@ -345,8 +392,13 @@ async def launch_max_mode_tools(
     website_filter: str,
     network_enabled: bool,
     tool_ids: list[str] | None = None,
+    mode: str = "max",
 ) -> list[dict[str, Any]]:
-    """Launch available Download tools for a max-mode scrape."""
+    """Launch available Download tools as parallel scraper workers.
+
+    The main-scraper ``mode`` (deep, deep_agent, max, ...) is propagated to each
+    tool so depth-aware tools (e.g. the Maps scraper) pick the matching engine.
+    """
     selected = tool_ids or max_mode_tool_ids()
     results: list[dict[str, Any]] = []
     run_dir = _RUNS_ROOT / job_id
@@ -354,7 +406,7 @@ async def launch_max_mode_tools(
     pipeline_manifest = run_dir / "pipeline.json"
     pipeline_payload = {
         "job_id": job_id,
-        "mode": "max",
+        "mode": mode,
         "query": query,
         "location": location,
         "limit": limit,
@@ -378,7 +430,7 @@ async def launch_max_mode_tools(
         "ASAGUS_QUERY": query,
         "ASAGUS_LOCATION": location,
         "ASAGUS_LIMIT": str(limit),
-        "ASAGUS_MODE": "max",
+        "ASAGUS_MODE": mode,
         "ASAGUS_WEBSITE_FILTER": website_filter,
         "ASAGUS_DRY_RUN": "0" if network_enabled else "1",  # ✅ Fixed: respect network_enabled flag
         "ASAGUS_TOOL_REAL_RUN": "1" if network_enabled else "0",
@@ -393,7 +445,7 @@ async def launch_max_mode_tools(
         "PYTHONPATH": f"{_DOWNLOAD_ROOT}{os.pathsep}{_DOWNLOAD_ROOT / 'Agent-Reach-main'}{os.pathsep}{os.environ.get('PYTHONPATH', '')}",
         "ASAGUS_AGENT_REACH_AUTO_INSTALL": os.environ.get("ASAGUS_AGENT_REACH_AUTO_INSTALL", "1"),
     })
-    args = ["--mode", "max", "--query", query, "--location", location, "--limit", str(min(max(limit, 5), 25))]
+    args = ["--mode", mode, "--query", query, "--location", location, "--limit", str(min(max(limit, 5), 25))]
     for tool_id in selected:
         try:
             result = await run_tool(tool_id, args=args, env_extra=env)

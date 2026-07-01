@@ -1,0 +1,20 @@
+{
+  "tool_id": "scrapegraph-ai",
+  "status": "completed",
+  "mode": "max",
+  "extraction_mode": "heuristic_no_llm",
+  "scrapegraphai_installed": true,
+  "urls_processed": 10,
+  "records": 10,
+  "errors": [],
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/009ffe06-ca0c-40b9-ab5f-9e094e85d055/scrapegraph-ai.csv",
+  "job_context": {
+    "job_id": "009ffe06-ca0c-40b9-ab5f-9e094e85d055",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

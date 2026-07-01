@@ -1,0 +1,17 @@
+{
+  "tool_id": "scrapy",
+  "status": "completed",
+  "mode": "max",
+  "seed_urls": 14,
+  "records": 11,
+  "output_csv": "/home/ghulam/Desktop/scrapper/Download/.asagus-runs/ff8c3da4-0ada-4ad5-8a7d-e91e706ab141/scrapy.csv",
+  "job_context": {
+    "job_id": "ff8c3da4-0ada-4ad5-8a7d-e91e706ab141",
+    "query": "digital marketing agency",
+    "location": "Lahore",
+    "limit": 20,
+    "mode": "max",
+    "website_filter": "any",
+    "real_run": true
+  }
+}

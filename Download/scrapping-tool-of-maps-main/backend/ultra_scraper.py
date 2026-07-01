@@ -17,7 +17,7 @@ import re
 import time
 import concurrent.futures
 from dataclasses import dataclass, field
-from threading import Event, Lock
+from threading import Event, Lock, local as thread_local
 from typing import Callable, Dict, List, Optional, Set, Tuple, Any
 from urllib.parse import quote_plus, urljoin, urlparse
 
@@ -64,6 +64,7 @@ from deep_scraper import (
 )
 from maps_city_coverage import build_citywide_queries
 from url_filters import is_business_website, normalize_business_website
+import concurrency_config as cc
 
 # Import history manager for deduplication
 from scrape_history import get_history, ScrapeHistory
@@ -536,6 +537,24 @@ class UltraDeepScraper:
         self.skip_duplicates = skip_duplicates
         self.log = logger or logging.getLogger(__name__)
         self.progress_callback = progress_callback
+        # Concurrency: process listings in parallel, each in its own browser
+        # tab/context (Playwright sync API is not thread-safe across threads).
+        # Parallel browser tabs for Ultra. Each tab = its own Chromium
+        # context (~0.5GB) AND does heavy website crawling, so cap a little
+        # below the global Maps worker count to avoid RAM thrash. Override
+        # with SCRAPER_ULTRA_WORKERS.
+        import os as _os
+        _ultra_default = max(2, min(cc.MAPS_PAGE_WORKERS, 6))
+        try:
+            _ultra_workers = int(_os.getenv('SCRAPER_ULTRA_WORKERS', _ultra_default))
+        except ValueError:
+            _ultra_workers = _ultra_default
+        self.page_workers = max(1, min(_ultra_workers, self.max_results))
+        self._results_lock = Lock()
+        self._cache_lock = Lock()
+        self._thread_local = thread_local()
+        self._thread_browsers: List = []
+        self._thread_browsers_lock = Lock()
         self._website_engine_cache: Dict[str, List[Dict[str, Any]]] = {}
         self._google_verify_cache: Dict[str, Optional[Dict]] = {}
         
@@ -611,7 +630,7 @@ class UltraDeepScraper:
             self.log.info(f"📊 History: {stats.get('search_total', 0)} previously scraped for this search, {stats.get('global_total', 0)} total")
 
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=self.headless)
+            browser = p.chromium.launch(**cc.launch_kwargs(self.headless))
             context = browser.new_context(
                 user_agent=(
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -843,6 +862,58 @@ class UltraDeepScraper:
         # Return more URLs so we have room to filter
         return discovered
 
+    def _get_thread_context(self) -> Optional[BrowserContext]:
+        """Return a BrowserContext owned by the calling worker thread.
+
+        The Playwright sync API forbids driving a page/context from a thread
+        other than the one that created it, so every worker lazily starts its
+        own Playwright + Chromium + context and reuses it for all its listings.
+        """
+        ctx = getattr(self._thread_local, "context", None)
+        if ctx is not None:
+            return ctx
+        try:
+            from playwright.sync_api import sync_playwright as _sp
+            pw = _sp().start()
+            browser = pw.chromium.launch(**cc.launch_kwargs(self.headless))
+            context = browser.new_context(
+                user_agent=(
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/124.0.0.0 Safari/537.36"
+                ),
+                viewport={"width": 1400, "height": 1000},
+            )
+        except Exception as exc:
+            self.log.error("Failed to start per-thread browser: %s", exc)
+            return None
+
+        self._thread_local.pw = pw
+        self._thread_local.browser = browser
+        self._thread_local.context = context
+        with self._thread_browsers_lock:
+            self._thread_browsers.append((pw, browser, context))
+        return context
+
+    def _shutdown_thread_contexts(self) -> None:
+        """Close every per-thread browser spawned during extraction."""
+        with self._thread_browsers_lock:
+            registry = list(self._thread_browsers)
+            self._thread_browsers.clear()
+        for pw, browser, context in registry:
+            try:
+                context.close()
+            except Exception:
+                pass
+            try:
+                browser.close()
+            except Exception:
+                pass
+            try:
+                pw.stop()
+            except Exception:
+                pass
+
     def _ultra_extract_leads(
         self,
         context: BrowserContext,
@@ -851,63 +922,112 @@ class UltraDeepScraper:
         location: str,
         stop_event: Event,
     ) -> List[UltraBusinessData]:
-        """Ultra deep extraction with multi-engine cross-verification and deduplication."""
+        """Ultra deep multi-engine extraction, run in PARALLEL.
+
+        Each worker thread drives its own browser context (sync Playwright is
+        not thread-safe across threads). Auto-sized to the host CPU/RAM via
+        concurrency_config so all cores stay busy while waiting on network I/O.
+        """
         leads: List[UltraBusinessData] = []
-        skipped_duplicates = 0
-        processed = 0
+        captcha_flag = {"hit": False}
+        counters = {"skipped": 0, "processed": 0}
+        total = len(place_urls)
+        workers = max(1, min(self.page_workers, total))
 
-        for index, place_url in enumerate(place_urls, start=1):
-            if stop_event.is_set():
-                self.log.info("Stop requested.")
-                break
-            
-            # Stop if we have enough NEW results
-            if len(leads) >= self.max_results:
-                break
+        existing_ids: Set[str] = set()
+        if self.skip_duplicates:
+            try:
+                existing_ids = self.history.get_existing_business_ids(keyword, location)
+            except Exception:
+                existing_ids = set()
 
-            processed += 1
-            self.log.info(
-                "🔍 Ultra candidate %d (Collected: %d/%d, Skipped: %d duplicates)",
-                processed,
-                len(leads),
-                self.max_results,
-                skipped_duplicates,
-            )
+        def _enough() -> bool:
+            with self._results_lock:
+                return len(leads) >= self.max_results
 
-            page = context.new_page()
+        def _worker(place_url: str) -> None:
+            if stop_event.is_set() or captcha_flag["hit"] or _enough():
+                return
+            tctx = self._get_thread_context()
+            if tctx is None:
+                return
+            page = tctx.new_page()
             try:
                 lead = self._ultra_extract_single(page, place_url, keyword, location)
-                if lead:
-                    # Check for duplicates BEFORE applying other filters
+                if not lead:
+                    return
+                lead_dict = lead.to_dict()
+                if self.skip_duplicates:
+                    biz_id = self.history.get_business_id(lead_dict)
+                    is_dup = (biz_id and biz_id in existing_ids) or \
+                        self.history.is_duplicate(lead_dict, keyword, location)
+                    if is_dup:
+                        with self._results_lock:
+                            counters["skipped"] += 1
+                        return
+                if not self._passes_website_filter(lead.website):
+                    return
+
+                lead.extraction_quality = lead.calculate_quality()
+                lead.verification_score = lead.calculate_verification_score()
+
+                with self._results_lock:
+                    if len(leads) >= self.max_results:
+                        return
+                    leads.append(lead)
                     if self.skip_duplicates:
-                        lead_dict = lead.to_dict()
-                        if self.history.is_duplicate(lead_dict, keyword, location):
-                            skipped_duplicates += 1
-                            self.log.info("⏭️ Skipping duplicate: %s", lead.name)
-                            continue
-                    
-                    if self._passes_website_filter(lead.website):
-                        lead.extraction_quality = lead.calculate_quality()
-                        lead.verification_score = lead.calculate_verification_score()
-                        leads.append(lead)
-                        self.log.info("✓ NEW: %s (Quality: %s, Verified: %d%%)", 
-                                     lead.name, lead.extraction_quality, lead.verification_score)
-                        if self.progress_callback:
-                            try:
-                                self.progress_callback(lead.to_dict())
-                            except Exception:
-                                # Progress callbacks should never interrupt scraping.
-                                pass
+                        try:
+                            bid = self.history.get_business_id(lead_dict)
+                            if bid:
+                                existing_ids.add(bid)
+                        except Exception:
+                            pass
+
+                if self.progress_callback:
+                    try:
+                        self.progress_callback(lead.to_dict())
+                    except Exception:
+                        pass
+                self.log.info(
+                    "\u2713 NEW: %s (Quality: %s, Verified: %d%%)",
+                    lead.name, lead.extraction_quality, lead.verification_score,
+                )
             except CaptchaDetectedError:
-                raise
+                captcha_flag["hit"] = True
             except Exception as e:
                 self.log.error("Failed: %s - %s", place_url, e)
             finally:
-                page.close()
+                try:
+                    page.close()
+                except Exception:
+                    pass
+                with self._results_lock:
+                    counters["processed"] += 1
+                    if counters["processed"] % 5 == 0 or counters["processed"] == total:
+                        self.log.info(
+                            "\U0001f50d Ultra %d/%d (collected %d/%d, skipped %d, %d tabs)",
+                            counters["processed"], total, len(leads),
+                            self.max_results, counters["skipped"], workers,
+                        )
 
-            self._human_delay(0.2, 0.5)
+        self.log.info("\u26a1 Parallel Ultra extraction: %d tabs across %d listings", workers, total)
+        try:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+                futures = [ex.submit(_worker, url) for url in place_urls]
+                for fut in concurrent.futures.as_completed(futures):
+                    if stop_event.is_set() or captcha_flag["hit"] or _enough():
+                        for f2 in futures:
+                            f2.cancel()
+                    exc = fut.exception()
+                    if isinstance(exc, CaptchaDetectedError):
+                        captcha_flag["hit"] = True
+        finally:
+            self._shutdown_thread_contexts()
 
-        return leads
+        if captcha_flag["hit"]:
+            raise CaptchaDetectedError("Captcha detected during parallel Ultra extraction")
+
+        return leads[: self.max_results]
 
     def _ultra_extract_single(
         self,
@@ -1149,7 +1269,7 @@ class UltraDeepScraper:
         try:
             pages = self.email_engine.extractor.crawl_pages(
                 base_url,
-                max_pages=10,
+                max_pages=6,
                 max_total_time_sec=max_total_time_sec,
             )
             if pages:

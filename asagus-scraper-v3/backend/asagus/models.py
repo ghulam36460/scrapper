@@ -284,6 +284,10 @@ class ScrapeStartRequest(BaseModel):
     # is now False so all useful records are captured.
     require_email: bool = False
     store_partial_records: bool = True
+    # Auto-launch the Download scraper tools (maps-scraper, scrapy, scrapegraph-ai,
+    # maxun, agent-reach) as parallel workers for active scraping modes. Each
+    # tool respects the main-scraper mode. API-only/outreach tools are excluded.
+    run_download_tools: bool = True
     # Per-job overrides for network/discovery modes. True or False overrides
     # backend defaults for local educational/research runs.
     enable_network_fetch: bool | None = None
