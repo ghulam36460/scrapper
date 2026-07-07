@@ -1,0 +1,26 @@
+{
+  "job_id": "7b53d3fe-fd9c-4799-9331-9611ca9175f3",
+  "mode": "max",
+  "query": "restaurants",
+  "location": "peshawar",
+  "limit": 99,
+  "website_filter": "any",
+  "network_enabled": true,
+  "backend_root": "D:\\Scrapper\\scrapper\\asagus-scraper-v3\\backend",
+  "backend_python": "D:\\Scrapper\\scrapper\\asagus-scraper-v3\\backend\\.venv\\Scripts\\python.exe",
+  "download_root": "D:\\Scrapper\\scrapper\\Download",
+  "pipeline_config": "D:\\Scrapper\\scrapper\\Download\\asagus_pipeline.json",
+  "runs_root": "D:\\Scrapper\\scrapper\\Download\\.asagus-runs",
+  "selected_tools": [
+    "agent-reach",
+    "scrapegraph-ai",
+    "scrapling",
+    "maxun",
+    "outreach-system",
+    "maps-scraper",
+    "scrapy",
+    "whatsapp-detector"
+  ],
+  "challenge_policy": "Detect and report CAPTCHA, 403, 429, robots, and access-control pages for manual review; do not force bypass.",
+  "created_at": 1782933048.0236552
+}

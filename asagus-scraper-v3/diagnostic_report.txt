@@ -1,6 +1,6 @@
 ========================================
 ASAGUS SCRAPER DIAGNOSTIC REPORT
-Thu Jun 11 12:56:42 PM EDT 2026
+Tue Jul  7 00:01:08 PST 2026
 ========================================
 
 [1] Backend Process Status
@@ -13,83 +13,72 @@ Thu Jun 11 12:56:42 PM EDT 2026
 
 [3] Backend Health Endpoint
 ----------------------------
-✗ Backend NOT responding
-Error: 
+✓ Backend responding:
+{"detail":"Not Found"}
 
 [4] Virtual Environment
 ----------------------------
 ✓ Virtual environment exists
 Python version:
-Python 3.13.12
 Installed packages (key ones):
-curl_cffi                    0.15.0
-fastapi                      0.136.3
-playwright                   1.60.0
-playwright-stealth           2.0.3
-uvicorn                      0.48.0
 
 [5] Recent Backend Errors
 ----------------------------
 Last 10 lines of error log:
-INFO:     Started server process [542096]
+INFO:     Started server process [116580]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-[2026-06-06 16:37:50] INFO: Fetched (403) <GET https://www.foodbevg.com/AE/Dubai/524320691071182/Caff%C3%A8-Vergnano-UAE> (referer: https://www.google.com/)
-[2026-06-06 16:38:30] ERROR: Failed after 1 attempts: Failed to perform, curl: (60) SSL certificate problem: unable to get local issuer certificate. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
-[2026-06-06 16:38:30] ERROR: Failed after 1 attempts: Failed to perform, curl: (60) SSL certificate problem: unable to get local issuer certificate. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
-[2026-06-06 16:44:03] INFO: Fetched (200) <GET https://ae.loropiana.com/en/> (referer: https://www.google.com/)
-Camoufox binary not found in common locations
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+[2026-06-11 13:11:42] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurants-g295424-Dubai_Emirate_of_Dubai.html> (referer: https://www.google.com/)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [116580]
 
 [6] Data Files Status
 ----------------------------
-  runtime_jobs.json: 25462 bytes
-  runtime_records.json: 136254 bytes
-  runtime_events.json: 13152290 bytes
+  runtime_jobs.json: 2118 bytes
+  runtime_records.json: 19335 bytes
+  runtime_events.json: 722675 bytes
 
 [7] Recent Jobs
 ----------------------------
-Could not retrieve jobs
+Could not parse jobs
 
 [8] Browser Binaries
 ----------------------------
 ✗ chromium: not found
-✓ firefox: /usr/bin/firefox
-✓ Playwright installed
+✗ firefox: not found
+⚠ Playwright may not be installed
 
 [9] External Tools (Download folder)
 ----------------------------
-Found 9 external tool directories:
+Found 6 external tool directories:
   - Agent-Reach-main
-  - firecrawl-main
-  - outreach-main
-  - outreach-system-main
   - Scrapegraph-ai-main
+  - Scrapling-main
+  - outreach-system-main
+  - scrapping-tool-of-maps-main
 ✓ Tool launcher present
 
 [10] System Resources
 ----------------------------
 CPU Usage (Python processes):
-  1642 - CPU:0.0% MEM:0.3% - /usr/bin/python3
+  1775 - CPU:1835% MEM:10608% - 
 
 Disk Space:
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/nvme0n1p6   43G   38G  3.0G  93% /
+D:               79G   63G   16G  81% /d
 
 [11] Backend Restart Attempt
 ----------------------------
 Attempting to start backend...
-Started backend with PID: 106626
+Started backend with PID: 2019
 Waiting 5 seconds for startup...
-✗ Backend failed to start
-Last error log lines:
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1324, in _find_and_load_unlocked
-ModuleNotFoundError: No module named 'asagus.api'
+✓ Backend started successfully!
+{"detail":"Not Found"}
 
 ========================================
 DIAGNOSIS COMPLETE
-Report saved to: /home/ghulam/Desktop/scrapper-main/scrapper-main/asagus-scraper-v3/diagnostic_report.txt
+Report saved to: /d/Scrapper/scrapper/asagus-scraper-v3/diagnostic_report.txt
 ========================================

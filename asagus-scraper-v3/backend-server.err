@@ -1,9 +1,2 @@
-INFO:     Started server process [116580]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-[2026-06-11 13:11:42] INFO: Fetched (403) <GET https://www.tripadvisor.com/Restaurants-g295424-Dubai_Emirate_of_Dubai.html> (referer: https://www.google.com/)
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [116580]
+nohup: ignoring input
+nohup: failed to run command '.venv/bin/python': No such file or directory

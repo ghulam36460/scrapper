@@ -1,24 +1,17 @@
 """
-Prettify the execution information of the graph.
+Prettify the execution information of the graph using Rich for professional output.
 """
 
 from typing import Union
+from rich.console import Console
+from rich.table import Table
 
 
 def prettify_exec_info(
     complete_result: list[dict], as_string: bool = True
 ) -> Union[str, list[dict]]:
     """
-    Formats the execution information of a graph showing node statistics.
-
-    Args:
-        complete_result (list[dict]): The execution information containing node statistics.
-        as_string (bool, optional): If True, returns a formatted string table.
-                                  If False, returns the original list. Defaults to True.
-
-    Returns:
-        Union[str, list[dict]]: A formatted string table if as_string=True,
-        otherwise the original list of dictionaries.
+    Formats the execution information of a graph showing node statistics using Rich.
     """
     if not as_string:
         return complete_result
@@ -26,26 +19,27 @@ def prettify_exec_info(
     if not complete_result:
         return "Empty result"
 
-    # Format the table
-    lines = []
-    lines.append("Node Statistics:")
-    lines.append("-" * 100)
-    lines.append(
-        f"{'Node':<20} {'Tokens':<10} {'Prompt':<10} {'Compl.':<10} {'Requests':<10} {'Cost ($)':<10} {'Time (s)':<10}"
-    )
-    lines.append("-" * 100)
+    console = Console()
+    table = Table(title="[bold cyan]Graph Node Statistics[/bold cyan]")
+
+    table.add_column("Node", style="magenta")
+    table.add_column("Tokens", justify="right", style="green")
+    table.add_column("Prompt", justify="right", style="green")
+    table.add_column("Compl.", justify="right", style="green")
+    table.add_column("Requests", justify="right", style="blue")
+    table.add_column("Cost ($)", justify="right", style="yellow")
+    table.add_column("Time (s)", justify="right", style="red")
 
     for item in complete_result:
-        node = item["node_name"]
-        tokens = item["total_tokens"]
-        prompt = item["prompt_tokens"]
-        completion = item["completion_tokens"]
-        requests = item["successful_requests"]
-        cost = f"{item['total_cost_USD']:.4f}"
-        time = f"{item['exec_time']:.2f}"
-
-        lines.append(
-            f"{node:<20} {tokens:<10} {prompt:<10} {completion:<10} {requests:<10} {cost:<10} {time:<10}"
+        table.add_row(
+            item["node_name"],
+            str(item["total_tokens"]),
+            str(item["prompt_tokens"]),
+            str(item["completion_tokens"]),
+            str(item["successful_requests"]),
+            f"{item['total_cost_USD']:.4f}",
+            f"{item['exec_time']:.2f}"
         )
 
-    return "\n".join(lines)
+    console.print(table)
+    return "Table printed to console"

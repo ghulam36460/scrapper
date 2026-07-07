@@ -3,9 +3,14 @@ from __future__ import annotations
 import asyncio
 import logging
 import os
+import sys
 from dataclasses import dataclass
 from typing import Any
 from urllib.parse import urlparse
+
+# Force WindowsSelectorEventLoopPolicy on Windows for subprocess compatibility
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

@@ -999,10 +999,25 @@ class AsagusCoEngine:
         return normalized
 
     def _save_records_csv(self, records: list[dict[str, Any]]) -> str:
-        normalized_records = [self._normalize_record(record) for record in records]
+        # Improved normalization for cleaner data
+        normalized_records = []
+        for record in records:
+            norm = self._normalize_record(record)
+            # Trim whitespace from all values for cleaner look
+            cleaned_record = {k: str(v).strip() for k, v in norm.items()}
+            normalized_records.append(cleaned_record)
+        
         self.csv_path.parent.mkdir(parents=True, exist_ok=True)
-        with self.csv_path.open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=UNIFIED_FIELDNAMES, extrasaction="ignore")
+        
+        # Using a more robust approach for professional CSV generation
+        with self.csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+            # Add BOM (utf-8-sig) to ensure Excel opens it correctly with UTF-8 encoding
+            writer = csv.DictWriter(
+                handle, 
+                fieldnames=UNIFIED_FIELDNAMES, 
+                extrasaction="ignore",
+                quoting=csv.QUOTE_MINIMAL
+            )
             writer.writeheader()
             writer.writerows(normalized_records)
         return str(self.csv_path)

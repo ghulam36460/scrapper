@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 from typing import Any
+from asagus.services.formatting import DataFormatter
+from asagus.layers.noise_reduction import format_csv_cell
 
 
 class DownloadToolsCSVMerger:
@@ -64,85 +66,33 @@ class DownloadToolsCSVMerger:
     def normalize_record(self, record: dict[str, Any], tool_id: str) -> dict[str, Any]:
         """Normalize field names across different tools to match ASAGUS schema."""
         normalized: dict[str, Any] = {
-            "source_tool": tool_id,
+            "source": tool_id,
         }
         
-        # Common field mappings
+        # Common field mappings (mapping to internal ASAGUS field names)
         field_mapping = {
-            # Name variations
-            "business_name": "name",
-            "title": "name",
-            "company_name": "name",
-            "business": "name",
-            
-            # Category variations
-            "category": "category",
-            "business_type": "category",
-            "industry": "category",
-            "type": "category",
-            
-            # Contact variations
-            "phone_number": "phone",
-            "telephone": "phone",
-            "tel": "phone",
-            "mobile": "phone",
-            
-            "whatsapp_number": "whatsapp",
-            "wa": "whatsapp",
-            
-            "email_address": "email",
-            "contact_email": "email",
-            "mail": "email",
-            
-            # Location variations
-            "address": "address",
-            "location": "address",
-            "street": "address",
-            "full_address": "address",
-            
-            "city": "city",
-            "town": "city",
-            
+            "business_name": "name", "title": "name", "company_name": "name", "business": "name",
+            "category": "category", "business_type": "category", "industry": "category", "type": "category",
+            "phone_number": "phone", "telephone": "phone", "tel": "phone", "mobile": "phone",
+            "whatsapp_number": "whatsapp", "wa": "whatsapp",
+            "email_address": "email", "contact_email": "email", "mail": "email",
+            "address": "address", "location": "address", "street": "address", "full_address": "address",
+            "city": "city", "town": "city",
             "country": "country_code",
-            
-            "latitude": "lat",
-            "longitude": "lng",
-            "lon": "lng",
-            
-            # Website variations
-            "website": "website_url",
-            "url": "website_url",
-            "web": "website_url",
-            "homepage": "website_url",
-            
-            # Social variations
-            "facebook": "facebook_url",
-            "fb": "facebook_url",
-            "instagram": "instagram_url",
-            "insta": "instagram_url",
-            "ig": "instagram_url",
-            "twitter": "twitter_url",
-            "x": "twitter_url",
+            "website": "website_url", "url": "website_url", "web": "website_url", "homepage": "website_url",
+            "facebook": "facebook_url", "fb": "facebook_url",
+            "instagram": "instagram_url", "insta": "instagram_url", "ig": "instagram_url",
+            "twitter": "twitter_url", "x": "twitter_url",
             "linkedin": "linkedin_url",
-            
-            # Ratings
-            "rating": "rating",
-            "stars": "rating",
-            "reviews": "review_count",
-            "review_count": "review_count",
-            "reviews_count": "review_count",
+            "rating": "rating", "stars": "rating",
+            "reviews": "review_count", "review_count": "review_count",
         }
         
         # Apply mapping
         for original_key, value in record.items():
             original_lower = original_key.lower().replace("-", "_").replace(" ", "_")
             mapped_key = field_mapping.get(original_lower, original_lower)
-            
-            # Skip empty values
-            if value is None or value == "":
-                continue
-            
-            # Keep first non-empty value for each field
+            if value is None or value == "": continue
             if mapped_key not in normalized or not normalized[mapped_key]:
                 normalized[mapped_key] = value
         
@@ -152,52 +102,26 @@ class DownloadToolsCSVMerger:
         """Remove duplicate records based on phone, email, website."""
         seen_keys: set[str] = set()
         unique_records: list[dict[str, Any]] = []
-        
         for record in records:
-            # Create dedup key from identifying fields
             dedup_key_parts: list[str] = []
-            
-            # Phone-based dedup
             phone = record.get("phone", "")
             if phone:
                 digits = "".join(c for c in str(phone) if c.isdigit())
-                if digits:
-                    dedup_key_parts.append(f"phone:{digits}")
-            
-            # Email-based dedup
+                if digits: dedup_key_parts.append(f"phone:{digits}")
             email = record.get("email", "")
-            if email:
-                dedup_key_parts.append(f"email:{str(email).lower()}")
-            
-            # Website-based dedup
+            if email: dedup_key_parts.append(f"email:{str(email).lower()}")
             website = record.get("website_url", "")
             if website:
-                domain = self._extract_domain(str(website))
-                if domain:
-                    dedup_key_parts.append(f"website:{domain}")
+                domain = DataFormatter.format_url(website)
+                if domain: dedup_key_parts.append(f"website:{domain}")
             
-            # WhatsApp-based dedup
-            whatsapp = record.get("whatsapp", "")
-            if whatsapp:
-                digits = "".join(c for c in str(whatsapp) if c.isdigit())
-                if digits:
-                    dedup_key_parts.append(f"wa:{digits}")
-            
-            # If no identifying fields, keep the record
             if not dedup_key_parts:
                 unique_records.append(record)
                 continue
             
-            # Check if any key matches existing
-            duplicate = False
-            for key_part in dedup_key_parts:
-                if key_part in seen_keys:
-                    duplicate = True
-                    break
-            
+            duplicate = any(kp in seen_keys for kp in dedup_key_parts)
             if not duplicate:
-                for key_part in dedup_key_parts:
-                    seen_keys.add(key_part)
+                for kp in dedup_key_parts: seen_keys.add(kp)
                 unique_records.append(record)
         
         return unique_records
@@ -207,172 +131,86 @@ class DownloadToolsCSVMerger:
         output_path: Path | None = None,
         primary_records: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
-        """Merge ASAGUS primary records plus CSV files from Download tools."""
+        """Merge ASAGUS primary records plus CSV files from Download tools and apply professional formatting."""
         if output_path is None:
             output_path = self.job_dir / f"merged_all_tools_{self.job_id}.csv"
         
         tool_csvs = self.find_tool_csvs()
-        primary_records = primary_records or []
-        if not tool_csvs and not primary_records:
-            return {
-                "status": "no_csvs_found",
-                "job_id": self.job_id,
-                "job_dir": str(self.job_dir),
-                "records_merged": 0,
-            }
-        
-        # Collect all records
         all_records: list[dict[str, Any]] = []
         tools_processed: list[str] = []
 
         if primary_records:
-            normalized_primary = [
-                self.normalize_record(rec, "asagus-primary")
-                for rec in primary_records
-            ]
-            all_records.extend(normalized_primary)
+            all_records.extend([self.normalize_record(rec, "asagus-primary") for rec in primary_records])
             tools_processed.append("asagus-primary")
         
         for tool_id, csv_path in tool_csvs.items():
             records = self.read_csv_records(csv_path)
             if records:
-                normalized = [self.normalize_record(rec, tool_id) for rec in records]
-                all_records.extend(normalized)
+                all_records.extend([self.normalize_record(rec, tool_id) for rec in records])
                 tools_processed.append(tool_id)
         
         if not all_records:
-            return {
-                "status": "no_records_found",
-                "tools_checked": list(tool_csvs.keys()),
-                "records_merged": 0,
-            }
+            return {"status": "no_records_found", "records_merged": 0}
         
-        # Deduplicate
         unique_records = self.deduplicate_records(all_records)
         
-        # Define comprehensive field list
-        fieldnames = [
-            # Core fields
-            "id", "name", "category", "source_tool",
-            # Contact
-            "phone", "whatsapp", "email", "address",
-            # Location
-            "city", "country_code", "lat", "lng",
-            # Online presence
-            "website_url", "facebook_url", "instagram_url", "twitter_url", "linkedin_url",
-            # Ratings
-            "rating", "review_count",
-            # Additional fields that might be present
-            "description", "source_url", "method", "confidence", "record_completeness",
-            "hours", "price_level", "place_id", "cid",
+        # Professional Header Order
+        column_order = [
+            "Business Name", "Category", "City", "Country", "Phone Number", "WhatsApp",
+            "Email", "Email Verified", "Phone Valid", "WhatsApp Valid",
+            "Website", "Website Active", "Facebook", "Instagram", "Twitter", "LinkedIn",
+            "Rating", "Reviews", "Completeness Score", "Confidence Score",
+            "Address", "Area", "Issues", "Needs Review", "Source", "Source URL", "ID"
         ]
         
-        # Add any extra fields found in records
-        extra_fields: set[str] = set()
-        for record in unique_records:
-            for key in record.keys():
-                if key not in fieldnames and key not in extra_fields:
-                    extra_fields.add(key)
-        
-        fieldnames.extend(sorted(extra_fields))
-        
-        # Write merged CSV
+        # Write merged CSV with professional formatting
         output_path.parent.mkdir(parents=True, exist_ok=True)
-        with output_path.open("w", encoding="utf-8", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames, extrasaction="ignore")
+        with output_path.open("w", encoding="utf-8-sig", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=column_order, extrasaction="ignore")
             writer.writeheader()
-            for record in unique_records:
-                writer.writerow({k: record.get(k, "") for k in fieldnames})
-        
-        # Create metadata file
-        metadata_path = output_path.with_suffix(".meta.json")
-        metadata = {
-            "job_id": self.job_id,
-            "tools_merged": tools_processed,
-            "total_records": len(all_records),
-            "unique_records": len(unique_records),
-            "duplicates_removed": len(all_records) - len(unique_records),
-            "output_path": str(output_path),
-            "fieldnames": fieldnames,
-        }
-        metadata_path.write_text(json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8")
+            
+            for row in unique_records:
+                # Map and Format
+                formatted_row = {
+                    "Business Name": row.get("name", "-"),
+                    "Category": row.get("category", "-"),
+                    "City": row.get("city", "-"),
+                    "Country": DataFormatter.format_country(row.get("country_code", "-")),
+                    "Phone Number": DataFormatter.format_phone(row.get("phone", "-"), row.get("country_code", "")),
+                    "WhatsApp": DataFormatter.format_phone(row.get("whatsapp", "-"), row.get("country_code", "")),
+                    "Email": row.get("email", "-"),
+                    "Email Verified": DataFormatter.format_boolean(row.get("email_verified", "-")),
+                    "Phone Valid": DataFormatter.format_boolean(row.get("phone_valid", "-")),
+                    "WhatsApp Valid": DataFormatter.format_boolean(row.get("whatsapp_valid", "-")),
+                    "Website": DataFormatter.format_url(row.get("website_url", "-")),
+                    "Website Active": DataFormatter.format_boolean(row.get("website_alive", "-")),
+                    "Facebook": DataFormatter.format_url(row.get("facebook_url", "-")),
+                    "Instagram": DataFormatter.format_url(row.get("instagram_url", "-")),
+                    "Twitter": DataFormatter.format_url(row.get("twitter_url", "-")),
+                    "LinkedIn": DataFormatter.format_url(row.get("linkedin_url", "-")),
+                    "Rating": row.get("rating", "-"),
+                    "Reviews": row.get("review_count", "-"),
+                    "Completeness Score": DataFormatter.format_score(row.get("record_completeness", 0)),
+                    "Confidence Score": DataFormatter.format_score(row.get("confidence", 0)),
+                    "Address": row.get("address", "-"),
+                    "Area": row.get("normalized_area", "-"),
+                    "Issues": ", ".join(row.get("raw_fields", {}).get("cleaning_issues", [])),
+                    "Needs Review": DataFormatter.format_boolean(row.get("manual_review_required", "no")),
+                    "Source": row.get("source", "-"),
+                    "Source URL": row.get("source_url", "-"),
+                    "ID": row.get("id", "-"),
+                }
+                
+                # Quality Flags
+                if formatted_row["Needs Review"] == "✅": formatted_row["Business Name"] += " ⚠️ REVIEW"
+                if formatted_row["Completeness Score"] != "-" and float(formatted_row["Completeness Score"].strip("%")) < 70:
+                    formatted_row["Business Name"] += " 📋 INCOMPLETE"
+                if formatted_row["Email Verified"] == "❌": formatted_row["Email"] += " (unverified)"
+                
+                writer.writerow({k: format_csv_cell(v) for k, v in formatted_row.items()})
         
         return {
             "status": "success",
-            "job_id": self.job_id,
-            "tools_merged": tools_processed,
-            "primary_records_included": len(primary_records),
             "records_merged": len(unique_records),
-            "duplicates_removed": len(all_records) - len(unique_records),
             "output_csv": str(output_path),
-            "output_metadata": str(metadata_path),
         }
-
-    def _extract_domain(self, url: str) -> str:
-        """Extract domain from URL."""
-        try:
-            from urllib.parse import urlparse
-            if not url.startswith(("http://", "https://")):
-                url = f"https://{url}"
-            parsed = urlparse(url)
-            return parsed.netloc.lower().removeprefix("www.")
-        except Exception:
-            return ""
-
-    def get_merge_summary(self) -> dict[str, Any]:
-        """Get summary of available tools and their outputs."""
-        tool_csvs = self.find_tool_csvs()
-        tool_jsons = self.find_tool_jsons()
-        
-        summary: dict[str, Any] = {
-            "job_id": self.job_id,
-            "job_dir": str(self.job_dir),
-            "job_dir_exists": self.job_dir.exists(),
-            "tools_with_csv": [],
-            "tools_with_json": [],
-            "total_records_available": 0,
-        }
-        
-        for tool_id, csv_path in tool_csvs.items():
-            records = self.read_csv_records(csv_path)
-            summary["tools_with_csv"].append({
-                "tool_id": tool_id,
-                "csv_path": str(csv_path),
-                "record_count": len(records),
-            })
-            summary["total_records_available"] += len(records)
-        
-        for tool_id, json_path in tool_jsons.items():
-            try:
-                data = json.loads(json_path.read_text(encoding="utf-8"))
-                summary["tools_with_json"].append({
-                    "tool_id": tool_id,
-                    "status": data.get("status"),
-                    "json_path": str(json_path),
-                })
-            except Exception:
-                pass
-        
-        return summary
-
-
-def merge_download_tools_csv(job_id: str) -> dict[str, Any]:
-    """✅ FIX #5: Main entry point for CSV merging."""
-    merger = DownloadToolsCSVMerger(job_id)
-    return merger.merge_all_csvs()
-
-
-def merge_asagus_and_download_csv(job_id: str, primary_records: list[dict[str, Any]]) -> dict[str, Any]:
-    """Merge the primary ASAGUS DB rows with Download tool CSV artifacts."""
-    merger = DownloadToolsCSVMerger(job_id)
-    output_path = merger.job_dir / f"combined_primary_and_tools_{merger.job_id}.csv"
-    return merger.merge_all_csvs(output_path=output_path, primary_records=primary_records)
-
-
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1:
-        result = merge_download_tools_csv(sys.argv[1])
-        print(json.dumps(result, indent=2))
-    else:
-        print("Usage: python csv_merger.py <job_id>")
